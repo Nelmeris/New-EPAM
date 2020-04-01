@@ -1,13 +1,19 @@
 <form [formGroup]="form">
+    <p class="h5 text-center mb-4">Авторизация</p>
+
     <div class="md-form">
-        <input mdbInput mdbValidate type="email" id="form8" class="form-control" formControlName="email">
-        <label for="form8">Email validator</label>
-        <mdb-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Input invalid</mdb-error>
-        <mdb-success *ngIf="emailInput.valid && (emailInput.dirty || emailInput.touched)">Input valid</mdb-success>
+        <i class="fas fa-envelope prefix grey-text"></i>
+        <input mdbInput mdbValidate type="text" formControlName="email" id="email" class="form-control">
+        <label for="email">Email</label>
     </div>
-    <div class="form-group">
+
+    <div class="md-form">
+        <i class="fas fa-lock prefix grey-text"></i>
+        <input mdbInput mdbValidate type="password" formControlName="password" id="password" class="form-control">
         <label for="password">Пароль</label>
-        <input type="password" class="form-control col-3" id="password" name="password" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="onAuth()">Войти</button>
+
+    <div class="text-center">
+        <button type="submit" mdbBtn color="default" class="waves-light" mdbWavesEffect value="Войти" (click)="onAuth()">Войти</button>
+    </div>
 </form>

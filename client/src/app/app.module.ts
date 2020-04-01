@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     AdminPanelComponent,
     AuthFormComponent,
     HeaderComponent,
-    MainComponent
+    MainComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

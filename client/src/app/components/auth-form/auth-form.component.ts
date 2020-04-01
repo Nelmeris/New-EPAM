@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataBaseService } from '../../services/data-base.service';
 import { AuthService } from '../../services/auth.service';
@@ -18,7 +18,7 @@ export class AuthFormComponent {
               private authService: AuthService) {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required])
+      password: new FormControl(null, [Validators.required, Validators.minLength(8)])
     });
     activatedRouter.params.subscribe(param => {
       if (param.email) {
@@ -33,10 +33,10 @@ export class AuthFormComponent {
     const user = await this.dataBaseService.getUserByEmail(email);
     if (user && user.password === password) {
       this.authService.setAuth(user);
+      window.location.reload();
+    } else {
+      this.form.controls.password.setValue(null);
     }
   }
-
-  get emailInput() { return this.form.get('email'); }
-  get passwordInput() { return this.form.get('password'); }
 
 }

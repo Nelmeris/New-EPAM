@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthGuard} from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +11,14 @@ import { User } from '../../models/user';
 })
 export class HeaderComponent {
   user: User = null;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private canActivateGuard: AuthGuard) {
     this.loadData();
   }
   async loadData() {
     this.user = await this.authService.getAuthUser();
   }
+
 }
