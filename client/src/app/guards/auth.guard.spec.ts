@@ -7,6 +7,7 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
+    // @ts-ignore
     guard = TestBed.inject(AuthGuard);
   });
 

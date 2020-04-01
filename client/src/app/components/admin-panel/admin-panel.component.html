@@ -1,1 +1,7 @@
-<app-auth-form></app-auth-form>
+
+<span *ngIf="user; else elseBlock" class="my-2 my-lg-0">
+</span>
+
+<ng-template #elseBlock>
+    <app-auth-form></app-auth-form>
+</ng-template>

@@ -11,6 +11,7 @@ import {AuthGuard} from '../../guards/auth.guard';
 })
 export class HeaderComponent {
   user: User = null;
+  title = 'New EPAM';
   constructor(private authService: AuthService,
               private router: Router,
               private route: ActivatedRoute,
