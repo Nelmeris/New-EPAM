@@ -1,13 +1,37 @@
 {
   "users": [
     {
-      "id": 1
+      "id": 1,
+      "password": "admin",
+      "user_type_id": 1,
+      "email": "admin@new-epam.com"
     },
     {
-      "id": 2
+      "id": 2,
+      "password": "manager",
+      "user_type_id": 2,
+      "email": "project-manager@new-epam.com",
+      "name": "Alex",
+      "surname": "Novikov",
+      "phone_number": "+19991234567"
     },
     {
-      "id": 3
+      "id": 3,
+      "password": "support",
+      "user_type_id": 3,
+      "email": "support@new-epam.com",
+      "name": "John",
+      "surname": "Denver",
+      "phone_number": "+31346753322"
+    },
+    {
+      "id": 4,
+      "password": "client",
+      "user_type_id": 4,
+      "email": "some-client@gmail.com",
+      "name": "Evelin",
+      "surname": "Horizon",
+      "phone_number": "+13532561123"
     }
   ],
   "user_types": [
@@ -28,7 +52,7 @@
       "title": "customer"
     }
   ],
-  "order_types": [
+  "order_statuses": [
     {
       "id": 1,
       "title": "На рассмотрении"
@@ -56,6 +80,93 @@
     {
       "id": 7,
       "title": "Завершен"
+    }
+  ],
+  "order_types": [
+    {
+      "id": 1,
+      "title": "Консалтинг"
+    },
+    {
+      "id": 2,
+      "title": "Дизайн"
+    },
+    {
+      "id": 3,
+      "title": "Разработка"
+    },
+    {
+      "id": 4,
+      "title": "Управление"
+    },
+    {
+      "id": 5,
+      "title": "Оптимизация"
+    }
+  ],
+  "rules": [
+    {
+      "id": 1,
+      "title": "Доступ к административной панели"
+    },
+    {
+      "id": 2,
+      "title": "Доступ к личному кабинету"
+    },
+    {
+      "id": 3,
+      "title": "Создание пользователей административной роли"
+    },
+    {
+      "id": 4,
+      "title": "Редактирование информации на сайте"
+    },
+    {
+      "id": 5,
+      "title": "Просмотр заказов всех пользователей"
+    },
+    {
+      "id": 6,
+      "title": "Изменение статуса заказа любого пользователя"
+    },
+    {
+      "id": 7,
+      "title": "Отправка уведомлений заказчику"
+    }
+  ],
+  "user_type_rules": [
+    {
+      "user_type_id": 1,
+      "rule_id": 1
+    },
+    {
+      "user_type_id": 1,
+      "rule_id": 3
+    },
+    {
+      "user_type_id": 1,
+      "rule_id": 4
+    },
+    {
+      "user_type_id": 1,
+      "rule_id": 5
+    },
+    {
+      "user_type_id": 1,
+      "rule_id": 6
+    },
+    {
+      "user_type_id": 1,
+      "rule_id": 7
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 4,
+      "order_type_id": 3,
+      "description": "Some order",
+      "order_status_id": 1
     }
   ]
 }
