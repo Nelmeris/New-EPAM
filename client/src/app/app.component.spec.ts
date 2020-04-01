@@ -16,20 +16,20 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'NEW-EPAM'`, () => {
+  it(`should have as title 'new-epam'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('NEW-EPAM');
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('new-epam');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('NEW-EPAM app is running!');
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.content span').textContent).toContain('new-epam app is running!');
   });
 });

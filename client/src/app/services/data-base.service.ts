@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {BaseApi} from './base-api';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../models/user.model';
-import {Rule} from '../models/rule.model';
-import {Order} from '../models/order.model';
-import {UserType} from '../models/user-type.model';
-import {OrderStatus} from '../models/order-status.model';
-import {OrderType} from '../models/order-type.model';
-import {UserTypeRule} from '../models/user-type-rule.model';
+import { Injectable } from '@angular/core';
+import { BaseApi } from './base-api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user';
+import { Rule } from '../models/rule';
+import { Order } from '../models/order';
+import { UserType } from '../models/user-type';
+import { OrderStatus } from '../models/order-status';
+import { OrderType } from '../models/order-type';
+import { UserTypeRule } from '../models/user-type-rule';
 
 @Injectable({
   providedIn: 'root'

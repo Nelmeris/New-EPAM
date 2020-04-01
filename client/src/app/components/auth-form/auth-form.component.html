@@ -1,7 +1,9 @@
-<form action="" class="form" [formGroup]="form">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control col-3" id="email" name="email" placeholder="example@email.com">
+<form [formGroup]="form">
+    <div class="md-form">
+        <input mdbInput mdbValidate type="email" id="form8" class="form-control" formControlName="email">
+        <label for="form8">Email validator</label>
+        <mdb-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="emailInput.valid && (emailInput.dirty || emailInput.touched)">Input valid</mdb-success>
     </div>
     <div class="form-group">
         <label for="password">Пароль</label>

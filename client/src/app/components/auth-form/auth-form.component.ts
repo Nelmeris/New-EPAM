@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DataBaseService} from '../../services/database.service';
-import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DataBaseService } from '../../services/data-base.service';
+import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-form',
   templateUrl: './auth-form.component.html',
-  styleUrls: ['./auth-form.component.css']
+  styleUrls: ['./auth-form.component.scss']
 })
 export class AuthFormComponent {
   form: FormGroup;
