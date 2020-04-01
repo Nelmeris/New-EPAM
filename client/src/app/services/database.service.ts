@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseApi} from './base-api';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user.model';
@@ -22,7 +22,7 @@ export class DataBaseService extends BaseApi {
     this.options = this.options.set('Content-Type', 'application/json');
   }
 
-  async getUsers() {
+  async getUsers(): Promise<User[]> {
     const jsonArray = await this.get('users', this.options).toPromise();
     const users: User[] = [];
     for (const json of jsonArray) {
@@ -35,7 +35,17 @@ export class DataBaseService extends BaseApi {
     return users;
   }
 
-  async getOrders() {
+  async getUserById(id: number): Promise<User> {
+    const users = await this.getUsers();
+    return users.find(user => user.id === id);
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const users = await this.getUsers();
+    return users.find(user => user.email === email);
+  }
+
+  async getOrders(): Promise<Order[]> {
     const jsonArray = await this.get('orders', this.options).toPromise();
     const objects: Order[] = [];
     for (const json of jsonArray) {
@@ -45,11 +55,11 @@ export class DataBaseService extends BaseApi {
     return objects;
   }
 
-  async getOrder(user: User) {
+  async getOrder(user: User): Promise<Order> {
     return this.get('orders?user_id=' + user.id, this.options).toPromise();
   }
 
-  async getUserTypes() {
+  async getUserTypes(): Promise<UserType[]> {
     const jsonArray = await this.get('user_types', this.options).toPromise();
     const objects: UserType[] = [];
     for (const json of jsonArray) {
@@ -59,7 +69,7 @@ export class DataBaseService extends BaseApi {
     return objects;
   }
 
-  async getOrderTypes() {
+  async getOrderTypes(): Promise<OrderType[]> {
     const jsonArray = await this.get('order_types', this.options).toPromise();
     const objects: OrderType[] = [];
     for (const json of jsonArray) {
@@ -69,7 +79,7 @@ export class DataBaseService extends BaseApi {
     return objects;
   }
 
-  async getOrderStatuses() {
+  async getOrderStatuses(): Promise<OrderStatus[]> {
     const jsonArray = await this.get('order_statuses', this.options).toPromise();
     const objects: OrderStatus[] = [];
     for (const json of jsonArray) {
@@ -79,7 +89,7 @@ export class DataBaseService extends BaseApi {
     return objects;
   }
 
-  async getRules() {
+  async getRules(): Promise<Rule[]> {
     const jsonArray = await this.get('rules', this.options).toPromise();
     const rules: Rule[] = [];
     for (const json of jsonArray) {
@@ -89,7 +99,7 @@ export class DataBaseService extends BaseApi {
     return rules;
   }
 
-  async getUserTypeRules() {
+  async getUserTypeRules(): Promise<UserTypeRule[]> {
     const jsonArray = await this.get('user_type_rules', this.options).toPromise();
     const userTypeRules: UserTypeRule[] = [];
     for (const json of jsonArray) {
