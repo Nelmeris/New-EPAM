@@ -10,6 +10,7 @@ import {ServiceComponent} from './components/service/service.component';
 import {AboutCompanyComponent} from './components/about-company/about-company.component';
 import {AuthComponent} from './components/auth/auth.component';
 import {LoginGuard} from './guards/login.guard';
+import {AccountPanelGuard} from './guards/account-panel.guard';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'service', component: ServiceComponent },
   { path: 'solutions', component: SolutionsComponent },
   { path: 'about', component: AboutCompanyComponent },
-  { path: 'lk', component: ProfileComponent },
+  { path: 'lk', component: ProfileComponent , canActivate: [ AccountPanelGuard ]},
   { path: 'logout', component: LogoutComponent, canActivate: [ AuthGuard ] },
   { path: '**', redirectTo: '' }
 ];

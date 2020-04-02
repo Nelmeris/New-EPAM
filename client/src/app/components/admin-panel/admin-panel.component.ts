@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import {User} from '../../models/user';
 import {DataBaseService} from '../../services/data-base.service';
 import {Router} from '@angular/router';
+import {CheckRuleService} from "../../services/check-rule.service";
 
 @Component({
   selector: 'app-admin-panel',
@@ -16,17 +17,18 @@ export class AdminPanelComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private dataBaseService: DataBaseService,
-              private router: Router) { }
+              private router: Router,
+              private checkRuleService: CheckRuleService) { }
 
   ngOnInit(): void {
     (async () => {
       this.user = await this.authService.getAuthUser();
-      const userTypeRules = await this.dataBaseService.getUserTypeRules();
-      const rule = userTypeRules.find(val => val.userTypeId === this.user.typeId && val.ruleId === 1);
-      if (rule) {
-        this.isAdmin = true;
-      } else {
-        this.router.navigate(['']);
+      if (this.user) {
+        if (await this.checkRuleService.adminPanel(this.user)) {
+          this.isAdmin = true;
+        } else {
+          this.router.navigate(['']);
+        }
       }
     })();
   }

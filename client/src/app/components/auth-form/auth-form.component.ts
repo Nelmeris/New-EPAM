@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataBaseService } from '../../services/data-base.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {CheckRuleService} from "../../services/check-rule.service";
 
 @Component({
   selector: 'app-auth-form',
@@ -15,15 +16,11 @@ export class AuthFormComponent {
   constructor(private activatedRouter: ActivatedRoute,
               private router: Router,
               private dataBaseService: DataBaseService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private checkRuleService: CheckRuleService) {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)])
-    });
-    activatedRouter.params.subscribe(param => {
-      if (param.email) {
-        this.form.value.email = param.email;
-      }
     });
   }
 
@@ -31,7 +28,15 @@ export class AuthFormComponent {
     const email = this.form.value.email;
     const password = this.form.value.password;
     const user = await this.dataBaseService.getUserByEmail(email);
-    if (user && user.password === password) {
+    console.log(email);
+    console.log(password);
+    console.log(user);
+    console.log(this.router.url);
+    console.log(await this.checkRuleService.accountPanel(user));
+    console.log(await this.checkRuleService.adminPanel(user));
+    if (user && user.password === password &&
+        (this.router.url === '/login' && await this.checkRuleService.accountPanel(user)) ||
+        (this.router.url === '/admin' && await this.checkRuleService.adminPanel(user))) {
       this.authService.setAuth(user);
       window.location.reload();
     } else {

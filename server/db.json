@@ -158,6 +158,26 @@
     {
       "user_type_id": 1,
       "rule_id": 7
+    },
+    {
+      "user_type_id": 3,
+      "rule_id": 1
+    },
+    {
+      "user_type_id": 3,
+      "rule_id": 5
+    },
+    {
+      "user_type_id": 3,
+      "rule_id": 6
+    },
+    {
+      "user_type_id": 3,
+      "rule_id": 7
+    },
+    {
+      "user_type_id": 4,
+      "rule_id": 2
     }
   ],
   "orders": [
