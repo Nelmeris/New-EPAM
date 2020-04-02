@@ -1,1 +1,68 @@
-<p>add-rule-form works!</p>
+<div class="row mb-4">
+
+    <div class="col">
+        <!-- Default form contact -->
+        <form class="text-center border border-light p-5" [formGroup]="createRoleForm">
+
+            <p class="h4 mb-4">Создание роли</p>
+
+            <div class="md-form">
+                <input mdbInput mdbValidate type="text" formControlName="roleTitle" id="role-title" class="form-control mb-4" placeholder="Название">
+            </div>
+
+            <!-- Send button -->
+            <button mdbBtn color="info" block="true" type="submit" (click)="createRole()">Добавить</button>
+
+        </form>
+        <!-- Default form contact -->
+    </div>
+
+    <div class="col">
+        <!-- Default form contact -->
+        <form class="text-center border border-light p-5" [formGroup]="createRuleForm">
+
+            <p class="h4 mb-4">Создание правила</p>
+
+            <div class="md-form">
+                <input mdbInput mdbValidate type="text" formControlName="ruleTitle" id="rule-title" class="form-control mb-4" placeholder="Название">
+            </div>
+
+            <!-- Send button -->
+            <button mdbBtn color="info" block="true" type="submit" (click)="createRule()">Добавить</button>
+
+        </form>
+        <!-- Default form contact -->
+    </div>
+
+</div>
+
+
+<div class="row mb-4">
+
+    <div class="col">
+        <!-- Default form contact -->
+        <form class="text-center border border-light p-5" [formGroup]="createRuleForUserForm">
+
+            <p class="h4 mb-4">Добавление правила для роли</p>
+
+            <!-- Subject -->
+            <select class="browser-default custom-select mb-4" formControlName="roleId">
+                <option selected [ngValue]="null">Выберите роль...</option>
+                <option *ngFor="let role of userTypes" [ngValue]="role.id">{{ role.title }}</option>
+            </select>
+
+            <!-- Subject -->
+            <select class="browser-default custom-select mb-4" formControlName="ruleId">
+                <option selected [ngValue]="null">Выберите правило...</option>
+                <option *ngFor="let rule of rules" [ngValue]="rule.id">{{ rule.title }}</option>
+            </select>
+
+
+            <!-- Send button -->
+            <button mdbBtn color="info" block="true" type="submit" (click)="createRuleForUserType()">Добавить</button>
+
+        </form>
+        <!-- Default form contact -->
+    </div>
+
+</div>

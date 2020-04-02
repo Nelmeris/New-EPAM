@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    if (this.router.url === '/profile') {
+    if (this.router.url === '/lk') {
       (async () => {
         this.user = await this.authService.getAuthUser();
         await this.loadOrderData(this.user);
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private async loadOrderData(user: User) {
-    this.order = await this.dataBaseService.getOrder(this.user);
+    this.order = await this.dataBaseService.getOrder(user);
     this.order.status = await this.dataBaseService.getOrderStatus(this.order.orderStatusId);
     this.order.type = await this.dataBaseService.getOrderType(this.order.orderTypeId);
   }

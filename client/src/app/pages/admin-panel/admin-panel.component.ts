@@ -12,7 +12,7 @@ import {CheckRuleService} from "../../services/check-rule.service";
 })
 export class AdminPanelComponent implements OnInit {
 
-  user: User;
+  user: User = null;
   isAdmin = false;
 
   constructor(private authService: AuthService,

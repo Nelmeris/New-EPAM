@@ -28,12 +28,6 @@ export class AuthFormComponent {
     const email = this.form.value.email;
     const password = this.form.value.password;
     const user = await this.dataBaseService.getUserByEmail(email);
-    console.log(email);
-    console.log(password);
-    console.log(user);
-    console.log(this.router.url);
-    console.log(await this.checkRuleService.accountPanel(user));
-    console.log(await this.checkRuleService.adminPanel(user));
     if (user && user.password === password &&
         (this.router.url === '/login' && await this.checkRuleService.accountPanel(user)) ||
         (this.router.url === '/admin' && await this.checkRuleService.adminPanel(user))) {

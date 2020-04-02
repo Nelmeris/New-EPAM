@@ -2,14 +2,14 @@
   "users": [
     {
       "id": 1,
-      "password": "admin",
+      "password": "admin12345",
       "user_type_id": 1,
       "email": "admin@new-epam.com",
       "creation_date": "1970-01-01T00:01:10.066Z"
     },
     {
       "id": 2,
-      "password": "manager",
+      "password": "manager12345",
       "user_type_id": 2,
       "email": "project-manager@new-epam.com",
       "name": "Alex",
@@ -19,7 +19,7 @@
     },
     {
       "id": 3,
-      "password": "support",
+      "password": "support12345",
       "user_type_id": 3,
       "email": "support@new-epam.com",
       "name": "John",
@@ -29,7 +29,7 @@
     },
     {
       "id": 4,
-      "password": "client",
+      "password": "client12345",
       "user_type_id": 4,
       "email": "some-client@gmail.com",
       "name": "Evelin",
@@ -148,56 +148,79 @@
   ],
   "user_type_rules": [
     {
+      "id": 1,
       "user_type_id": 1,
       "rule_id": 1
     },
     {
+      "id": 2,
       "user_type_id": 1,
       "rule_id": 3
     },
     {
+      "id": 3,
       "user_type_id": 1,
       "rule_id": 4
     },
     {
+      "id": 4,
       "user_type_id": 1,
       "rule_id": 5
     },
     {
+      "id": 5,
       "user_type_id": 1,
       "rule_id": 6
     },
     {
+      "id": 6,
       "user_type_id": 1,
       "rule_id": 7
     },
     {
+      "id": 7,
       "user_type_id": 3,
       "rule_id": 1
     },
     {
+      "id": 8,
       "user_type_id": 3,
       "rule_id": 5
     },
     {
+      "id": 9,
       "user_type_id": 3,
       "rule_id": 6
     },
     {
+      "id": 10,
       "user_type_id": 3,
       "rule_id": 7
     },
     {
+      "id": 11,
       "user_type_id": 4,
       "rule_id": 2
     },
     {
+      "id": 13,
+      "user_type_id": 1,
+      "rule_id": 8
+    },
+    {
+      "id": 14,
+      "user_type_id": 2,
+      "rule_id": 1
+    },
+    {
+      "id": 18,
       "user_type_id": 1,
       "rule_id": 9
     },
     {
-      "user_type_id": 1,
-      "rule_id": 8
+      "id": 19,
+      "user_type_id": 2,
+      "rule_id": 7
     }
   ],
   "orders": [

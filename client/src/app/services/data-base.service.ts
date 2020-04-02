@@ -131,15 +131,24 @@ export class DataBaseService extends BaseApi {
     return userRules;
   }
 
-  // async createPhone(phone) {
-  //   return this.post('phones', JSON.stringify(phone), this.options).toPromise();
-  // }
+  async createRule(rule: Rule) {
+    return this.post('rules', JSON.stringify(rule), this.options).toPromise();
+  }
+
+  async createUserTypeRule(rule: UserTypeRule) {
+    return this.post('user_type_rules', rule.toJSON(), this.options).toPromise();
+  }
+
+  async createUserType(userType: UserType) {
+    return this.post('user_types', JSON.stringify(userType), this.options).toPromise();
+  }
+
+  async deleteUserTypeRuleById(id: number) {
+    return this.delete('user_type_rules/' + id, this.options).toPromise();
+  }
+
   // async editPhone(phone: Phone) {
   //   return this.put('phones/' + phone.id, JSON.stringify(phone), this.options).toPromise();
-  // }
-  //
-  // async deletePhoneById(id: number) {
-  //   return this.delete('phones/' + id, this.options).toPromise();
   // }
 
 }

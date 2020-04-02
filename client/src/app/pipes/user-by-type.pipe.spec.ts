@@ -6,3 +6,4 @@ describe('UserByTypePipe', () => {
     expect(pipe).toBeTruthy();
   });
 });
+

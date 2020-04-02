@@ -7,16 +7,16 @@ import {CheckRuleService} from "../services/check-rule.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AdminPanelGuard implements CanActivate {
+export class AdminRulesGuard implements CanActivate {
   constructor(private router: Router,
               private authService: AuthService,
               private checkRuleService: CheckRuleService) { }
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      next: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return (async () => {
       const user = await this.authService.getAuthUser();
-      if (user && await this.checkRuleService.adminPanel(user) || !user) {
+      if (user && await this.checkRuleService.viewingRules(user) || !user) {
         return true;
       } else {
         this.router.navigate(['']);

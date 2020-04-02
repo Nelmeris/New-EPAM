@@ -19,14 +19,28 @@ export class RuleListComponent implements OnInit {
 
   ngOnInit(): void {
     (async () => {
-      this.userTypeRules = await this.dataBaseService.getUserTypeRules();
-      this.userTypes = await this.dataBaseService.getUserTypes();
-      this.rules = await this.dataBaseService.getRules();
-      this.userTypeRules.forEach(userTypeRule => {
-        userTypeRule.rule = this.rules.find(rule => rule.id === userTypeRule.ruleId);
-        userTypeRule.userType = this.userTypes.find(userType => userType.id === userTypeRule.userTypeId);
-      });
+      await this.loadData();
     })();
+  }
+
+  private async loadData() {
+    this.userTypeRules = await this.dataBaseService.getUserTypeRules();
+    this.userTypes = await this.dataBaseService.getUserTypes();
+    this.rules = await this.dataBaseService.getRules();
+    this.userTypeRules.forEach(userTypeRule => {
+      userTypeRule.rule = this.rules.find(rule => rule.id === userTypeRule.ruleId);
+      userTypeRule.userType = this.userTypes.find(userType => userType.id === userTypeRule.userTypeId);
+    });
+  }
+
+  removeRule(rule: UserTypeRule) {
+    if (confirm('Вы уверены?')) {
+      this.userTypeRules = this.userTypeRules.filter(item => item !== rule);
+      (async () => {
+        await this.dataBaseService.deleteUserTypeRuleById(rule.id);
+        window.location.reload();
+      })();
+    }
   }
 
 }
