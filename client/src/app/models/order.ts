@@ -16,6 +16,9 @@ export class Order {
     manager: User;
 
     constructor(json) {
+        if (!json) {
+            return;
+        }
         this.id = json.id;
         this.userId = json.user_id;
         this.orderTypeId = json.order_type_id;

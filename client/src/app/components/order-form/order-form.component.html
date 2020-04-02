@@ -1,1 +1,56 @@
-<p>order-form works!</p>
+<!-- Default form register -->
+<form class="container mt-4 text-center border border-light p-5" [formGroup]="form">
+
+    <p class="h4 mb-4">Оформление заказа</p>
+
+    <div class="form-row">
+        <div class="col">
+            <div class="md-form mt-0 mb-4">
+                <!-- First name -->
+                <input mdbInput mdbValidate type="text" id="name" class="form-control" formControlName="name">
+                <label for="name">Имя</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="md-form mt-0 mb-4">
+                <!-- Last name -->
+                <input mdbInput mdbValidate type="text" id="surname" class="form-control" formControlName="surname">
+                <label for="surname">Фамилия</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <div class="md-form mt-0 mb-4">
+                <!-- E-mail -->
+                <input mdbInput mdbValidate type="email" id="email" class="form-control" formControlName="email">
+                <label for="email">Почта</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="md-form mt-0 mb-4">
+                <!-- Phone number -->
+                <input mdbInput mdbValidate type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber">
+                <label for="phoneNumber">Телефон</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject -->
+    <select class="browser-default custom-select mb-4" formControlName="typeId">
+        <option selected [ngValue]="null">Выберите тип заказа...</option>
+        <option *ngFor="let type of orderTypes" [ngValue]="type.id">{{ type.title }}</option>
+    </select>
+
+    <!--Basic textarea-->
+    <div class="md-form mt-0">
+        <textarea mdbInput mdbValidate type="text" id="form7" class="md-textarea form-control" formControlName="description" mdbInput></textarea>
+        <label for="form7">Опишите ваш заказ</label>
+    </div>
+
+    <!-- Send button -->
+    <button mdbBtn color="info" block="true" type="submit" (click)="order()">Оформить заказ</button>
+
+</form>
+<!-- Default form register -->
