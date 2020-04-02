@@ -25,7 +25,11 @@ export class OrderListComponent implements OnInit {
     (async () => {
       const orders = await this.dataBaseService.getOrders();
       const authUser = await this.authService.getAuthUser();
-      this.orders = orders.filter(order => order.managerId === authUser.id);
+      if (authUser.typeId === 2) {
+        this.orders = orders.filter(order => order.managerId === authUser.id);
+      } else {
+        this.orders = orders;
+      }
       this.orderTypes = await this.dataBaseService.getOrderTypes();
       this.orderStatuses = await this.dataBaseService.getOrderStatuses();
       this.users = await this.dataBaseService.getUsers();
