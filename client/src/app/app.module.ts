@@ -12,6 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './components/logout/logout.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SolutionsComponent } from './components/solutions/solutions.component';
+import { ServiceComponent } from './components/service/service.component';
+import { AboutCompanyComponent } from './components/about-company/about-company.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     MainComponent,
     LogoutComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent,
+    SolutionsComponent,
+    ServiceComponent,
+    AboutCompanyComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

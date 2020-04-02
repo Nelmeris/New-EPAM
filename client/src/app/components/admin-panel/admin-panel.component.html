@@ -1,9 +1,6 @@
-
-<span *ngIf="user; else elseBlock" class="my-2 my-lg-0">
+<span *ngIf="isAdmin" class="my-2 my-lg-0">
 </span>
 
-<ng-template #elseBlock>
-    <div class="container mt-5 mb-5">
-        <app-auth-form></app-auth-form>
-    </div>
-</ng-template>
+<div *ngIf="!user" class="container mt-5 mb-5">
+    <app-auth-form></app-auth-form>
+</div>
