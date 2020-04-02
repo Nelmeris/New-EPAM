@@ -50,6 +50,12 @@
             <!-- Grid column -->
 
         </div>
+
+        <div *ngIf="order && order.manager">
+            <h4 class="text-muted text-left my-4">Менеджер</h4>
+
+            <app-user-card [user]="order.manager"></app-user-card>
+        </div>
         <!-- Grid row -->
 
     </div>

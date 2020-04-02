@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
         <ul *ngIf="this.router.url.startsWith('/admin')" class="navbar-nav mr-auto">
-            <li *ngIf="viewingOrders" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <li *ngIf="viewingOrders" class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/admin/orders">Заказы</a>
             </li>
             <li *ngIf="viewingUsers" class="nav-item" routerLinkActive="active">

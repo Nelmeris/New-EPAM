@@ -27,6 +27,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
 import { OrderCardComponent } from './components/order-card/order-card.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserTypeForRulePipe } from './pipes/user-type-for-rule.pipe';
+import { OrderManagementComponent } from './pages/order-management/order-management.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserTypeForRulePipe } from './pipes/user-type-for-rule.pipe';
     OrderFormComponent,
     OrderCardComponent,
     UserCardComponent,
-    UserTypeForRulePipe
+    UserTypeForRulePipe,
+    OrderManagementComponent
   ],
   imports: [
     BrowserModule,

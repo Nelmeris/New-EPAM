@@ -61,6 +61,11 @@ export class DataBaseService extends BaseApi {
     return orders.find(order => order.userId === user.id);
   }
 
+  async getOrderById(id: number): Promise<Order> {
+    const orders = await this.getOrders();
+    return orders.find(order => order.id === id);
+  }
+
   async getUserTypes(): Promise<UserType[]> {
     const jsonArray = await this.get('user_types', this.options).toPromise();
     const objects: UserType[] = [];
@@ -147,8 +152,8 @@ export class DataBaseService extends BaseApi {
     return this.delete('user_type_rules/' + id, this.options).toPromise();
   }
 
-  // async editPhone(phone: Phone) {
-  //   return this.put('phones/' + phone.id, JSON.stringify(phone), this.options).toPromise();
-  // }
+  async editOrder(order: Order) {
+    return this.put('orders/' + order.id, order.toJSON(), this.options).toPromise();
+  }
 
 }

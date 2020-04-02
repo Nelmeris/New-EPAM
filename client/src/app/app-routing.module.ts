@@ -14,18 +14,18 @@ import {AccountPanelGuard} from './guards/account-panel.guard';
 import {RuleListComponent} from "./pages/rule-list/rule-list.component";
 import {UserListComponent} from "./pages/user-list/user-list.component";
 import {OrderListComponent} from "./pages/order-list/order-list.component";
-import {OrderCardComponent} from "./components/order-card/order-card.component";
 import {AdminPanelGuard} from "./guards/admin-panel.guard";
 import {AdminOrdersGuard} from "./guards/admin-orders.guard";
 import {AdminRulesGuard} from "./guards/admin-rules.guard";
 import {AdminUsersGuard} from "./guards/admin-users.guard";
+import {OrderManagementComponent} from "./pages/order-management/order-management.component";
 
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'admin', component: AdminPanelComponent, canActivate: [ AdminPanelGuard ], children: [
       { path: 'orders', component: OrderListComponent, canActivate: [ AdminOrdersGuard ] },
-      { path: 'orders/:id', component: OrderCardComponent, canActivate: [ AdminOrdersGuard ] },
+      { path: 'orders/:id', component: OrderManagementComponent, canActivate: [ AdminOrdersGuard ] },
       { path: 'users', component: UserListComponent, canActivate: [ AdminUsersGuard ] },
       { path: 'users/:id', component: ProfileComponent, canActivate: [ AdminUsersGuard ] },
       { path: 'rules', component: RuleListComponent, canActivate: [ AdminRulesGuard ] }

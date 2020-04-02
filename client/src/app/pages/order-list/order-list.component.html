@@ -1,22 +1,28 @@
 <div class="container mt-5">
 
-    <table mdbTable>
-        <thead class="black white-text">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Заказчик</th>
-            <th scope="col">Тип</th>
-            <th scope="col">Статус</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr mdbTableCol *ngFor="let order of orders">
-            <td>{{ order.id }}</td>
-            <td><a routerLink="/admin/users/{{ order.userId }}">{{ order.userOwner ? order.userOwner.fullName : order.userId }}</a></td>
-            <td>{{ order.type ? order.type.title : order.orderTypeId }}</td>
-            <td>{{ order.status ? order.status.title : order.orderStatusId }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="list-group">
+        <a *ngFor="let order of orders"
+           class="list-group-item list-group-item-action flex-column align-items-start"
+           routerLink="/admin/orders/{{ order.id }}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ order.type ? order.type.title : '' }}</h5>
+                <small>{{ order.status ? order.status.title : '' }}</small>
+            </div>
+            <p class="mb-1">{{ order.description }}</p>
+            <small>Заказчик:
+                <a routerLink="/admin/users/{{ order.userId }}">
+                    {{ order.userOwner ? order.userOwner.fullName : '' }}
+                </a>
+            </small>
+            <br>
+            <small>Менеджер:
+                <a *ngIf="order.manager; else elseBlock" routerLink="/admin/users/{{ order.managerId }}">
+                    {{ order.manager ? order.manager.fullName : '' }}
+                </a>
+                <ng-template #elseBlock>не назначен</ng-template>
+            </small>
+        </a>
+
+    </div>
 
 </div>

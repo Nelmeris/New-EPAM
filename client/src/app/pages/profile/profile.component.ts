@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit {
     this.order = await this.dataBaseService.getOrder(user);
     this.order.status = await this.dataBaseService.getOrderStatus(this.order.orderStatusId);
     this.order.type = await this.dataBaseService.getOrderType(this.order.orderTypeId);
+    this.order.manager = await this.dataBaseService.getUserById(this.order.managerId);
   }
 
 }

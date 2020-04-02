@@ -50,4 +50,8 @@ export class CheckRuleService {
   async viewingUsers(user: User): Promise<boolean> {
     return this.checkRule(user, 9);
   }
+
+  async changingProjectManager(user: User): Promise<boolean> {
+    return this.checkRule(user, 10);
+  }
 }

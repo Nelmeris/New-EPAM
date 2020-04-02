@@ -131,7 +131,7 @@
     },
     {
       "id": 6,
-      "title": "Изменение статуса заказа любого пользователя"
+      "title": "Изменение статуса заказа"
     },
     {
       "id": 7,
@@ -139,11 +139,15 @@
     },
     {
       "id": 8,
-      "title": "Просмотр правил"
+      "title": "Просмотр и редактирование правил"
     },
     {
       "id": 9,
       "title": "Просмотр пользователей"
+    },
+    {
+      "id": 10,
+      "title": "Назначать менеджеров проектов на заказ"
     }
   ],
   "user_type_rules": [
@@ -151,31 +155,6 @@
       "id": 1,
       "user_type_id": 1,
       "rule_id": 1
-    },
-    {
-      "id": 2,
-      "user_type_id": 1,
-      "rule_id": 3
-    },
-    {
-      "id": 3,
-      "user_type_id": 1,
-      "rule_id": 4
-    },
-    {
-      "id": 4,
-      "user_type_id": 1,
-      "rule_id": 5
-    },
-    {
-      "id": 5,
-      "user_type_id": 1,
-      "rule_id": 6
-    },
-    {
-      "id": 6,
-      "user_type_id": 1,
-      "rule_id": 7
     },
     {
       "id": 7,
@@ -213,14 +192,44 @@
       "rule_id": 1
     },
     {
-      "id": 18,
+      "id": 19,
+      "user_type_id": 2,
+      "rule_id": 7
+    },
+    {
+      "id": 20,
+      "user_type_id": 1,
+      "rule_id": 5
+    },
+    {
+      "id": 21,
+      "user_type_id": 1,
+      "rule_id": 7
+    },
+    {
+      "id": 22,
+      "user_type_id": 1,
+      "rule_id": 6
+    },
+    {
+      "id": 23,
+      "user_type_id": 1,
+      "rule_id": 10
+    },
+    {
+      "id": 24,
       "user_type_id": 1,
       "rule_id": 9
     },
     {
-      "id": 19,
-      "user_type_id": 2,
-      "rule_id": 7
+      "id": 25,
+      "user_type_id": 1,
+      "rule_id": 4
+    },
+    {
+      "id": 26,
+      "user_type_id": 1,
+      "rule_id": 3
     }
   ],
   "orders": [
@@ -228,8 +237,9 @@
       "id": 1,
       "user_id": 4,
       "order_type_id": 3,
-      "description": "Some order",
-      "order_status_id": 1
+      "description": "Свыше 20 лет мы являемся Developers' Developers и помогаем ведущим мировым ИТ-компаниям создавать их программные продукты. Это позволило нам стать экспертами в технологиях с глубокими знаниями и уникальным опытом.",
+      "order_status_id": 5,
+      "manager_id": 3
     }
   ]
 }
