@@ -1,0 +1,19 @@
+<div class="container mt-5">
+
+    <h1>Общие правила</h1>
+    <table mdbTable>
+        <thead class="black white-text">
+        <tr>
+            <th scope="col">Тип пользователя</th>
+            <th scope="col">Правило</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr mdbTableCol *ngFor="let rule of userTypeRules">
+            <td>{{ rule.userType.title }}</td>
+            <td>{{ rule.rule.title }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

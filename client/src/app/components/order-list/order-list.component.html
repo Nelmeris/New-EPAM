@@ -1,0 +1,22 @@
+<div class="container mt-5">
+
+    <table mdbTable>
+        <thead class="black white-text">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Заказчик</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr mdbTableCol *ngFor="let order of orders ">
+            <td>{{ order.id }}</td>
+            <td>{{ order.userOwner.fullName }}</td>
+            <td>{{ order.type.title }}</td>
+            <td>{{ order.status.title }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

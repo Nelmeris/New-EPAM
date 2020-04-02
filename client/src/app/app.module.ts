@@ -17,6 +17,10 @@ import { SolutionsComponent } from './components/solutions/solutions.component';
 import { ServiceComponent } from './components/service/service.component';
 import { AboutCompanyComponent } from './components/about-company/about-company.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { RuleListComponent } from './components/rule-list/rule-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { UserByTypePipe } from './pipes/user-by-type.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { AuthComponent } from './components/auth/auth.component';
     SolutionsComponent,
     ServiceComponent,
     AboutCompanyComponent,
-    AuthComponent
+    AuthComponent,
+    RuleListComponent,
+    UserListComponent,
+    OrderListComponent,
+    UserByTypePipe
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+<div class="container mt-5">
+
+    <div *ngFor="let type of userTypes">
+
+        <h1 class="mt-4">{{ type.title }}</h1>
+        <table mdbTable>
+            <thead class="black white-text">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Дата создания</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr mdbTableCol *ngFor="let user of (users | userByType:type) ">
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.creationDate.toLocaleString() }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

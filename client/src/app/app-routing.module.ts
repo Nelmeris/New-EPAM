@@ -11,11 +11,17 @@ import {AboutCompanyComponent} from './components/about-company/about-company.co
 import {AuthComponent} from './components/auth/auth.component';
 import {LoginGuard} from './guards/login.guard';
 import {AccountPanelGuard} from './guards/account-panel.guard';
+import {RuleListComponent} from "./components/rule-list/rule-list.component";
+import {UserListComponent} from "./components/user-list/user-list.component";
+import {OrderListComponent} from "./components/order-list/order-list.component";
 
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'admin', component: AdminPanelComponent },
+  { path: 'admin/orders', component: OrderListComponent },
+  { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/rules', component: RuleListComponent },
   { path: 'login', component: AuthComponent, canActivate: [ LoginGuard ] },
   { path: 'service', component: ServiceComponent },
   { path: 'solutions', component: SolutionsComponent },
