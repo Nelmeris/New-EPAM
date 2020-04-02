@@ -7,6 +7,7 @@ describe('AdminPanelGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
+    // @ts-ignore
     guard = TestBed.inject(AdminPanelGuard);
   });
 

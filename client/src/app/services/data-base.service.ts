@@ -8,6 +8,7 @@ import { UserType } from '../models/user-type';
 import { OrderStatus } from '../models/order-status';
 import { OrderType } from '../models/order-type';
 import { UserTypeRule } from '../models/user-type-rule';
+import {UserRule} from "../models/user-rule";
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,17 @@ export class DataBaseService extends BaseApi {
     }
     return userTypeRules;
   }
+
+  async getUserRules(): Promise<UserRule[]> {
+    const jsonArray = await this.get('user_rules', this.options).toPromise();
+    const userRules: UserRule[] = [];
+    for (const json of jsonArray) {
+      const rule = new UserRule(json);
+      userRules.push(rule);
+    }
+    return userRules;
+  }
+
   // async createPhone(phone) {
   //   return this.post('phones', JSON.stringify(phone), this.options).toPromise();
   // }

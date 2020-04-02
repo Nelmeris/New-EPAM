@@ -10,10 +10,17 @@ import {CheckRuleService} from "../../services/check-rule.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
   user: User = null;
   title = 'New EPAM';
+
   adminPanelRule = false;
   accountPanelRule = false;
+
+  viewingOrders = false;
+  viewingUsers = false;
+  viewingRules = false;
+
   constructor(private authService: AuthService,
               public router: Router,
               private checkRuleService: CheckRuleService) { }
@@ -21,8 +28,13 @@ export class HeaderComponent implements OnInit {
     console.log(this.router.url);
     (async () => {
       this.user = await this.authService.getAuthUser();
+
       this.adminPanelRule = await this.checkRuleService.adminPanel(this.user);
       this.accountPanelRule = await this.checkRuleService.accountPanel(this.user);
+
+      this.viewingOrders = await this.checkRuleService.viewingOrders(this.user);
+      this.viewingUsers = await this.checkRuleService.viewingUsers(this.user);
+      this.viewingRules = await this.checkRuleService.viewingRules(this.user);
     })();
   }
 }
