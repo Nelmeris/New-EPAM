@@ -1,27 +1,22 @@
 <div class="container mt-5">
 
-    <div *ngFor="let type of userTypes">
+    <div class="row">
+        <div *ngFor="let type of userTypes" class="col-4">
 
-        <h1 class="mt-4">{{ type.title }}</h1>
-        <table mdbTable>
-            <thead class="black white-text">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Email</th>
-                <th scope="col">Дата создания</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr mdbTableCol *ngFor="let user of (users | userByType:type) ">
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.creationDate.toLocaleString() }}</td>
-                <td><a routerLink="/admin/users/{{ user.id }}">Просмотреть</a></td>
-            </tr>
-            </tbody>
-        </table>
+            <h1 class="mt-4">{{ type.title }}</h1>
+            <div class="list-group">
+                <a *ngFor="let user of (users | userByType:type)"
+                   routerLink="/admin/users/{{ user.id }}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ user.fullName }}</h5>
+                        <small>{{ user.type ? user.type.title : '' }}</small>
+                    </div>
+                    <small>Дата создания: {{ user.creationDate.toLocaleString() }}</small>
+                </a>
+            </div>
 
+        </div>
     </div>
 
 </div>
