@@ -66,7 +66,7 @@ export class OrderManagementComponent implements OnInit {
       }
       this.customer = await this.dataBaseService.getUserById(this.order.userId);
       this.managers = await this.dataBaseService.getUsers();
-      this.managers = this.managers.filter(manager => manager.typeId === 3);
+      this.managers = this.managers.filter(manager => manager.typeId === 2);
       this.statuses = await this.dataBaseService.getOrderStatuses();
       this.statusChangingForm = new FormGroup({
         statusId: new FormControl(this.statuses.find(status => status.id === this.order.orderStatusId).id,

@@ -4,6 +4,7 @@ import {OrderType} from "../../models/order-type";
 import {OrderStatus} from "../../models/order-status";
 import {Order} from "../../models/order";
 import {User} from "../../models/user";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-order-list',
@@ -17,11 +18,14 @@ export class OrderListComponent implements OnInit {
   orderStatuses: OrderStatus[] = [];
   users: User[] = [];
 
-  constructor(private dataBaseService: DataBaseService) { }
+  constructor(private dataBaseService: DataBaseService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     (async () => {
-      this.orders = await this.dataBaseService.getOrders();
+      const orders = await this.dataBaseService.getOrders();
+      const authUser = await this.authService.getAuthUser();
+      this.orders = orders.filter(order => order.managerId === authUser.id);
       this.orderTypes = await this.dataBaseService.getOrderTypes();
       this.orderStatuses = await this.dataBaseService.getOrderStatuses();
       this.users = await this.dataBaseService.getUsers();

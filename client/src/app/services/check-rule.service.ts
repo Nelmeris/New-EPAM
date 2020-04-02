@@ -32,6 +32,9 @@ export class CheckRuleService {
   }
 
   async viewingOrders(user: User): Promise<boolean> {
+    if (user.typeId === 2) {
+      return true;
+    }
     return this.checkRule(user, 5);
   }
 

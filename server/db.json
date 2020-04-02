@@ -230,6 +230,21 @@
       "id": 26,
       "user_type_id": 1,
       "rule_id": 3
+    },
+    {
+      "id": 27,
+      "user_type_id": 2,
+      "rule_id": 6
+    },
+    {
+      "id": 28,
+      "user_type_id": 3,
+      "rule_id": 10
+    },
+    {
+      "id": 29,
+      "user_type_id": 3,
+      "rule_id": 9
     }
   ],
   "orders": [
@@ -239,7 +254,7 @@
       "order_type_id": 3,
       "description": "Свыше 20 лет мы являемся Developers' Developers и помогаем ведущим мировым ИТ-компаниям создавать их программные продукты. Это позволило нам стать экспертами в технологиях с глубокими знаниями и уникальным опытом.",
       "order_status_id": 5,
-      "manager_id": 3
+      "manager_id": 2
     }
   ]
 }
