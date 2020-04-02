@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {UserType} from "../../models/user-type";
 import {DataBaseService} from "../../services/data-base.service";
 import {User} from "../../models/user";
+import {CheckRuleService} from "../../services/check-rule.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +15,11 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   userTypes: UserType[] = [];
 
-  constructor(private dataBaseService: DataBaseService) { }
+  canCreateUser = false;
+
+  constructor(private authService: AuthService,
+              private dataBaseService: DataBaseService,
+              private checkRuleService: CheckRuleService) { }
 
   ngOnInit(): void {
     (async () => {
@@ -22,6 +28,8 @@ export class UserListComponent implements OnInit {
       this.users.forEach(user => {
         user.type = this.userTypes.find(userType => userType.id === user.typeId);
       });
+      const authUser = await this.authService.getAuthUser();
+      this.canCreateUser = await this.checkRuleService.creatingAdminRole(authUser);
     })();
   }
 

@@ -140,6 +140,10 @@ export class DataBaseService extends BaseApi {
     return this.post('rules', JSON.stringify(rule), this.options).toPromise();
   }
 
+  async createUser(user: User) {
+    return this.post('users', user.toJSON(), this.options).toPromise();
+  }
+
   async createUserTypeRule(rule: UserTypeRule) {
     return this.post('user_type_rules', rule.toJSON(), this.options).toPromise();
   }
