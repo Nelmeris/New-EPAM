@@ -4,7 +4,8 @@
       "id": 1,
       "password": "admin",
       "user_type_id": 1,
-      "email": "admin@new-epam.com"
+      "email": "admin@new-epam.com",
+      "creation_date": "1970-01-01T00:01:10.066Z"
     },
     {
       "id": 2,
@@ -13,7 +14,8 @@
       "email": "project-manager@new-epam.com",
       "name": "Alex",
       "surname": "Novikov",
-      "phone_number": "+19991234567"
+      "phone_number": "+19991234567",
+      "creation_date": "2010-06-59T18:39:21.033Z"
     },
     {
       "id": 3,
@@ -22,7 +24,8 @@
       "email": "support@new-epam.com",
       "name": "John",
       "surname": "Denver",
-      "phone_number": "+31346753322"
+      "phone_number": "+31346753322",
+      "creation_date": "2014-02-43T21:43:10.033Z"
     },
     {
       "id": 4,
@@ -31,7 +34,8 @@
       "email": "some-client@gmail.com",
       "name": "Evelin",
       "surname": "Horizon",
-      "phone_number": "+13532561123"
+      "phone_number": "+13532561123",
+      "creation_date": "2020-04-01T13:51:59.066Z"
     }
   ],
   "user_types": [

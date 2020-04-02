@@ -1,1 +1,104 @@
-<p>profile works!</p>
+<div class="container mt-5">
+
+    <!-- Section: Team v.1 -->
+    <section class="section team-section">
+
+        <!-- Grid row -->
+        <div class="row text-center">
+
+            <!-- Grid column -->
+            <div class="col-md-4 mb-4">
+
+                <!-- Card -->
+                <div class="card profile-card">
+
+                    <div class="card-body pt-0 mt-0">
+
+                        <!-- Name -->
+                        <h3 class="mb-3 font-weight-bold mt-5"><strong>{{ user.name }} {{ user.surname }}</strong></h3>
+                        <h6 class="font-weight-bold cyan-text mb-4">{{ user.email }}</h6>
+                        <h6 class="font-weight-bold cyan-text mb-4">{{ user.phoneNumber }}</h6>
+
+                        <p class="mt-4 text-muted">{{ user.creationDate.toLocaleDateString() }} {{ user.creationDate.toLocaleTimeString() }}</p>
+
+                    </div>
+
+                </div>
+                <!-- Card -->
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-8 mb-4">
+
+                <!-- Card -->
+                <div class="card card-cascade cascading-admin-card user-card">
+
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade">
+
+                        <div class="data">
+                            <h5 class="font-weight-bold dark-grey-text">Ваш заказ</h5>
+                        </div>
+
+                        <!-- Grid row -->
+                        <div class="row">
+
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+
+                                <h4 class="text-muted text-left my-4">Статус: {{ orderStatus.title }}</h4>
+
+                            </div>
+                            <!-- Grid column -->
+
+                        </div>
+                        <!-- Grid row -->
+
+                        <!-- Grid row -->
+                        <div class="row">
+
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+
+                                <h4 class="text-muted text-left my-4">Тип: {{ orderType.title }}</h4>
+
+                            </div>
+                            <!-- Grid column -->
+
+                        </div>
+                        <!-- Grid row -->
+
+                        <!-- Grid row -->
+                        <div class="row">
+
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+
+                                <h4 class="text-muted text-left my-4">О заказе</h4>
+
+                                <p class="text-muted text-left">{{ order.description }}</p>
+
+                            </div>
+                            <!-- Grid column -->
+
+                        </div>
+                        <!-- Grid row -->
+
+                    </div>
+                    <!-- Card content -->
+
+                </div>
+                <!-- Card -->
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!-- Section: Team v.1 -->
+
+</div>

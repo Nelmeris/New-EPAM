@@ -28,7 +28,7 @@ export class DataBaseService extends BaseApi {
     for (const json of jsonArray) {
       const user: User = new User(json);
       user.phoneNumber = json.phone_number;
-      user.creationDate = json.creation_date;
+      user.creationDate = new Date(json.creation_date);
       user.typeId = json.user_type_id;
       users.push(user);
     }
@@ -56,7 +56,8 @@ export class DataBaseService extends BaseApi {
   }
 
   async getOrder(user: User): Promise<Order> {
-    return this.get('orders?user_id=' + user.id, this.options).toPromise();
+    const orders = await this.getOrders();
+    return orders.find(order => order.userId === user.id);
   }
 
   async getUserTypes(): Promise<UserType[]> {
@@ -69,6 +70,11 @@ export class DataBaseService extends BaseApi {
     return objects;
   }
 
+  async getOrderType(id: number): Promise<OrderType> {
+    const types = await this.getOrderTypes();
+    return types.find(type => type.id === id);
+  }
+
   async getOrderTypes(): Promise<OrderType[]> {
     const jsonArray = await this.get('order_types', this.options).toPromise();
     const objects: OrderType[] = [];
@@ -77,6 +83,11 @@ export class DataBaseService extends BaseApi {
       objects.push(object);
     }
     return objects;
+  }
+
+  async getOrderStatus(id: number): Promise<OrderStatus> {
+    const types = await this.getOrderStatuses();
+    return types.find(type => type.id === id);
   }
 
   async getOrderStatuses(): Promise<OrderStatus[]> {
