@@ -12,7 +12,7 @@
         <tbody>
         <tr mdbTableCol *ngFor="let order of orders">
             <td>{{ order.id }}</td>
-            <td>{{ order.userOwner ? order.userOwner.fullName : order.userId }}</td>
+            <td><a routerLink="/admin/users/{{ order.userId }}">{{ order.userOwner ? order.userOwner.fullName : order.userId }}</a></td>
             <td>{{ order.type ? order.type.title : order.orderTypeId }}</td>
             <td>{{ order.status ? order.status.title : order.orderStatusId }}</td>
         </tr>

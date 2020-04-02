@@ -11,7 +11,7 @@ import {User} from "../../models/user";
 export class UserListComponent implements OnInit {
 
   users: User[] = [];
-  userTypes: UserType[] = [];;
+  userTypes: UserType[] = [];
 
   constructor(private dataBaseService: DataBaseService) { }
 

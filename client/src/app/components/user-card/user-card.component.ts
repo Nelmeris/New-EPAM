@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../models/user";
+import {ActivatedRoute} from "@angular/router";
+import {DataBaseService} from "../../services/data-base.service";
 
 @Component({
   selector: 'app-user-card',

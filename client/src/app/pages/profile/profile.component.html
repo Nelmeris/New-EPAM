@@ -15,7 +15,7 @@
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-8 mb-4">
+            <div *ngIf="order" class="col-md-8 mb-4">
 
                 <app-order-card [order]="order"></app-order-card>
 
