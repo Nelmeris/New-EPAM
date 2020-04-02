@@ -1,1 +1,25 @@
-<p>solutions works!</p>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-around flex-wrap">
+        <!-- Card -->
+        <mdb-card *ngFor="let card of news" class="pl-0 pr-0 mb-4 w-25 ml-3 mr-3">
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+                <!-- Card img -->
+                <mdb-card-img [src]="card.imgSrc" alt="Card image cap"></mdb-card-img>
+                <a>
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <!--Title-->
+                <mdb-card-title>
+                    <h4>{{ card.title }}</h4>
+                </mdb-card-title>
+
+                <!--Text-->
+                <mdb-card-text>{{ card.tags }}</mdb-card-text>
+            </mdb-card-body>
+        </mdb-card>
+        <!-- Card -->
+    </div>
+</div>
