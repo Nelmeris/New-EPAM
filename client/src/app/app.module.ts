@@ -21,6 +21,11 @@ import { RuleListComponent } from './components/rule-list/rule-list.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { UserByTypePipe } from './pipes/user-by-type.pipe';
+import { AddRuleFormComponent } from './components/add-rule-form/add-rule-form.component';
+import { CreateUserFormComponent } from './components/create-user-form/create-user-form.component';
+import { OrderFormComponent } from './components/order-form/order-form.component';
+import { OrderCardComponent } from './components/order-card/order-card.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,12 @@ import { UserByTypePipe } from './pipes/user-by-type.pipe';
     RuleListComponent,
     UserListComponent,
     OrderListComponent,
-    UserByTypePipe
+    UserByTypePipe,
+    AddRuleFormComponent,
+    CreateUserFormComponent,
+    OrderFormComponent,
+    OrderCardComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,

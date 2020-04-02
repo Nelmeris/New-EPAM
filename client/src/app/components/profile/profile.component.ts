@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../../models/user";
 import {AuthService} from "../../services/auth.service";
 import {Order} from "../../models/order";
-import {OrderStatus} from "../../models/order-status";
-import {OrderType} from "../../models/order-type";
 import {DataBaseService} from "../../services/data-base.service";
 
 @Component({
@@ -15,8 +13,6 @@ export class ProfileComponent implements OnInit {
 
   user: User;
   order: Order;
-  orderStatus: OrderStatus;
-  orderType: OrderType;
 
   constructor(private authService: AuthService,
               private dataBaseService: DataBaseService) { }
@@ -25,8 +21,8 @@ export class ProfileComponent implements OnInit {
     (async () => {
       this.user = await this.authService.getAuthUser();
       this.order = await this.dataBaseService.getOrder(this.user);
-      this.orderStatus = await this.dataBaseService.getOrderStatus(this.order.orderStatusId);
-      this.orderType = await this.dataBaseService.getOrderType(this.order.orderTypeId);
+      this.order.status = await this.dataBaseService.getOrderStatus(this.order.orderStatusId);
+      this.order.type = await this.dataBaseService.getOrderType(this.order.orderTypeId);
     })();
   }
 

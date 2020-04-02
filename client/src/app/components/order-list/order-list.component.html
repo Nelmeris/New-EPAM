@@ -10,11 +10,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr mdbTableCol *ngFor="let order of orders ">
+        <tr mdbTableCol *ngFor="let order of orders">
             <td>{{ order.id }}</td>
-            <td>{{ order.userOwner.fullName }}</td>
-            <td>{{ order.type.title }}</td>
-            <td>{{ order.status.title }}</td>
+            <td>{{ order.userOwner ? order.userOwner.fullName : order.userId }}</td>
+            <td>{{ order.type ? order.type.title : order.orderTypeId }}</td>
+            <td>{{ order.status ? order.status.title : order.orderStatusId }}</td>
         </tr>
         </tbody>
     </table>

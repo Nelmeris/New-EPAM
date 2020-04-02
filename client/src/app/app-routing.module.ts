@@ -14,13 +14,17 @@ import {AccountPanelGuard} from './guards/account-panel.guard';
 import {RuleListComponent} from "./components/rule-list/rule-list.component";
 import {UserListComponent} from "./components/user-list/user-list.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
+import {UserCardComponent} from "./components/user-card/user-card.component";
+import {OrderCardComponent} from "./components/order-card/order-card.component";
 
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'admin', component: AdminPanelComponent },
   { path: 'admin/orders', component: OrderListComponent },
+  { path: 'admin/orders/:id', component: OrderCardComponent },
   { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/users/:id', component: UserCardComponent },
   { path: 'admin/rules', component: RuleListComponent },
   { path: 'login', component: AuthComponent, canActivate: [ LoginGuard ] },
   { path: 'service', component: ServiceComponent },

@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit {
               public router: Router,
               private checkRuleService: CheckRuleService) { }
   ngOnInit(): void {
-    console.log(this.router.url);
     (async () => {
       this.user = await this.authService.getAuthUser();
 

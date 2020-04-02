@@ -14,6 +14,9 @@ export class User {
     type: UserType;
 
     constructor(json) {
+        if (!json) {
+            return;
+        }
         this.id = json.id;
         this.username = json.username;
         this.password = json.password;

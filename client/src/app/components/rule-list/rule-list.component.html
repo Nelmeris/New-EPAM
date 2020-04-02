@@ -10,8 +10,8 @@
         </thead>
         <tbody>
         <tr mdbTableCol *ngFor="let rule of userTypeRules">
-            <td>{{ rule.userType.title }}</td>
-            <td>{{ rule.rule.title }}</td>
+            <td>{{ rule.userType ? rule.userType.title : rule.userTypeId }}</td>
+            <td>{{ rule.rule ? rule.rule.title : rule.ruleId }}</td>
         </tr>
         </tbody>
     </table>
