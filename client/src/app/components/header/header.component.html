@@ -17,7 +17,7 @@
             </li>
         </ul>
         <ul *ngIf="!this.router.url.startsWith('/admin')" class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }">
                 <a class="nav-link" routerLink="">Главная</a>
             </li>
             <li class="nav-item" routerLinkActive="active">

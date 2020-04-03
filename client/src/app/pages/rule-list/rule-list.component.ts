@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DataBaseService} from "../../services/data-base.service";
-import {UserTypeRule} from "../../models/user-type-rule";
-import {UserType} from "../../models/user-type";
-import {Rule} from "../../models/rule";
+import { DataBaseService } from '../../services/data-base/data-base.service';
+import { UserTypeRule } from '../../models/rules/user-type-rule';
+import { UserType } from '../../models/user/user-type';
+import { Rule } from '../../models/rules/rule';
 
 @Component({
   selector: 'app-rule-list',

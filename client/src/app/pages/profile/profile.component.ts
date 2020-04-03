@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../../models/user";
-import {AuthService} from "../../services/auth.service";
-import {Order} from "../../models/order";
-import {DataBaseService} from "../../services/data-base.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {User} from '../../models/user/user';
+import {AuthService} from '../../services/auth/auth.service';
+import {Order} from '../../models/order/order';
+import {DataBaseService} from '../../services/data-base/data-base.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',

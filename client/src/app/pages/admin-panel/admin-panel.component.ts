@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import {User} from '../../models/user';
-import {DataBaseService} from '../../services/data-base.service';
-import {Router} from '@angular/router';
-import {CheckRuleService} from "../../services/check-rule.service";
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user/user';
+import { DataBaseService } from '../../services/data-base/data-base.service';
+import { Router } from '@angular/router';
+import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 
 @Component({
   selector: 'app-admin-panel',

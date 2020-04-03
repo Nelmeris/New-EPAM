@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
-import {Router} from "@angular/router";
-import {CheckRuleService} from "../../services/check-rule.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user/user';
+import { Router } from '@angular/router';
+import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 
 @Component({
   selector: 'app-header',
@@ -36,4 +36,5 @@ export class HeaderComponent implements OnInit {
       this.viewingRules = await this.checkRuleService.viewingRules(this.user);
     })();
   }
+
 }

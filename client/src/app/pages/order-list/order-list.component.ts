@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {DataBaseService} from "../../services/data-base.service";
-import {OrderType} from "../../models/order-type";
-import {OrderStatus} from "../../models/order-status";
-import {Order} from "../../models/order";
-import {User} from "../../models/user";
-import {AuthService} from "../../services/auth.service";
+import { DataBaseService } from '../../services/data-base/data-base.service';
+import { OrderType } from '../../models/order/order-type';
+import { OrderStatus } from '../../models/order/order-status';
+import { Order } from '../../models/order/order';
+import { User } from '../../models/user/user';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-order-list',

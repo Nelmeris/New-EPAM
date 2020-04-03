@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {DataBaseService} from "../../services/data-base.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Order} from "../../models/order";
-import {User} from "../../models/user";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CheckRuleService} from "../../services/check-rule.service";
-import {OrderStatus} from "../../models/order-status";
+import { AuthService } from '../../services/auth/auth.service';
+import { DataBaseService } from '../../services/data-base/data-base.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from '../../models/order/order';
+import { User } from '../../models/user/user';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CheckRuleService } from '../../services/check-rule/check-rule.service';
+import { OrderStatus } from '../../models/order/order-status';
 
 @Component({
   selector: 'app-order-management',

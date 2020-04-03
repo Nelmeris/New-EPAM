@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 @Injectable()
 export class BaseApi {
 
@@ -41,4 +40,5 @@ export class BaseApi {
         };
         return this.http.delete(this.getUrl(url), requestOptions);
     }
+
 }

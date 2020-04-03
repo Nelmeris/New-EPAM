@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UserType} from "../../models/user-type";
-import {DataBaseService} from "../../services/data-base.service";
-import {User} from "../../models/user";
-import {CheckRuleService} from "../../services/check-rule.service";
-import {AuthService} from "../../services/auth.service";
+import { UserType } from '../../models/user/user-type';
+import { DataBaseService } from '../../services/data-base/data-base.service';
+import { User } from '../../models/user/user';
+import { CheckRuleService } from '../../services/check-rule/check-rule.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user-list',
