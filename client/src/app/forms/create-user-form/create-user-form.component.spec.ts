@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateUserFormComponent } from './create-user-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CreateUserFormComponent', () => {
   let component: CreateUserFormComponent;
@@ -8,6 +9,7 @@ describe('CreateUserFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ CreateUserFormComponent ]
     })
     .compileComponents();

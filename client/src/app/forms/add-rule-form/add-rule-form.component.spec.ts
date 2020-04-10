@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddRuleFormComponent } from './add-rule-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddRuleFormComponent', () => {
   let component: AddRuleFormComponent;
@@ -8,6 +9,7 @@ describe('AddRuleFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ AddRuleFormComponent ]
     })
     .compileComponents();
