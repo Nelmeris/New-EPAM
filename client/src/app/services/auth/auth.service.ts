@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user/user';
 import { DataBaseService } from '../data-base/data-base.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +8,24 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   authStorageKey = 'user_auth_id';
+  isLogout = false;
 
-  constructor(private dataBaseService: DataBaseService,
-              private router: Router) { }
+  constructor(private dataBaseService: DataBaseService) { }
+
   isAuth(): boolean {
-    return window.localStorage.getItem(this.authStorageKey) != null;
+    return !this.isLogout;
   }
   setAuth(user: User) {
     window.localStorage.setItem(this.authStorageKey, user.id.toString());
+    this.isLogout = false;
   }
   logout() {
     window.localStorage.removeItem(this.authStorageKey);
+    this.isLogout = true;
   }
   async getAuthUser(): Promise<User> {
     const userId = window.localStorage.getItem(this.authStorageKey);
     return await this.dataBaseService.getUserById(+userId);
   }
+
 }
