@@ -35,8 +35,7 @@ const routes: Routes = [
   { path: 'solutions', component: SolutionsComponent },
   { path: 'about', component: AboutCompanyComponent },
   { path: 'lk', component: ProfileComponent , canActivate: [ AccountPanelGuard ]},
-  { path: 'logout', component: LogoutComponent, canActivate: [ AuthGuard ] },
-  { path: '**', redirectTo: '' }
+  { path: 'logout', component: LogoutComponent, canActivate: [ AuthGuard ] }
 ];
 
 @NgModule({
