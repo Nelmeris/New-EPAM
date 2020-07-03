@@ -37,20 +37,20 @@ export class OrderFormComponent implements OnInit {
   }
 
   private createUser(): User {
-    const user = new User(null);
+    const user = new User();
     user.name = this.form.value.name;
     user.surname = this.form.value.surname;
-    user.typeId = 4;
+    user.typeId = "hqbxHqTzVdeeKjgEUjL3";
     user.phoneNumber = this.form.value.phoneNumber;
     user.email = this.form.value.email;
-    user.creationDate = new Date();
+    user.createdAt = new Date();
     return user;
   }
 
   private createOrder(): Order {
-    const order = new Order(null);
-    order.orderTypeId = this.form.value.typeId;
-    order.orderStatusId = 1;
+    const order = new Order();
+    order.typeId = this.form.value.typeId;
+    order.statusId = "1";
     order.description = this.form.value.description;
     return order;
   }

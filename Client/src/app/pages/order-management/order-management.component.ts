@@ -44,7 +44,7 @@ export class OrderManagementComponent implements OnInit {
     });
     this.activatedRouter.params.subscribe(param => {
       if (param.id) {
-        this.loadOrderData(+param.id);
+        this.loadOrderData(param.id);
       }
     });
     (async () => {
@@ -55,7 +55,7 @@ export class OrderManagementComponent implements OnInit {
     })();
   }
 
-  private loadOrderData(orderId: number) {
+  private loadOrderData(orderId: string) {
     (async () => {
       this.order = await this.dataBaseService.getOrderById(orderId);
       this.manager = await this.dataBaseService.getUserById(this.order.managerId);
@@ -66,10 +66,10 @@ export class OrderManagementComponent implements OnInit {
       }
       this.customer = await this.dataBaseService.getUserById(this.order.userId);
       this.managers = await this.dataBaseService.getUsers();
-      this.managers = this.managers.filter(manager => manager.typeId === 2);
+      this.managers = this.managers.filter(manager => manager.typeId === 'YX0SVhkoExf9qUt0vohO');
       this.statuses = await this.dataBaseService.getOrderStatuses();
       this.statusChangingForm = new FormGroup({
-        statusId: new FormControl(this.statuses.find(status => status.id === this.order.orderStatusId).id,
+        statusId: new FormControl(this.statuses.find(status => status.id === this.order.statusId).id,
             [Validators.required]),
       });
       this.order.manager = this.manager;
@@ -88,7 +88,7 @@ export class OrderManagementComponent implements OnInit {
 
   changeStatus() {
     (async () => {
-      this.order.orderStatusId = this.statusChangingForm.value.statusId;
+      this.order.statusId = this.statusChangingForm.value.statusId;
       await this.dataBaseService.editOrder(this.order);
       alert('Успешно!');
       window.location.reload();

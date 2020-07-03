@@ -47,7 +47,7 @@ export class AddRuleFormComponent implements OnInit {
       if (userTypes.find(userType => userType.title === title)) {
         alert('Данная роль уже существует');
       } else {
-        const type = new UserType(null);
+        const type = new UserType();
         type.id = userTypes[userTypes.length - 1].id + 1;
         type.title = title;
         await this.dataBaseService.createUserType(type);
@@ -68,7 +68,7 @@ export class AddRuleFormComponent implements OnInit {
       if (rules.find(rule => rule.title === title)) {
         alert('Данное правило уже существует');
       } else {
-        const rule = new Rule(null);
+        const rule = new Rule();
         rule.id = rules[rules.length - 1].id + 1;
         rule.title = title;
         await this.dataBaseService.createRule(rule);
@@ -90,8 +90,7 @@ export class AddRuleFormComponent implements OnInit {
       if (rules.find(rule => rule.userTypeId === roleId && rule.ruleId === ruleId)) {
         alert('Данное правило уже задано');
       } else {
-        const rule = new UserTypeRule(null);
-        rule.id = rules[rules.length - 1].id + 1;
+        const rule = new UserTypeRule();
         rule.ruleId = ruleId;
         rule.userTypeId = roleId;
         await this.dataBaseService.createUserTypeRule(rule);

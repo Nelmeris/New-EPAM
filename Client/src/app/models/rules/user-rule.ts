@@ -1,18 +1,13 @@
 import { User } from '../user/user';
 import { Rule } from './rule';
+import { Identifiable } from 'src/app/interfaces/identifiable';
 
-export class UserRule {
-    userId: number;
-    ruleId: number;
+export class UserRule implements Identifiable {
+    id: string;
+
+    userId: string;
+    ruleId: string;
 
     user: User;
     rule: Rule;
-
-    constructor(json) {
-        if (!json) {
-            return;
-        }
-        this.userId = json.user_id;
-        this.ruleId = json.rule_id;
-    }
 }

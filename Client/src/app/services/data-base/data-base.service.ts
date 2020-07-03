@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BaseApi } from '../base-api';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user/user';
 import { Rule } from '../../models/rules/rule';
 import { Order } from '../../models/order/order';
@@ -9,34 +7,38 @@ import { OrderStatus } from '../../models/order/order-status';
 import { OrderType } from '../../models/order/order-type';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
 import { UserRule } from '../../models/rules/user-rule';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataBaseService extends BaseApi {
+export class DataBaseService {
 
-  options: HttpHeaders;
+  constructor(private afs: AngularFirestore) { }
 
-  constructor(public http: HttpClient) {
-    super(http);
-    this.options = new HttpHeaders();
-    this.options = this.options.set('Content-Type', 'application/json');
+  async getCollection<T>(collection: string): Promise<T[]> {
+    return new Promise<T[]>((resolve, reject) => {
+      this.afs.collection(collection).snapshotChanges()
+      .subscribe(snapshots => {
+        const collection: T[] = [];
+        snapshots.forEach(item => {
+          const data = item.payload.doc.data();
+          const object: T = data as T;
+          object['id'] = item.payload.doc.id.toString();
+          if (object instanceof User)
+            object.createdAt = new Date(data['createdAt']);
+          collection.push(object);
+        })
+        resolve(collection);
+      })
+    })
   }
 
   async getUsers(): Promise<User[]> {
-    const jsonArray = await this.get('users', this.options).toPromise();
-    const users: User[] = [];
-    for (const json of jsonArray) {
-      const user: User = new User(json);
-      user.phoneNumber = json.phone_number;
-      user.creationDate = new Date(json.creation_date);
-      user.typeId = json.user_type_id;
-      users.push(user);
-    }
-    return users;
+    return this.getCollection('/users');
   }
 
-  async getUserById(id: number): Promise<User> {
+  async getUserById(id: string): Promise<User> {
     const users = await this.getUsers();
     return users.find(user => user.id === id);
   }
@@ -47,13 +49,7 @@ export class DataBaseService extends BaseApi {
   }
 
   async getOrders(): Promise<Order[]> {
-    const jsonArray = await this.get('orders', this.options).toPromise();
-    const objects: Order[] = [];
-    for (const json of jsonArray) {
-      const object = new Order(json);
-      objects.push(object);
-    }
-    return objects;
+    return this.getCollection('/orders');
   }
 
   async getOrder(user: User): Promise<Order> {
@@ -61,107 +57,102 @@ export class DataBaseService extends BaseApi {
     return orders.find(order => order.userId === user.id);
   }
 
-  async getOrderById(id: number): Promise<Order> {
+  async getOrderById(id: string): Promise<Order> {
     const orders = await this.getOrders();
     return orders.find(order => order.id === id);
   }
 
   async getUserTypes(): Promise<UserType[]> {
-    const jsonArray = await this.get('user_types', this.options).toPromise();
-    const objects: UserType[] = [];
-    for (const json of jsonArray) {
-      const object = new UserType(json);
-      objects.push(object);
-    }
-    return objects;
+    return this.getCollection('/userTypes');
   }
 
-  async getOrderType(id: number): Promise<OrderType> {
+  async getOrderType(id: string): Promise<OrderType> {
     const types = await this.getOrderTypes();
     return types.find(type => type.id === id);
   }
 
   async getOrderTypes(): Promise<OrderType[]> {
-    const jsonArray = await this.get('order_types', this.options).toPromise();
-    const objects: OrderType[] = [];
-    for (const json of jsonArray) {
-      const object = new OrderType(json);
-      objects.push(object);
-    }
-    return objects;
+    return this.getCollection('/orderTypes');
   }
 
-  async getOrderStatus(id: number): Promise<OrderStatus> {
+  async getOrderStatus(id: string): Promise<OrderStatus> {
     const types = await this.getOrderStatuses();
     return types.find(type => type.id === id);
   }
 
   async getOrderStatuses(): Promise<OrderStatus[]> {
-    const jsonArray = await this.get('order_statuses', this.options).toPromise();
-    const objects: OrderStatus[] = [];
-    for (const json of jsonArray) {
-      const object = new OrderStatus(json);
-      objects.push(object);
-    }
-    return objects;
+    return this.getCollection<OrderStatus>('/orderStatuses');
   }
 
   async getRules(): Promise<Rule[]> {
-    const jsonArray = await this.get('rules', this.options).toPromise();
-    const rules: Rule[] = [];
-    for (const json of jsonArray) {
-      const rule = new Rule(json);
-      rules.push(rule);
-    }
-    return rules;
+    return this.getCollection<Rule>('/rules');
   }
 
   async getUserTypeRules(): Promise<UserTypeRule[]> {
-    const jsonArray = await this.get('user_type_rules', this.options).toPromise();
-    const userTypeRules: UserTypeRule[] = [];
-    for (const json of jsonArray) {
-      const rule = new UserTypeRule(json);
-      userTypeRules.push(rule);
-    }
-    return userTypeRules;
+    return this.getCollection<UserTypeRule>('/userTypeRules');
   }
 
   async getUserRules(): Promise<UserRule[]> {
-    const jsonArray = await this.get('user_rules', this.options).toPromise();
-    const userRules: UserRule[] = [];
-    for (const json of jsonArray) {
-      const rule = new UserRule(json);
-      userRules.push(rule);
-    }
-    return userRules;
+    return this.getCollection<UserRule>('/userRules');
   }
 
   async createRule(rule: Rule) {
-    return this.post('rules', JSON.stringify(rule), this.options).toPromise();
+    console.log(rule);
+    return this.afs.collection('/rules').add({
+      title: rule.title
+    });
   }
 
   async createUser(user: User) {
-    return this.post('users', user.toJSON(), this.options).toPromise();
+    console.log(user);
+    return this.afs.collection('/users').add({
+      name: user.name,
+      surname: user.surname,
+      password: user.password,
+      typeId: user.typeId,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      createdAt: user.createdAt
+    });
   }
 
   async createUserTypeRule(rule: UserTypeRule) {
-    return this.post('user_type_rules', rule.toJSON(), this.options).toPromise();
+    console.log(rule);
+    return this.afs.collection('/userTypeRules').add({
+      ruleId: rule.ruleId,
+      userTypeId: rule.userTypeId
+    });
   }
 
   async createUserType(userType: UserType) {
-    return this.post('user_types', JSON.stringify(userType), this.options).toPromise();
+    return this.afs.collection('/userTypes').add({ 
+      title: userType.title 
+    });
   }
   
   async createOrder(order: Order) {
-    return this.post('orders', order.toJSON(), this.options).toPromise();
+    console.log(order);
+    return this.afs.collection('/userTypeRules').add({
+      userId: order.userId,
+      typeId: order.typeId,
+      description: order.description,
+      statusId: order.statusId,
+      managerId: order.managerId
+    });
   }
 
-  async deleteUserTypeRuleById(id: number) {
-    return this.delete('user_type_rules/' + id, this.options).toPromise();
+  async deleteUserTypeRuleById(id: string) {
+    return this.afs.collection('/userTypeRules').doc(id).delete();
   }
 
   async editOrder(order: Order) {
-    return this.put('orders/' + order.id, order.toJSON(), this.options).toPromise();
+    return this.afs.collection('/userTypeRules').doc(order.id).set({
+      userId: order.userId,
+      typeId: order.typeId,
+      description: order.description,
+      statusId: order.statusId,
+      managerId: order.managerId
+    });
   }
 
 }

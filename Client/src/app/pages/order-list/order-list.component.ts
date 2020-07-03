@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
     (async () => {
       const orders = await this.dataBaseService.getOrders();
       const authUser = await this.authService.getAuthUser();
-      if (authUser.typeId === 2) {
+      if (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') {
         this.orders = orders.filter(order => order.managerId === authUser.id);
       } else {
         this.orders = orders;
@@ -35,8 +35,8 @@ export class OrderListComponent implements OnInit {
       this.users = await this.dataBaseService.getUsers();
 
       this.orders.forEach(order => {
-        order.type = this.orderTypes.find(type => type.id === order.orderTypeId);
-        order.status = this.orderStatuses.find(status => status.id === order.orderStatusId);
+        order.type = this.orderTypes.find(type => type.id === order.typeId);
+        order.status = this.orderStatuses.find(status => status.id === order.statusId);
         order.userOwner = this.users.find(user => user.id === order.userId);
       });
     })();

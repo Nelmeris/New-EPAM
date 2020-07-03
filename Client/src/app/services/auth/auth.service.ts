@@ -30,7 +30,7 @@ export class AuthService {
 
   async getAuthUser(): Promise<User> {
     const userId = window.localStorage.getItem(this.authStorageKey);
-    return await this.dataBaseService.getUserById(+userId);
+    return await this.dataBaseService.getUserById(userId);
   }
 
 }

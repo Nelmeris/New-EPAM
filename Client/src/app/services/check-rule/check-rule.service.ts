@@ -9,7 +9,7 @@ export class CheckRuleService {
 
   constructor(private dataBaseService: DataBaseService) { }
 
-  private async checkRule(user: User, ruleId: number): Promise<boolean> {
+  private async checkRule(user: User, ruleId: string): Promise<boolean> {
     if (!user) 
       return false;
     const userTypeRules = await this.dataBaseService.getUserTypeRules();
@@ -18,47 +18,47 @@ export class CheckRuleService {
   }
 
   async adminPanel(user: User): Promise<boolean> {
-    return this.checkRule(user, 1);
+    return this.checkRule(user, 'IMQAWA5J9pRlf2PtEJBq');
   }
 
   async accountPanel(user: User): Promise<boolean> {
-    return this.checkRule(user, 2);
+    return this.checkRule(user, 'aVchWd7peOUsbpWVcf4k');
   }
 
   async creatingAdminRole(user: User): Promise<boolean> {
-    return this.checkRule(user, 3);
+    return this.checkRule(user, 'LodYzkn1i7P0syhrBwaP');
   }
 
   async changingContent(user: User): Promise<boolean> {
-    return this.checkRule(user, 4);
+    return this.checkRule(user, 'SxKteSEfrP3AvG1Xs8vK');
   }
 
   async viewingOrders(user: User): Promise<boolean> {
     if (!user) 
       return false;
-    if (user.typeId === 2) {
+    if (user.typeId === '2') {
       return true;
     }
-    return this.checkRule(user, 5);
+    return this.checkRule(user, 'DvKaPlMY05Rfp9RuAA1M');
   }
 
   async changingOrderStatuses(user: User): Promise<boolean> {
-    return this.checkRule(user, 6);
+    return this.checkRule(user, 'kV8bCRAwW4sPAWyW6P4I');
   }
 
   async sendingNotifications(user: User): Promise<boolean> {
-    return this.checkRule(user, 7);
+    return this.checkRule(user, 'oLWNj2f2ZRMisXkHCKmB');
   }
 
   async viewingRules(user: User): Promise<boolean> {
-    return this.checkRule(user, 8);
+    return this.checkRule(user, 'lUTUE9NgUkZjQXTy3vTK');
   }
 
   async viewingUsers(user: User): Promise<boolean> {
-    return this.checkRule(user, 9);
+    return this.checkRule(user, 'gy0iLH06It9UAx9c98bo');
   }
 
   async changingProjectManager(user: User): Promise<boolean> {
-    return this.checkRule(user, 10);
+    return this.checkRule(user, 'maOWKrUjbFQKk4fUTmAI');
   }
 }

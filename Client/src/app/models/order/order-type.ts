@@ -1,12 +1,6 @@
-export class OrderType {
-    id: number;
-    title: string;
+import { Identifiable } from 'src/app/interfaces/identifiable';
 
-    constructor(json) {
-        if (!json) {
-            return;
-        }
-        this.id = json.id;
-        this.title = json.title;
-    }
+export class OrderType implements Identifiable {
+    id: string;
+    title: string;
 }

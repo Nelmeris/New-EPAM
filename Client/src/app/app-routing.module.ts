@@ -19,6 +19,9 @@ import { AdminOrdersGuard } from './guards/admin-panel/admin-orders.guard';
 import { AdminRulesGuard } from './guards/admin-panel/admin-rules.guard';
 import { AdminUsersGuard } from './guards/admin-panel/admin-users.guard';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 
 const routes: Routes = [
@@ -39,7 +42,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

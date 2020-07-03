@@ -37,13 +37,13 @@ export class CreateUserFormComponent implements OnInit {
 
   createUser() {
     (async () => {
-      const newUser = new User(null);
+      const newUser = new User();
       newUser.name = this.form.value.name;
       newUser.surname = this.form.value.surname;
       newUser.typeId = this.form.value.userTypeId;
       newUser.email = this.form.value.email;
       newUser.password = this.form.value.password;
-      newUser.creationDate = new Date();
+      newUser.createdAt = new Date();
       newUser.phoneNumber = this.form.value.phoneNumber;
       if (this.form.invalid) {
         alert('Введены не все данные');

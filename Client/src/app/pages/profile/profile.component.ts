@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
     this.activatedRouter.params.subscribe(param => {
       if (param.id) {
         (async () => {
-          this.user = await this.dataBaseService.getUserById(+param.id);
+          this.user = await this.dataBaseService.getUserById(param.id);
           await this.loadOrderData(this.user);
         })();
       }
@@ -40,8 +40,8 @@ export class ProfileComponent implements OnInit {
 
   private async loadOrderData(user: User) {
     this.order = await this.dataBaseService.getOrder(user);
-    this.order.status = await this.dataBaseService.getOrderStatus(this.order.orderStatusId);
-    this.order.type = await this.dataBaseService.getOrderType(this.order.orderTypeId);
+    this.order.status = await this.dataBaseService.getOrderStatus(this.order.statusId);
+    this.order.type = await this.dataBaseService.getOrderType(this.order.typeId);
     this.order.manager = await this.dataBaseService.getUserById(this.order.managerId);
   }
 
