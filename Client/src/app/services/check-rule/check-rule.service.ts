@@ -10,6 +10,8 @@ export class CheckRuleService {
   constructor(private dataBaseService: DataBaseService) { }
 
   private async checkRule(user: User, ruleId: number): Promise<boolean> {
+    if (!user) 
+      return false;
     const userTypeRules = await this.dataBaseService.getUserTypeRules();
     const rule = userTypeRules.find(val => val.userTypeId === user.typeId && val.ruleId === ruleId);
     return rule !== undefined;
@@ -32,6 +34,8 @@ export class CheckRuleService {
   }
 
   async viewingOrders(user: User): Promise<boolean> {
+    if (!user) 
+      return false;
     if (user.typeId === 2) {
       return true;
     }

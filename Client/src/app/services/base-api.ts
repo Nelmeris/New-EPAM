@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class BaseApi {
 
-    private baseUrl = 'http://localhost:3000/';
+    private baseUrl = 'https://new-epam-api.web.app/';
 
     constructor(public http: HttpClient) { }
 

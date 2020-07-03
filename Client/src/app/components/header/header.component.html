@@ -41,7 +41,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-default"
                      aria-labelledby="navbarDropdownMenuLink-333">
-                    <a *ngIf="user && adminPanelRule" class="dropdown-item" routerLink="/admin">Админка</a>
+                    <a *ngIf="user && adminPanelRule || !user" class="dropdown-item" routerLink="/admin">Админка</a>
                     <a *ngIf="user && accountPanelRule" class="dropdown-item" routerLink="/lk">Личный кабинет</a>
                     <a *ngIf="user" class="dropdown-item" routerLink="/logout">Выход</a>
                     <a *ngIf="!user" class="dropdown-item" routerLink="/login">Войти</a>

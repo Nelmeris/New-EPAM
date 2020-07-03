@@ -151,6 +151,7 @@ export class DataBaseService extends BaseApi {
   async createUserType(userType: UserType) {
     return this.post('user_types', JSON.stringify(userType), this.options).toPromise();
   }
+  
   async createOrder(order: Order) {
     return this.post('orders', order.toJSON(), this.options).toPromise();
   }
