@@ -14,8 +14,18 @@ export class User implements Identifiable {
 
     type: UserType;
 
+    firebaseFill(id: string, data: any) {
+        this.id = id as string;
+        this.password = data.password;
+        this.typeId = data.typeId;
+        this.name = data.name;
+        this.surname = data.surname;
+        this.email = data.email;
+        this.phoneNumber = data.phoneNumber;
+        this.createdAt = new Date(data.createdAt);
+    }
+
     get fullName(): string {
-        console.log(this.name + ' ' + this.surname);
         return this.name + ' ' + this.surname;
     }
 

@@ -16,4 +16,13 @@ export class Order implements Identifiable {
     status: OrderStatus;
     userOwner: User;
     manager: User;
+
+    firebaseFill(id: string, data: any) {
+        this.id = id;
+        this.userId = data.userId;
+        this.typeId = data.typeId;
+        this.description = data.description;
+        this.statusId = data.statusId;
+        this.managerId = data.managerId;
+    }
 }

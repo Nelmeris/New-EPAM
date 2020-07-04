@@ -7,7 +7,7 @@ import { OrderStatus } from '../../models/order/order-status';
 import { OrderType } from '../../models/order/order-type';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
 import { UserRule } from '../../models/rules/user-rule';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,26 +16,23 @@ export class DataBaseService {
 
   constructor(private afs: AngularFirestore) { }
 
-  async getCollection<T>(collection: string): Promise<T[]> {
-    return new Promise<T[]>((resolve, reject) => {
+  private getCollection(collection: string): Promise<DocumentChangeAction<unknown>[]> {
+    return new Promise<DocumentChangeAction<unknown>[]>((resolve) => {
       this.afs.collection(collection).snapshotChanges()
       .subscribe(snapshots => {
-        const collection: T[] = [];
-        snapshots.forEach(item => {
-          const data = item.payload.doc.data();
-          const object: T = data as T;
-          object['id'] = item.payload.doc.id.toString();
-          if (object instanceof User)
-            object.createdAt = new Date(data['createdAt']);
-          collection.push(object);
-        })
-        resolve(collection);
+        resolve(snapshots)
       })
     })
   }
 
   async getUsers(): Promise<User[]> {
-    return this.getCollection('/users');
+    return (await this.getCollection('/users')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const user = new User();
+      user.firebaseFill(id, data);
+      return user;
+    });
   }
 
   async getUserById(id: string): Promise<User> {
@@ -49,7 +46,13 @@ export class DataBaseService {
   }
 
   async getOrders(): Promise<Order[]> {
-    return this.getCollection('/orders');
+    return (await this.getCollection('/orders')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const order = new Order();
+      order.firebaseFill(id, data);
+      return order;
+    });
   }
 
   async getOrder(user: User): Promise<Order> {
@@ -63,7 +66,13 @@ export class DataBaseService {
   }
 
   async getUserTypes(): Promise<UserType[]> {
-    return this.getCollection('/userTypes');
+    return (await this.getCollection('/userTypes')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const type = new UserType();
+      type.firebaseFill(id, data);
+      return type;
+    });
   }
 
   async getOrderType(id: string): Promise<OrderType> {
@@ -72,7 +81,13 @@ export class DataBaseService {
   }
 
   async getOrderTypes(): Promise<OrderType[]> {
-    return this.getCollection('/orderTypes');
+    return (await this.getCollection('/orderTypes')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const type = new OrderType();
+      type.firebaseFill(id, data);
+      return type;
+    });
   }
 
   async getOrderStatus(id: string): Promise<OrderStatus> {
@@ -81,30 +96,52 @@ export class DataBaseService {
   }
 
   async getOrderStatuses(): Promise<OrderStatus[]> {
-    return this.getCollection<OrderStatus>('/orderStatuses');
+    return (await this.getCollection('/orderStatuses')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const status = new OrderStatus();
+      status.firebaseFill(id, data);
+      return status;
+    });
   }
 
   async getRules(): Promise<Rule[]> {
-    return this.getCollection<Rule>('/rules');
+    return (await this.getCollection('/rules')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const status = new Rule();
+      status.firebaseFill(id, data);
+      return status;
+    });
   }
 
   async getUserTypeRules(): Promise<UserTypeRule[]> {
-    return this.getCollection<UserTypeRule>('/userTypeRules');
+    return (await this.getCollection('/userTypeRules')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const status = new UserTypeRule();
+      status.firebaseFill(id, data);
+      return status;
+    });
   }
 
   async getUserRules(): Promise<UserRule[]> {
-    return this.getCollection<UserRule>('/userRules');
+    return (await this.getCollection('/userRules')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const status = new UserRule();
+      status.firebaseFill(id, data);
+      return status;
+    });
   }
 
   async createRule(rule: Rule) {
-    console.log(rule);
     return this.afs.collection('/rules').add({
       title: rule.title
     });
   }
 
   async createUser(user: User) {
-    console.log(user);
     return this.afs.collection('/users').add({
       name: user.name,
       surname: user.surname,
@@ -117,7 +154,6 @@ export class DataBaseService {
   }
 
   async createUserTypeRule(rule: UserTypeRule) {
-    console.log(rule);
     return this.afs.collection('/userTypeRules').add({
       ruleId: rule.ruleId,
       userTypeId: rule.userTypeId
@@ -131,7 +167,6 @@ export class DataBaseService {
   }
   
   async createOrder(order: Order) {
-    console.log(order);
     return this.afs.collection('/userTypeRules').add({
       userId: order.userId,
       typeId: order.typeId,
