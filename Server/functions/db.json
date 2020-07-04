@@ -1,0 +1,260 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "password": "admin12345",
+      "user_type_id": 1,
+      "email": "admin@new-epam.com",
+      "creation_date": "1970-01-01T00:01:10.066Z"
+    },
+    {
+      "id": 2,
+      "password": "manager12345",
+      "user_type_id": 2,
+      "email": "project-manager@new-epam.com",
+      "name": "Alex",
+      "surname": "Novikov",
+      "phone_number": "+19991234567",
+      "creation_date": "2010-06-10T18:39:21.033Z"
+    },
+    {
+      "id": 3,
+      "password": "support12345",
+      "user_type_id": 3,
+      "email": "support@new-epam.com",
+      "name": "John",
+      "surname": "Denver",
+      "phone_number": "+31346753322",
+      "creation_date": "2014-02-11T21:43:10.033Z"
+    },
+    {
+      "id": 4,
+      "password": "client12345",
+      "user_type_id": 4,
+      "email": "some-client@gmail.com",
+      "name": "Evelin",
+      "surname": "Horizon",
+      "phone_number": "+13532561123",
+      "creation_date": "2020-04-01T13:51:59.066Z"
+    }
+  ],
+  "user_types": [
+    {
+      "id": 1,
+      "title": "admin"
+    },
+    {
+      "id": 2,
+      "title": "project-manager"
+    },
+    {
+      "id": 3,
+      "title": "support"
+    },
+    {
+      "id": 4,
+      "title": "customer"
+    }
+  ],
+  "order_statuses": [
+    {
+      "id": 1,
+      "title": "На рассмотрении"
+    },
+    {
+      "id": 2,
+      "title": "Отклонено"
+    },
+    {
+      "id": 3,
+      "title": "Одобрено"
+    },
+    {
+      "id": 4,
+      "title": "Ожидание составления Технического задания"
+    },
+    {
+      "id": 5,
+      "title": "В работе"
+    },
+    {
+      "id": 6,
+      "title": "Отменен"
+    },
+    {
+      "id": 7,
+      "title": "Завершен"
+    }
+  ],
+  "order_types": [
+    {
+      "id": 1,
+      "title": "Консалтинг"
+    },
+    {
+      "id": 2,
+      "title": "Дизайн"
+    },
+    {
+      "id": 3,
+      "title": "Разработка"
+    },
+    {
+      "id": 4,
+      "title": "Управление"
+    },
+    {
+      "id": 5,
+      "title": "Оптимизация"
+    }
+  ],
+  "rules": [
+    {
+      "id": 1,
+      "title": "Доступ к административной панели"
+    },
+    {
+      "id": 2,
+      "title": "Доступ к личному кабинету"
+    },
+    {
+      "id": 3,
+      "title": "Создание пользователей административной роли"
+    },
+    {
+      "id": 4,
+      "title": "Редактирование информации на сайте"
+    },
+    {
+      "id": 5,
+      "title": "Просмотр заказов всех пользователей"
+    },
+    {
+      "id": 6,
+      "title": "Изменение статуса заказа"
+    },
+    {
+      "id": 7,
+      "title": "Отправка уведомлений заказчику"
+    },
+    {
+      "id": 8,
+      "title": "Просмотр и редактирование правил"
+    },
+    {
+      "id": 9,
+      "title": "Просмотр пользователей"
+    },
+    {
+      "id": 10,
+      "title": "Назначать менеджеров проектов на заказ"
+    }
+  ],
+  "user_type_rules": [
+    {
+      "id": 1,
+      "user_type_id": 1,
+      "rule_id": 1
+    },
+    {
+      "id": 7,
+      "user_type_id": 3,
+      "rule_id": 1
+    },
+    {
+      "id": 8,
+      "user_type_id": 3,
+      "rule_id": 5
+    },
+    {
+      "id": 9,
+      "user_type_id": 3,
+      "rule_id": 6
+    },
+    {
+      "id": 10,
+      "user_type_id": 3,
+      "rule_id": 7
+    },
+    {
+      "id": 11,
+      "user_type_id": 4,
+      "rule_id": 2
+    },
+    {
+      "id": 13,
+      "user_type_id": 1,
+      "rule_id": 8
+    },
+    {
+      "id": 14,
+      "user_type_id": 2,
+      "rule_id": 1
+    },
+    {
+      "id": 19,
+      "user_type_id": 2,
+      "rule_id": 7
+    },
+    {
+      "id": 20,
+      "user_type_id": 1,
+      "rule_id": 5
+    },
+    {
+      "id": 21,
+      "user_type_id": 1,
+      "rule_id": 7
+    },
+    {
+      "id": 22,
+      "user_type_id": 1,
+      "rule_id": 6
+    },
+    {
+      "id": 23,
+      "user_type_id": 1,
+      "rule_id": 10
+    },
+    {
+      "id": 24,
+      "user_type_id": 1,
+      "rule_id": 9
+    },
+    {
+      "id": 25,
+      "user_type_id": 1,
+      "rule_id": 4
+    },
+    {
+      "id": 26,
+      "user_type_id": 1,
+      "rule_id": 3
+    },
+    {
+      "id": 27,
+      "user_type_id": 2,
+      "rule_id": 6
+    },
+    {
+      "id": 28,
+      "user_type_id": 3,
+      "rule_id": 10
+    },
+    {
+      "id": 29,
+      "user_type_id": 3,
+      "rule_id": 9
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 4,
+      "order_type_id": 3,
+      "description": "Свыше 20 лет мы являемся Developers' Developers и помогаем ведущим мировым ИТ-компаниям создавать их программные продукты. Это позволило нам стать экспертами в технологиях с глубокими знаниями и уникальным опытом.",
+      "order_status_id": 5,
+      "manager_id": 2
+    }
+  ]
+}
