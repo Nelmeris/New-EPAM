@@ -46,15 +46,15 @@
             <p class="h4 mb-4">Добавление правила для роли</p>
 
             <!-- Subject -->
-            <select class="browser-default custom-select mb-4" formControlName="roleId">
+            <select class="browser-default custom-select mb-4" [(ngModel)]="selectedUserTypeId" (ngModelChange)="onChangeUserType()" formControlName="roleId">
                 <option selected [ngValue]="null">Выберите роль...</option>
                 <option *ngFor="let role of userTypes" [ngValue]="role.id">{{ role.title }}</option>
             </select>
 
             <!-- Subject -->
-            <select class="browser-default custom-select mb-4" formControlName="ruleId">
+            <select *ngIf="selectedUserTypeId" class="browser-default custom-select mb-4" [(ngModel)]="selectedRuleId" formControlName="ruleId">
                 <option selected [ngValue]="null">Выберите правило...</option>
-                <option *ngFor="let rule of rules" [ngValue]="rule.id">{{ rule.title }}</option>
+                <option *ngFor="let rule of (rules | rulesForUserType:selectedUserTypeId:userTypeRules)" [ngValue]="rule.id">{{ rule.title }}</option>
             </select>
 
 

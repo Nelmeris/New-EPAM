@@ -4,6 +4,7 @@ import { Rule } from '../../models/rules/rule';
 import { UserType } from '../../models/user/user-type';
 import { DataBaseService } from '../../services/data-base/data-base.service';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
+import { RulesForUserTypePipe } from '../../pipes/rules-for-user-type/rules-for-user-type.pipe';
 
 @Component({
   selector: 'app-add-rule-form',
@@ -18,6 +19,10 @@ export class AddRuleFormComponent implements OnInit {
 
   @Input() rules: Rule[] = [];
   @Input() userTypes: UserType[] = [];
+
+  selectedUserTypeId: string;
+  selectedRuleId: string;
+  userTypeRules: UserTypeRule[] = [];
 
   constructor(private dataBaseService: DataBaseService) { }
 
@@ -34,6 +39,10 @@ export class AddRuleFormComponent implements OnInit {
       roleId: new FormControl(null, [Validators.required]),
       ruleId: new FormControl(null, [Validators.required])
     });
+
+    (async() => {
+      this.userTypeRules = await this.dataBaseService.getUserTypeRules();
+    })();
   }
 
   createRole() {
@@ -100,4 +109,8 @@ export class AddRuleFormComponent implements OnInit {
     })();
   }
 
+  onChangeUserType() {
+    this.selectedRuleId = null;
+  }
+  
 }
