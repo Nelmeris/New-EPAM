@@ -8,6 +8,7 @@ import { OrderType } from '../../models/order/order-type';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
 import { UserRule } from '../../models/rules/user-rule';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -145,11 +146,11 @@ export class DataBaseService {
     return this.afs.collection('/users').add({
       name: user.name,
       surname: user.surname,
-      password: user.password,
+      password: Md5.hashStr(user.password),
       typeId: user.typeId,
       email: user.email,
       phoneNumber: user.phoneNumber,
-      createdAt: user.createdAt
+      createdAt: user.createdAt.toISOString()
     });
   }
 
@@ -167,12 +168,12 @@ export class DataBaseService {
   }
   
   async createOrder(order: Order) {
-    return this.afs.collection('/userTypeRules').add({
+    return this.afs.collection('/orders').add({
       userId: order.userId,
       typeId: order.typeId,
       description: order.description,
       statusId: order.statusId,
-      managerId: order.managerId
+      managerId: order.managerId ? order.managerId : ''
     });
   }
 
@@ -181,7 +182,7 @@ export class DataBaseService {
   }
 
   async editOrder(order: Order) {
-    return this.afs.collection('/userTypeRules').doc(order.id).set({
+    return this.afs.collection('/orders').doc(order.id).set({
       userId: order.userId,
       typeId: order.typeId,
       description: order.description,

@@ -30,7 +30,12 @@ export class AuthService {
 
   async getAuthUser(): Promise<User> {
     const userId = window.localStorage.getItem(this.authStorageKey);
-    return await this.dataBaseService.getUserById(userId);
+    const user = await this.dataBaseService.getUserById(userId);
+    if (!user) {
+      this.logout();
+      return null;
+    } else
+      return user;
   }
 
 }

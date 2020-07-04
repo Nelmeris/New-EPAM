@@ -4,6 +4,7 @@ import { DataBaseService } from '../../services/data-base/data-base.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckRuleService } from '../../services/check-rule/check-rule.service';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-auth-form',
@@ -27,7 +28,7 @@ export class AuthFormComponent {
 
   async onAuth() {
     const email = this.form.value.email;
-    const password = this.form.value.password;
+    const password = Md5.hashStr(this.form.value.password);
     const user = await this.dataBaseService.getUserByEmail(email);
     if (user && user.password === password &&
         ((this.router.url === '/login' && await this.checkRuleService.accountPanel(user)) ||
