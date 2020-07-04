@@ -31,8 +31,8 @@ export class AuthFormComponent {
     const password = Md5.hashStr(this.form.value.password);
     const user = await this.dataBaseService.getUserByEmail(email);
     if (user && user.password === password &&
-        ((this.router.url === '/login' && await this.checkRuleService.accountPanel(user)) ||
-        (this.router.url === '/admin' && await this.checkRuleService.adminPanel(user)))) {
+        ((this.router.url.startsWith('/login') && await this.checkRuleService.accountPanel(user)) ||
+        (this.router.url.startsWith('/admin') && await this.checkRuleService.adminPanel(user)))) {
       this.authService.setAuth(user);
       window.location.reload();
     } else {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user/user';
-import { DataBaseService } from '../../services/data-base/data-base.service';
 import { Router } from '@angular/router';
 import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 
@@ -16,7 +15,6 @@ export class AdminPanelComponent implements OnInit {
   isAdmin = false;
 
   constructor(private authService: AuthService,
-              private dataBaseService: DataBaseService,
               private router: Router,
               private checkRuleService: CheckRuleService) { }
 

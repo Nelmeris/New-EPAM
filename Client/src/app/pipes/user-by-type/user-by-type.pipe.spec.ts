@@ -11,23 +11,23 @@ describe('UserByTypePipe', () => {
   it('successful returns', () => {
     const pipe = new UserByTypePipe();
 
-    const correctUserTypeId = -1;
+    const correctUserTypeId = '';
     const correctCount = 3;
 
-    const userType = new UserType(null);
+    const userType = new UserType();
     userType.id = correctUserTypeId;
 
     const users = [];
 
     for (let i = 0; i < correctCount; i++) {
-      const user = new User(null);
+      const user = new User();
       user.typeId = correctUserTypeId;
       users.push(user);
     }
 
     for (let i = 0; i < 10; i++) {
-      const user = new User(null);
-      user.typeId = 0;
+      const user = new User();
+      user.typeId = '';
       users.push(user);
     }
 
