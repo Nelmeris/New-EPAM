@@ -1,15 +1,48 @@
-const functions = require('firebase-functions')
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const express = require('express');
+const { gql } = require('apollo-server-core');
+const { ApolloServer } = require('apollo-server-express');
 
-const jsonServer = require('json-server')
+var serviceAccount = require("./serviceAccountKey.json");
 
-const main = jsonServer.create()
-const api = jsonServer.create()
-const router = jsonServer.router('db.json')
-const middlewares = jsonServer.defaults()
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://new-epam.firebaseio.com"
+});
 
-api.use(middlewares)
-api.use(router)
+const db = admin.firestore();
 
-main.use('/', api)
+const typeDefs = gql`
+  # A User
+  type User {
+    id: ID!
+    name: String!
+    surname: String!
+    phoneNumber: String!
+    email: String!
+    password: String!
+    createdAt: String!
+  }
+  type Query {
+    users: [User] 
+  }
+`;
 
-exports.server = functions.https.onRequest(main)
+const resolvers = {
+    Query: {
+        users: () =>
+        db.collection('/users').get().then(snapshots =>
+            snapshots.docs.map(item => {
+                const user = item.data();
+                user.id = item.id;
+                return user;
+            })
+        )
+    }
+}
+
+const app = express();
+const server = new ApolloServer({ typeDefs, resolvers });
+server.applyMiddleware({ app, path: "/", cors: true });
+exports.graphql = functions.https.onRequest(app);

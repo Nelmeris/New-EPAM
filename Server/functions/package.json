@@ -9,12 +9,14 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "dependencies": {
+    "apollo-server-express": "2.15.1",
+    "express": "4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
-    "json-server": "0.16.1"
+    "graphql": "15.2.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
