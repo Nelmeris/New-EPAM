@@ -6,6 +6,7 @@ import { User } from '../../models/user/user';
 import { Order } from '../../models/order/order';
 import { auth } from 'firebase';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 
 @Component({
   selector: 'app-order-form',
@@ -18,7 +19,11 @@ export class OrderFormComponent implements OnInit {
 
   orderTypes: OrderType[] = [];
 
-  constructor(private dataBaseService: DataBaseService, private authService: AuthService) { }
+  constructor(
+    private dataBaseService: DataBaseService, 
+    private authService: AuthService,
+    private userGraphQLService: UserGraphQLService
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -79,7 +84,7 @@ export class OrderFormComponent implements OnInit {
 
       const justUser = this.createUser();
       await this.dataBaseService.createUser(justUser);
-      const user = await this.dataBaseService.getUserByEmail(justUser.email);
+      const user = await this.userGraphQLService.getUserByEmail(justUser.email);
 
       this.authService.setAuth(user);
       

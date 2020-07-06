@@ -5,6 +5,7 @@ import { OrderStatus } from '../../models/order/order-status';
 import { Order } from '../../models/order/order';
 import { User } from '../../models/user/user';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 
 @Component({
   selector: 'app-order-list',
@@ -19,7 +20,8 @@ export class OrderListComponent implements OnInit {
   users: User[] = [];
 
   constructor(private dataBaseService: DataBaseService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private userGraphQLService: UserGraphQLService) { }
 
   ngOnInit(): void {
     (async () => {
@@ -32,7 +34,7 @@ export class OrderListComponent implements OnInit {
       }
       this.orderTypes = await this.dataBaseService.getOrderTypes();
       this.orderStatuses = await this.dataBaseService.getOrderStatuses();
-      this.users = await this.dataBaseService.getUsers();
+      this.users = await this.userGraphQLService.getUsers();
 
       this.orders.forEach(order => {
         order.type = this.orderTypes.find(type => type.id === order.typeId);

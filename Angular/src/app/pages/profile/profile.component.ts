@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {Order} from '../../models/order/order';
 import {DataBaseService} from '../../services/data-base/data-base.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,16 +16,19 @@ export class ProfileComponent implements OnInit {
   user: User;
   order: Order;
 
-  constructor(private authService: AuthService,
-              private dataBaseService: DataBaseService,
-              private router: Router,
-              private activatedRouter: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private dataBaseService: DataBaseService,
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
+    private userGraphQLService: UserGraphQLService
+  ) { }
 
   ngOnInit(): void {
     this.activatedRouter.params.subscribe(param => {
       if (param.id) {
         (async () => {
-          this.user = await this.dataBaseService.getUserById(param.id);
+          this.user = await this.userGraphQLService.getUser(param.id);
           await this.loadOrderData(this.user);
         })();
       }
@@ -44,7 +48,7 @@ export class ProfileComponent implements OnInit {
       return;
     this.order.status = await this.dataBaseService.getOrderStatus(this.order.statusId);
     this.order.type = await this.dataBaseService.getOrderType(this.order.typeId);
-    this.order.manager = await this.dataBaseService.getUserById(this.order.managerId);
+    this.order.manager = await this.userGraphQLService.getUser(this.order.managerId);
   }
 
 }

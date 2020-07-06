@@ -14,8 +14,8 @@ export class User implements Identifiable {
 
     type: UserType;
 
-    firebaseFill(id: string, data: any) {
-        this.id = id;
+    fill(data: any) {
+        this.id = data.id;
         this.password = data.password;
         this.typeId = data.typeId;
         this.name = data.name;

@@ -7,6 +7,7 @@ import { User } from '../../models/user/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 import { OrderStatus } from '../../models/order/order-status';
+import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 
 @Component({
   selector: 'app-order-management',
@@ -31,9 +32,9 @@ export class OrderManagementComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private dataBaseService: DataBaseService,
-              private router: Router,
               private activatedRouter: ActivatedRoute,
-              private checkRuleService: CheckRuleService) { }
+              private checkRuleService: CheckRuleService,
+              private userGraphQLService: UserGraphQLService) { }
 
   ngOnInit(): void {
     this.managerChangingForm = new FormGroup({
@@ -58,14 +59,14 @@ export class OrderManagementComponent implements OnInit {
   private loadOrderData(orderId: string) {
     (async () => {
       this.order = await this.dataBaseService.getOrderById(orderId);
-      this.manager = await this.dataBaseService.getUserById(this.order.managerId);
+      this.manager = await this.userGraphQLService.getUser(this.order.managerId);
       if (this.manager) {
         this.managerChangingForm = new FormGroup({
           managerId: new FormControl(this.manager.id, [Validators.required]),
         });
       }
-      this.customer = await this.dataBaseService.getUserById(this.order.userId);
-      this.managers = await this.dataBaseService.getUsers();
+      this.customer = await this.userGraphQLService.getUser(this.order.userId);
+      this.managers = await this.userGraphQLService.getUsers();
       this.managers = this.managers.filter(manager => manager.typeId === 'YX0SVhkoExf9qUt0vohO');
       this.statuses = await this.dataBaseService.getOrderStatuses();
       this.statusChangingForm = new FormGroup({

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserType } from '../../models/user/user-type';
 import { DataBaseService } from '../../services/data-base/data-base.service';
 import { User } from '../../models/user/user';
+import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 
 @Component({
   selector: 'app-create-user-form',
@@ -15,7 +16,8 @@ export class CreateUserFormComponent implements OnInit {
 
   userTypes: UserType[] = [];
 
-  constructor(private dataBaseService: DataBaseService) { }
+  constructor(private dataBaseService: DataBaseService, 
+    private userGraphQLService: UserGraphQLService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -49,7 +51,7 @@ export class CreateUserFormComponent implements OnInit {
         alert('Введены не все данные');
         return;
       }
-      const users = await this.dataBaseService.getUsers();
+      const users = await this.userGraphQLService.getUsers();
       if (users.find(user => user.email === newUser.email && user.phoneNumber === newUser.phoneNumber)) {
         alert('Данные почта или телефон уже заняты');
       } else {
