@@ -41,12 +41,12 @@ function updateOnFirestore(collection, id, object) {
 }
 
 function deleteFromFirestore(collection, id) {
-    return db.collection(collection).get().then(snapshot => {
-        const data = snapshot.docs
+    return db.collection(collection).get().then(snapshots => {
+        const data = snapshots.docs
         .find(snapshot => snapshot.id === id);
-        const rule = parseSnapshot(data)
-        data.delete();
-        return rule;
+        const item = parseSnapshot(data);
+        db.collection(collection).doc(id).delete();
+        return item;
     })
 }
 
