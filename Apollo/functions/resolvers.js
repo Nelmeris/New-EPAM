@@ -1,13 +1,4 @@
-const serviceAccount = require("./serviceAccountKey.json");
-const admin = require('firebase-admin');
-const { parse } = require("graphql");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://new-epam.firebaseio.com"
-});
-
-const db = admin.firestore();
+const { getFromFirestore, addToFirestore, updateOnFirestore, deleteFromFirestore } = require('./firestore');
 
 function createUserFromArgs(args) {
     return {
@@ -31,85 +22,49 @@ function createOrderFromArgs(args) {
     }
 }
 
-function parseSnapshot(snapshot) {
-    const object = snapshot.data();
-    object.id = snapshot.id;
-    return object;
-}
-
 const resolvers = {
     Query: {
-        users: () =>
-        db.collection('/users').get().then(snapshots =>
-            snapshots.docs.map(snapshot => parseSnapshot(snapshot))
-        )
+        users: () => getFromFirestore('/users'),
+        user: (parent, args) => getFromFirestore('/users', 'id', args.id),
+        userByEmail: (parent, args) => getFromFirestore('/users', 'email', args.email),
+
+        userTypes: () => getFromFirestore('/userTypes'),
+
+        orders: () => getFromFirestore('/orders'),
+        order: (parent, args) => getFromFirestore('/orders', 'id', args.id),
+        orderByUser: (parent, args) => getFromFirestore('/orders', 'userId', args.userId),
+
+        orderTypes: () => getFromFirestore('/orderTypes'),
+        orderType: (parent, args) => getFromFirestore('/orderTypes', 'id', args.id),
+
+        orderStatuses: () => getFromFirestore('/orderStatuses'),
+        orderStatus: (parent, args) => getFromFirestore('/orderStatuses', 'id', args.id),
+
+        rules: () => getFromFirestore('/rules'),
+
+        userTypeRules: () => getFromFirestore('/userTypeRules')
     },
     Mutation: {
         addUser: (parent, args) =>
-        db.collection('/users').add(
-            createUserFromArgs(args)
-        ).then(ref => 
-            ref.get().then(snapshot =>
-                parseSnapshot(snapshot)
-            )
-        ),
+        addToFirestore('/users', createUserFromArgs(args)),
 
         addOrder: (parent, args) =>
-        db.collection('/orders').add(
-            createOrderFromArgs(args)
-        ).then(ref =>
-            ref.get().then(snapshot =>
-                parseSnapshot(snapshot)
-            )
-        ),
+        addToFirestore('/orders', createOrderFromArgs(args)),
 
-        updateOrder: (parent, args)  =>
-        db.collection('/orders').doc(args.id).set(
-            createOrderFromArgs(args)
-        ).then(ref => 
-            db.collection('/orders').get().then(snapshots =>
-                parseSnapshot(
-                    snapshots.docs
-                    .find(snapshot => snapshot.id === args.id)
-                )
-            )
-        ),
+        updateOrder: (parent, args) =>
+        updateOnFirestore('/orders', args.id, createOrderFromArgs(args)),
 
         addRule: (parent, args) =>
-        db.collection('/rules').add({
-            title: args.title
-        }).then(ref =>
-            ref.get().then(snapshot =>
-                parseSnapshot(snapshot)
-            )
-        ),
+        addToFirestore('/rules', { title: args.title }),
 
         addUserType: (parent, args) =>
-        db.collection('/userTypes').add({
-            title: args.title
-        }).then(ref =>
-            ref.get().then(snapshot =>
-                parseSnapshot(snapshot)
-            )
-        ),
+        addToFirestore('/userTypes', { title: args.title }),
 
         addUserTypeRule: (parent, args) =>
-        db.collection('/userTypeRules').add({
-            ruleId: args.ruleId,
-            userTypeId: args.userTypeId
-        }).then(ref =>
-            ref.get().then(snapshot =>
-                parseSnapshot(snapshot)
-            )
-        ),
+        addToFirestore('/userTypeRules', { ruleId: args.ruleId, userTypeId: args.userTypeId }),
         
         deleteUserTypeRule: (parent, args) =>
-        db.collection('/userTypeRules').get().then(snapshot => {
-            const ruleData = snapshot.docs
-            .find(snapshot => snapshot.id === args.id);
-            const rule = parseSnapshot(ruleData)
-            ruleData.delete();
-        })
+        deleteFromFirestore('/userTypeRules', args.id)
     }
 }
 

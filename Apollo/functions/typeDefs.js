@@ -37,15 +37,21 @@ const typeDefs = gql`
     users: [User]
     user(id: ID!): User
     userByEmail(email: String!): User
+
     userTypes: [InfoType]
+
     orders: [Order]
-    orderByUser(userId: String!): Order
     order(id: String!): Order
+    orderByUser(userId: String!): Order
+
     orderTypes: [InfoType]
-    orderType(id: ID!): Order
+    orderType(id: ID!): InfoType
+
     orderStatuses: [InfoType]
     orderStatus(id: ID!): InfoType
+
     rules: [InfoType]
+    
     userTypeRules: [UserTypeRule]
   }
 
@@ -65,7 +71,7 @@ const typeDefs = gql`
         typeId: String!
         description: String!
         statusId: String!
-        managerId: String!): Order
+        managerId: String): Order
 
     updateOrder(
         id: ID!
@@ -73,7 +79,7 @@ const typeDefs = gql`
         typeId: String!
         description: String!
         statusId: String!
-        managerId: String!): Order
+        managerId: String): Order
 
     addRule(title: String!): InfoType
     
