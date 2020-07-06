@@ -1,0 +1,160 @@
+mutation AddUser {
+  addUser(
+    name: "test name"
+    surname: "test surnem"
+    phoneNumber: "test number"
+    email: ""
+    createdAt: ""
+    password: ""
+    typeId: ""
+  ) {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+mutation AddOrder {
+  addOrder(
+    userId: ""
+    typeId: ""
+    description: ""
+    statusId: ""
+    managerId: ""
+  ) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+mutation UpdateOrder {
+  updateOrder(
+    id: "GBWXMzUl60Rbz6m2w5qv"
+    userId: ""
+    typeId: ""
+    description: ""
+    statusId: ""
+    managerId: ""
+  ) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+mutation AddRule {
+  addRule(title: "НОВОЕ") {
+    id
+    title
+  }
+}
+
+query GetUsers {
+  users {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+query GetOrders {
+  orders {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+query GetInfo {
+  userTypes {
+    id
+    title
+  }
+  orderTypes {
+    id
+    title
+  }
+  orderStatuses {
+    id
+    title
+  }
+  rules {
+    id
+    title
+  }
+}
+
+query GetUserTypeRules {
+  userTypeRules {
+    ruleId
+    id
+    userTypeId
+  }
+}
+
+query GetSingls {
+  user(id: "1o3S4e0Jx7kDkmOgNeqs") {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+  userByEmail(email: "io@io.io") {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+  order(id: "4ULPsVuuacSWwLPPfObv") {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+  orderByUser(userId: "1o3S4e0Jx7kDkmOgNeqs") {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+  orderType(id: "1") {
+    id
+    title
+  }
+  orderStatus(id: "1") {
+    id
+    title
+  }
+}
