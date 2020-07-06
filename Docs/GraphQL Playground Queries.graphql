@@ -1,7 +1,7 @@
-mutation AddUser {
+mutation UserMutation {
   addUser(
     name: "test name"
-    surname: "test surnem"
+    surname: "test surname"
     phoneNumber: "test number"
     email: ""
     createdAt: ""
@@ -19,7 +19,7 @@ mutation AddUser {
   }
 }
 
-mutation AddOrder {
+mutation OrderMutation {
   addOrder(
     userId: ""
     typeId: ""
@@ -34,9 +34,6 @@ mutation AddOrder {
     statusId
     managerId
   }
-}
-
-mutation UpdateOrder {
   updateOrder(
     id: "GBWXMzUl60Rbz6m2w5qv"
     userId: ""
@@ -54,14 +51,28 @@ mutation UpdateOrder {
   }
 }
 
-mutation AddRule {
+mutation RuleMutation {
   addRule(title: "НОВОЕ") {
-    id
-    title
+    id, title
   }
 }
 
-query GetUsers {
+mutation UserTypeMutation {
+  addUserType(title: "НОВОЕ") {
+    id, title
+  }
+}
+
+mutation UserTypeRuleMutation {
+  addUserTypeRule(ruleId:"test id", userTypeId:"test id") {
+    id, ruleId, userTypeId
+  }
+  deleteUserTypeRule(id: "OKl48JVpwXRzayJg2ScH") {
+    id, ruleId, userTypeId
+  }
+}
+
+query User {
   users {
     id
     name
@@ -72,47 +83,6 @@ query GetUsers {
     createdAt
     typeId
   }
-}
-
-query GetOrders {
-  orders {
-    id
-    userId
-    typeId
-    description
-    statusId
-    managerId
-  }
-}
-
-query GetInfo {
-  userTypes {
-    id
-    title
-  }
-  orderTypes {
-    id
-    title
-  }
-  orderStatuses {
-    id
-    title
-  }
-  rules {
-    id
-    title
-  }
-}
-
-query GetUserTypeRules {
-  userTypeRules {
-    ruleId
-    id
-    userTypeId
-  }
-}
-
-query GetSingls {
   user(id: "1o3S4e0Jx7kDkmOgNeqs") {
     id
     name
@@ -133,6 +103,17 @@ query GetSingls {
     createdAt
     typeId
   }
+}
+
+query Order {
+  orders {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
   order(id: "4ULPsVuuacSWwLPPfObv") {
     id
     userId
@@ -149,12 +130,48 @@ query GetSingls {
     statusId
     managerId
   }
+}
+
+query OrderType {
+  orderTypes {
+    id
+    title
+  }
   orderType(id: "1") {
+    id
+    title
+  }
+}
+
+query UserType {
+  userTypes {
+    id
+    title
+  }
+}
+
+query OrderStatus {
+  orderStatuses {
     id
     title
   }
   orderStatus(id: "1") {
     id
     title
+  }
+}
+
+query Rule {
+  rules {
+    id
+    title
+  }
+}
+
+query UserTypeRule {
+  userTypeRules {
+    ruleId
+    id
+    userTypeId
   }
 }
