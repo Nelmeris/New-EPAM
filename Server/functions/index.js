@@ -1,9 +1,9 @@
 const functions = require('firebase-functions');
 const express = require('express');
-const typeDefs = require('./typeDefs');
+const { typeDefs } = require('./typeDefs');
 const { ApolloServer } = require('apollo-server-express'); 
 
-const resolvers = require('./resolvers');
+const { resolvers } = require('./resolvers');
 
 const app = express();
 const server = new ApolloServer({ typeDefs, resolvers });
