@@ -4,6 +4,53 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: UserQuery
+// ====================================================
+
+export interface UserQuery_users {
+  id: string;
+  name: string;
+  surname: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  typeId: string;
+}
+
+export interface UserQuery_user {
+  id: string;
+  name: string;
+  surname: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  typeId: string;
+}
+
+export interface UserQuery_userByEmail {
+  id: string;
+  name: string;
+  surname: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  typeId: string;
+}
+
+export interface UserQuery {
+  users: (UserQuery_users | null)[] | null;
+  user: UserQuery_user | null;
+  userByEmail: UserQuery_userByEmail | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: UserMutation
 // ====================================================
 
@@ -20,6 +67,47 @@ export interface UserMutation_addUser {
 
 export interface UserMutation {
   addUser: UserMutation_addUser | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: OrderQuery
+// ====================================================
+
+export interface OrderQuery_orders {
+  id: string;
+  userId: string;
+  typeId: string;
+  description: string;
+  statusId: string;
+  managerId: string | null;
+}
+
+export interface OrderQuery_order {
+  id: string;
+  userId: string;
+  typeId: string;
+  description: string;
+  statusId: string;
+  managerId: string | null;
+}
+
+export interface OrderQuery_orderByUser {
+  id: string;
+  userId: string;
+  typeId: string;
+  description: string;
+  statusId: string;
+  managerId: string | null;
+}
+
+export interface OrderQuery {
+  orders: (OrderQuery_orders | null)[] | null;
+  order: OrderQuery_order | null;
+  orderByUser: OrderQuery_orderByUser | null;
 }
 
 
@@ -58,16 +146,39 @@ export interface OrderMutation {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: RuleMutation
+// GraphQL query operation: OrderTypeQuery
 // ====================================================
 
-export interface RuleMutation_addRule {
+export interface OrderTypeQuery_orderTypes {
   id: string;
   title: string;
 }
 
-export interface RuleMutation {
-  addRule: RuleMutation_addRule | null;
+export interface OrderTypeQuery_orderType {
+  id: string;
+  title: string;
+}
+
+export interface OrderTypeQuery {
+  orderTypes: (OrderTypeQuery_orderTypes | null)[] | null;
+  orderType: OrderTypeQuery_orderType | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: UserTypeQuery
+// ====================================================
+
+export interface UserTypeQuery_userTypes {
+  id: string;
+  title: string;
+}
+
+export interface UserTypeQuery {
+  userTypes: (UserTypeQuery_userTypes | null)[] | null;
 }
 
 
@@ -85,6 +196,81 @@ export interface UserTypeMutation_addUserType {
 
 export interface UserTypeMutation {
   addUserType: UserTypeMutation_addUserType | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: OrderStatusQuery
+// ====================================================
+
+export interface OrderStatusQuery_orderStatuses {
+  id: string;
+  title: string;
+}
+
+export interface OrderStatusQuery_orderStatus {
+  id: string;
+  title: string;
+}
+
+export interface OrderStatusQuery {
+  orderStatuses: (OrderStatusQuery_orderStatuses | null)[] | null;
+  orderStatus: OrderStatusQuery_orderStatus | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: RuleQuery
+// ====================================================
+
+export interface RuleQuery_rules {
+  id: string;
+  title: string;
+}
+
+export interface RuleQuery {
+  rules: (RuleQuery_rules | null)[] | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: RuleMutation
+// ====================================================
+
+export interface RuleMutation_addRule {
+  id: string;
+  title: string;
+}
+
+export interface RuleMutation {
+  addRule: RuleMutation_addRule | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: UserTypeRuleQuery
+// ====================================================
+
+export interface UserTypeRuleQuery_userTypeRules {
+  ruleId: string;
+  id: string;
+  userTypeId: string;
+}
+
+export interface UserTypeRuleQuery {
+  userTypeRules: (UserTypeRuleQuery_userTypeRules | null)[] | null;
 }
 
 
@@ -110,192 +296,6 @@ export interface UserTypeRuleMutation_deleteUserTypeRule {
 export interface UserTypeRuleMutation {
   addUserTypeRule: UserTypeRuleMutation_addUserTypeRule | null;
   deleteUserTypeRule: UserTypeRuleMutation_deleteUserTypeRule | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: User
-// ====================================================
-
-export interface User_users {
-  id: string;
-  name: string;
-  surname: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  createdAt: string;
-  typeId: string;
-}
-
-export interface User_user {
-  id: string;
-  name: string;
-  surname: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  createdAt: string;
-  typeId: string;
-}
-
-export interface User_userByEmail {
-  id: string;
-  name: string;
-  surname: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  createdAt: string;
-  typeId: string;
-}
-
-export interface User {
-  users: (User_users | null)[] | null;
-  user: User_user | null;
-  userByEmail: User_userByEmail | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: Order
-// ====================================================
-
-export interface Order_orders {
-  id: string;
-  userId: string;
-  typeId: string;
-  description: string;
-  statusId: string;
-  managerId: string | null;
-}
-
-export interface Order_order {
-  id: string;
-  userId: string;
-  typeId: string;
-  description: string;
-  statusId: string;
-  managerId: string | null;
-}
-
-export interface Order_orderByUser {
-  id: string;
-  userId: string;
-  typeId: string;
-  description: string;
-  statusId: string;
-  managerId: string | null;
-}
-
-export interface Order {
-  orders: (Order_orders | null)[] | null;
-  order: Order_order | null;
-  orderByUser: Order_orderByUser | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: OrderType
-// ====================================================
-
-export interface OrderType_orderTypes {
-  id: string;
-  title: string;
-}
-
-export interface OrderType_orderType {
-  id: string;
-  title: string;
-}
-
-export interface OrderType {
-  orderTypes: (OrderType_orderTypes | null)[] | null;
-  orderType: OrderType_orderType | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: UserType
-// ====================================================
-
-export interface UserType_userTypes {
-  id: string;
-  title: string;
-}
-
-export interface UserType {
-  userTypes: (UserType_userTypes | null)[] | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: OrderStatus
-// ====================================================
-
-export interface OrderStatus_orderStatuses {
-  id: string;
-  title: string;
-}
-
-export interface OrderStatus_orderStatus {
-  id: string;
-  title: string;
-}
-
-export interface OrderStatus {
-  orderStatuses: (OrderStatus_orderStatuses | null)[] | null;
-  orderStatus: OrderStatus_orderStatus | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: Rule
-// ====================================================
-
-export interface Rule_rules {
-  id: string;
-  title: string;
-}
-
-export interface Rule {
-  rules: (Rule_rules | null)[] | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: UserTypeRule
-// ====================================================
-
-export interface UserTypeRule_userTypeRules {
-  ruleId: string;
-  id: string;
-  userTypeId: string;
-}
-
-export interface UserTypeRule {
-  userTypeRules: (UserTypeRule_userTypeRules | null)[] | null;
 }
 
 /* tslint:disable */

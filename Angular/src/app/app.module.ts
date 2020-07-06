@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
@@ -29,6 +28,7 @@ import { UserCardComponent } from './cards/user-card/user-card.component';
 import { UserTypeForRulePipe } from './pipes/user-type-for-rule/user-type-for-rule.pipe';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
 import { RulesForUserTypePipe } from './pipes/rules-for-user-type/rules-for-user-type.pipe';
+import { GraphQLModule } from './graph-ql.module';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { RulesForUserTypePipe } from './pipes/rules-for-user-type/rules-for-user
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]

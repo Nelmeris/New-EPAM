@@ -1,3 +1,36 @@
+query UserQuery {
+  users {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+  user(id: "1o3S4e0Jx7kDkmOgNeqs") {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+  userByEmail(email: "io@io.io") {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
 mutation UserMutation {
   addUser(
     name: "test name"
@@ -16,6 +49,33 @@ mutation UserMutation {
     password
     createdAt
     typeId
+  }
+}
+
+query OrderQuery {
+  orders {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+  order(id: "4ULPsVuuacSWwLPPfObv") {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+  orderByUser(userId: "1o3S4e0Jx7kDkmOgNeqs") {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
   }
 }
 
@@ -51,88 +111,7 @@ mutation OrderMutation {
   }
 }
 
-mutation RuleMutation {
-  addRule(title: "НОВОЕ") {
-    id, title
-  }
-}
-
-mutation UserTypeMutation {
-  addUserType(title: "НОВОЕ") {
-    id, title
-  }
-}
-
-mutation UserTypeRuleMutation {
-  addUserTypeRule(ruleId:"test id", userTypeId:"test id") {
-    id, ruleId, userTypeId
-  }
-  deleteUserTypeRule(id: "OKl48JVpwXRzayJg2ScH") {
-    id, ruleId, userTypeId
-  }
-}
-
-query User {
-  users {
-    id
-    name
-    surname
-    phoneNumber
-    email
-    password
-    createdAt
-    typeId
-  }
-  user(id: "1o3S4e0Jx7kDkmOgNeqs") {
-    id
-    name
-    surname
-    phoneNumber
-    email
-    password
-    createdAt
-    typeId
-  }
-  userByEmail(email: "io@io.io") {
-    id
-    name
-    surname
-    phoneNumber
-    email
-    password
-    createdAt
-    typeId
-  }
-}
-
-query Order {
-  orders {
-    id
-    userId
-    typeId
-    description
-    statusId
-    managerId
-  }
-  order(id: "4ULPsVuuacSWwLPPfObv") {
-    id
-    userId
-    typeId
-    description
-    statusId
-    managerId
-  }
-  orderByUser(userId: "1o3S4e0Jx7kDkmOgNeqs") {
-    id
-    userId
-    typeId
-    description
-    statusId
-    managerId
-  }
-}
-
-query OrderType {
+query OrderTypeQuery {
   orderTypes {
     id
     title
@@ -143,14 +122,20 @@ query OrderType {
   }
 }
 
-query UserType {
+query UserTypeQuery {
   userTypes {
     id
     title
   }
 }
 
-query OrderStatus {
+mutation UserTypeMutation {
+  addUserType(title: "НОВОЕ") {
+    id, title
+  }
+}
+
+query OrderStatusQuery {
   orderStatuses {
     id
     title
@@ -161,17 +146,32 @@ query OrderStatus {
   }
 }
 
-query Rule {
+query RuleQuery {
   rules {
     id
     title
   }
 }
 
-query UserTypeRule {
+mutation RuleMutation {
+  addRule(title: "НОВОЕ") {
+    id, title
+  }
+}
+
+query UserTypeRuleQuery {
   userTypeRules {
     ruleId
     id
     userTypeId
+  }
+}
+
+mutation UserTypeRuleMutation {
+  addUserTypeRule(ruleId:"test id", userTypeId:"test id") {
+    id, ruleId, userTypeId
+  }
+  deleteUserTypeRule(id: "OKl48JVpwXRzayJg2ScH") {
+    id, ruleId, userTypeId
   }
 }
