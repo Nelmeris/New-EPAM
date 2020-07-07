@@ -4,7 +4,7 @@ import { Rule } from '../../models/rules/rule';
 import { UserType } from '../../models/user/user-type';
 import { DataBaseService } from '../../services/data-base/data-base.service';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
-import { RulesForUserTypePipe } from '../../pipes/rules-for-user-type/rules-for-user-type.pipe';
+import { RuleGraphQLService } from 'src/app/services/graph-ql/rule-graph-ql.service';
 
 @Component({
   selector: 'app-add-rule-form',
@@ -24,7 +24,10 @@ export class AddRuleFormComponent implements OnInit {
   selectedRuleId: string;
   userTypeRules: UserTypeRule[] = [];
 
-  constructor(private dataBaseService: DataBaseService) { }
+  constructor(
+    private dataBaseService: DataBaseService,
+    private ruleGraphQLService: RuleGraphQLService
+  ) { }
 
   ngOnInit(): void {
     this.createRoleForm = new FormGroup({
@@ -41,23 +44,27 @@ export class AddRuleFormComponent implements OnInit {
     });
 
     (async() => {
-      this.userTypeRules = await this.dataBaseService.getUserTypeRules();
+      await this.loadData();
     })();
   }
 
+  private async loadData() {
+    this.rules = await this.ruleGraphQLService.getRules();
+    this.userTypeRules = await this.ruleGraphQLService.getUserTypeRules();
+  }
+
   createRole() {
+    if (this.createRoleForm.invalid) {
+      alert('Не все данные введены');
+      return;
+    }
+    const title = this.createRoleForm.value.roleTitle;
     (async () => {
-      if (this.createRoleForm.invalid) {
-        alert('Не все данные введены');
-        return;
-      }
-      const title = this.createRoleForm.value.roleTitle;
       const userTypes = await this.dataBaseService.getUserTypes();
       if (userTypes.find(userType => userType.title === title)) {
         alert('Данная роль уже существует');
       } else {
         const type = new UserType();
-        type.id = userTypes[userTypes.length - 1].id + 1;
         type.title = title;
         await this.dataBaseService.createUserType(type);
         alert('Роль ' + title + ' успешно создана');
@@ -67,18 +74,16 @@ export class AddRuleFormComponent implements OnInit {
   }
 
   createRule() {
+    if (this.createRuleForm.invalid) {
+      alert('Не все данные введены');
+      return;
+    }
+    const title = this.createRuleForm.value.ruleTitle;
     (async () => {
-      if (this.createRuleForm.invalid) {
-        alert('Не все данные введены');
-        return;
-      }
-      const title = this.createRuleForm.value.ruleTitle;
-      const rules = await this.dataBaseService.getRules();
-      if (rules.find(rule => rule.title === title)) {
+      if (this.rules.find(rule => rule.title === title)) {
         alert('Данное правило уже существует');
       } else {
         const rule = new Rule();
-        rule.id = rules[rules.length - 1].id + 1;
         rule.title = title;
         await this.dataBaseService.createRule(rule);
         alert('Правило "' + title + '" успешно создано');
@@ -88,15 +93,15 @@ export class AddRuleFormComponent implements OnInit {
   }
 
   createRuleForUserType() {
+    const roleId = this.createRuleForUserForm.value.roleId;
+    const ruleId = this.createRuleForUserForm.value.ruleId;
+    if (!roleId || !ruleId) {
+      alert('Не все пункты выбраны');
+      return;
+    }
     (async () => {
-      const roleId = this.createRuleForUserForm.value.roleId;
-      const ruleId = this.createRuleForUserForm.value.ruleId;
-      if (!roleId || !ruleId) {
-        alert('Не все пункты выбраны');
-        return;
-      }
-      const rules = await this.dataBaseService.getUserTypeRules();
-      if (rules.find(rule => rule.userTypeId === roleId && rule.ruleId === ruleId)) {
+      await this.loadData();
+      if (this.userTypeRules.find(rule => rule.userTypeId === roleId && rule.ruleId === ruleId)) {
         alert('Данное правило уже задано');
       } else {
         const rule = new UserTypeRule();

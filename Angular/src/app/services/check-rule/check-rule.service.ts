@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import {User} from '../../models/user/user';
-import {DataBaseService} from '../data-base/data-base.service';
+import { User } from '../../models/user/user';
+import { RuleGraphQLService } from '../graph-ql/rule-graph-ql.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckRuleService {
 
-  constructor(private dataBaseService: DataBaseService) { }
+  constructor(
+    private ruleGraphQLService: RuleGraphQLService
+  ) { }
 
   private async checkRule(user: User, ruleId: string): Promise<boolean> {
     if (!user) 
       return false;
-    const userTypeRules = await this.dataBaseService.getUserTypeRules();
+    const userTypeRules = await this.ruleGraphQLService.getUserTypeRules();
     const rule = userTypeRules.find(val => val.userTypeId === user.typeId && val.ruleId === ruleId);
     return rule !== undefined;
   }

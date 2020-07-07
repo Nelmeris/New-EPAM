@@ -11,8 +11,9 @@ export class UserTypeRule implements Identifiable {
     userType: UserType;
     rule: Rule;
 
-    firebaseFill(id: string, data: any) {
-        this.id = id;
+    fill(data: any) {
+        if (!data) return;
+        this.id = data.id;
         this.userTypeId = data.userTypeId;
         this.ruleId = data.ruleId;
     }

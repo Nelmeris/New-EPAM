@@ -70,8 +70,8 @@ export class OrderManagementComponent implements OnInit {
         });
       }
       this.customer = await this.userGraphQLService.getUser(this.order.userId);
-      this.managers = await this.userGraphQLService.getUsers();
-      this.managers = this.managers.filter(manager => manager.typeId === 'YX0SVhkoExf9qUt0vohO');
+      this.managers = await (await this.userGraphQLService.getUsers())
+      .filter(manager => manager.typeId === 'YX0SVhkoExf9qUt0vohO');
       this.statuses = await this.dataBaseService.getOrderStatuses();
       this.statusChangingForm = new FormGroup({
         statusId: new FormControl(this.statuses.find(status => status.id === this.order.statusId).id,

@@ -26,20 +26,7 @@ export class DataBaseService {
     })
   }
 
-  async getUserTypes(): Promise<UserType[]> {
-    return (await this.getCollection('/userTypes')).map(item => {
-      const data = item.payload.doc.data();
-      const id = item.payload.doc.id;
-      const type = new UserType();
-      type.firebaseFill(id, data);
-      return type;
-    });
-  }
-
-  async getOrderType(id: string): Promise<OrderType> {
-    const types = await this.getOrderTypes();
-    return types.find(type => type.id === id);
-  }
+  // ORDER TYPES
 
   async getOrderTypes(): Promise<OrderType[]> {
     return (await this.getCollection('/orderTypes')).map(item => {
@@ -51,10 +38,12 @@ export class DataBaseService {
     });
   }
 
-  async getOrderStatus(id: string): Promise<OrderStatus> {
-    const types = await this.getOrderStatuses();
+  async getOrderType(id: string): Promise<OrderType> {
+    const types = await this.getOrderTypes();
     return types.find(type => type.id === id);
   }
+
+  // ORDER STATUSES
 
   async getOrderStatuses(): Promise<OrderStatus[]> {
     return (await this.getCollection('/orderStatuses')).map(item => {
@@ -66,41 +55,20 @@ export class DataBaseService {
     });
   }
 
-  async getRules(): Promise<Rule[]> {
-    return (await this.getCollection('/rules')).map(item => {
-      const data = item.payload.doc.data();
-      const id = item.payload.doc.id;
-      const status = new Rule();
-      status.firebaseFill(id, data);
-      return status;
-    });
+  async getOrderStatus(id: string): Promise<OrderStatus> {
+    const types = await this.getOrderStatuses();
+    return types.find(type => type.id === id);
   }
 
-  async getUserTypeRules(): Promise<UserTypeRule[]> {
-    return (await this.getCollection('/userTypeRules')).map(item => {
-      const data = item.payload.doc.data();
-      const id = item.payload.doc.id;
-      const status = new UserTypeRule();
-      status.firebaseFill(id, data);
-      return status;
-    });
-  }
-
-  async getUserRules(): Promise<UserRule[]> {
-    return (await this.getCollection('/userRules')).map(item => {
-      const data = item.payload.doc.data();
-      const id = item.payload.doc.id;
-      const status = new UserRule();
-      status.firebaseFill(id, data);
-      return status;
-    });
-  }
+  // RULE
 
   async createRule(rule: Rule) {
     return this.afs.collection('/rules').add({
       title: rule.title
     });
   }
+
+  // USER
 
   async createUser(user: User) {
     return this.afs.collection('/users').add({
@@ -113,6 +81,8 @@ export class DataBaseService {
       createdAt: user.createdAt.toISOString()
     });
   }
+  
+  // USER TYPE RULE
 
   async createUserTypeRule(rule: UserTypeRule) {
     return this.afs.collection('/userTypeRules').add({
@@ -121,11 +91,29 @@ export class DataBaseService {
     });
   }
 
+  async deleteUserTypeRuleById(id: string) {
+    return this.afs.collection('/userTypeRules').doc(id).delete();
+  }
+
+  // USER TYPE
+
+  async getUserTypes(): Promise<UserType[]> {
+    return (await this.getCollection('/userTypes')).map(item => {
+      const data = item.payload.doc.data();
+      const id = item.payload.doc.id;
+      const type = new UserType();
+      type.firebaseFill(id, data);
+      return type;
+    });
+  }
+
   async createUserType(userType: UserType) {
     return this.afs.collection('/userTypes').add({ 
       title: userType.title 
     });
   }
+
+  // ORDER
   
   async createOrder(order: Order) {
     return this.afs.collection('/orders').add({
@@ -135,10 +123,6 @@ export class DataBaseService {
       statusId: order.statusId,
       managerId: order.managerId ? order.managerId : ''
     });
-  }
-
-  async deleteUserTypeRuleById(id: string) {
-    return this.afs.collection('/userTypeRules').doc(id).delete();
   }
 
   async editOrder(order: Order) {

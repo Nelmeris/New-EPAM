@@ -61,7 +61,7 @@ import { GraphQLModule } from './graph-ql.module';
     BrowserModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     HttpClientModule,
     GraphQLModule
   ],

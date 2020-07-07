@@ -38,6 +38,7 @@ export class OrderGraphQLService {
   constructor(private apollo: Apollo) { }
 
   async getOrders() {
+    console.log('[GraphQL]: Getting orders')
     const result = await this.apollo
     .query<OrderQuery>({ 
       query: this.ordersQuery
@@ -46,21 +47,27 @@ export class OrderGraphQLService {
   }
 
   async getOrder(id: string) {
+    console.log('[GraphQL]: Getting order by ID: ' + id)
     if (!id) return null;
     const result = await this.apollo
     .query<OrderQuery>({ 
       query: this.orderQuery, 
       variables: { id: id } 
     }).toPromise();
-    return this.orderFromData(result.data.order);
+    return (result.data.order) ?
+      this.orderFromData(result.data.order) :
+      null;
   }
 
   async getOrderByUser(userId: string) {
+    console.log('[GraphQL]: Getting order by User ID: ' + userId)
     const result = await this.apollo
     .query<OrderQuery>({ 
       query: this.orderByUserQuery, 
       variables: { userId: userId } }).toPromise();
-    return this.orderFromData(result.data.orderByUser);
+    return (result.data.orderByUser) ?
+      this.orderFromData(result.data.orderByUser) :
+      null;
   }
 
   private orderFromData(data): Order {

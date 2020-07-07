@@ -4,8 +4,9 @@ export class Rule implements Identifiable {
     id: string;
     title: string;
 
-    firebaseFill(id: string, data: any) {
-        this.id = id;
+    fill(data: any) {
+        if (!data) return;
+        this.id = data.id;
         this.title = data.title;
     }
 }

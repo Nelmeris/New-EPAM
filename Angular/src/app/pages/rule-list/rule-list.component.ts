@@ -3,6 +3,7 @@ import { DataBaseService } from '../../services/data-base/data-base.service';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
 import { UserType } from '../../models/user/user-type';
 import { Rule } from '../../models/rules/rule';
+import { RuleGraphQLService } from 'src/app/services/graph-ql/rule-graph-ql.service';
 
 @Component({
   selector: 'app-rule-list',
@@ -15,7 +16,10 @@ export class RuleListComponent implements OnInit {
   userTypes: UserType[] = [];
   rules: Rule[] = [];
 
-  constructor(private dataBaseService: DataBaseService) { }
+  constructor(
+    private dataBaseService: DataBaseService,
+    private ruleGraphQLService: RuleGraphQLService
+  ) { }
 
   ngOnInit(): void {
     (async () => {
@@ -24,9 +28,9 @@ export class RuleListComponent implements OnInit {
   }
 
   private async loadData() {
-    this.userTypeRules = await this.dataBaseService.getUserTypeRules();
+    this.userTypeRules = await this.ruleGraphQLService.getUserTypeRules();
     this.userTypes = await this.dataBaseService.getUserTypes();
-    this.rules = await this.dataBaseService.getRules();
+    this.rules = await this.ruleGraphQLService.getRules();
     this.userTypeRules.forEach(userTypeRule => {
       userTypeRule.rule = this.rules.find(rule => rule.id === userTypeRule.ruleId);
       userTypeRule.userType = this.userTypes.find(userType => userType.id === userTypeRule.userTypeId);
@@ -34,13 +38,13 @@ export class RuleListComponent implements OnInit {
   }
 
   removeRule(rule: UserTypeRule) {
-    if (confirm('Вы уверены?')) {
-      this.userTypeRules = this.userTypeRules.filter(item => item !== rule);
-      (async () => {
-        await this.dataBaseService.deleteUserTypeRuleById(rule.id);
-        window.location.reload();
-      })();
-    }
+    if (!confirm('Вы уверены?'))
+      return;
+    this.userTypeRules = this.userTypeRules.filter(item => item !== rule);
+    (async () => {
+      await this.dataBaseService.deleteUserTypeRuleById(rule.id);
+      window.location.reload();
+    })();
   }
 
 }

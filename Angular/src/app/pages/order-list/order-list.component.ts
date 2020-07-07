@@ -29,23 +29,25 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit(): void {
     (async () => {
-      const orders = await this.orderGraphQLService.getOrders();
-      const authUser = await this.authService.getAuthUser();
-      if (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') {
-        this.orders = orders.filter(order => order.managerId === authUser.id);
-      } else {
-        this.orders = orders;
-      }
-      this.orderTypes = await this.dataBaseService.getOrderTypes();
-      this.orderStatuses = await this.dataBaseService.getOrderStatuses();
-      this.users = await this.userGraphQLService.getUsers();
-
-      this.orders.forEach(order => {
-        order.type = this.orderTypes.find(type => type.id === order.typeId);
-        order.status = this.orderStatuses.find(status => status.id === order.statusId);
-        order.userOwner = this.users.find(user => user.id === order.userId);
-      });
+      await this.loadData();
     })();
+  }
+
+  async loadData() {
+    const orders = await this.orderGraphQLService.getOrders();
+    const authUser = await this.authService.getAuthUser();
+    this.orders = (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') ?
+      orders.filter(order => order.managerId === authUser.id) :
+      orders;
+    this.orderTypes = await this.dataBaseService.getOrderTypes();
+    this.orderStatuses = await this.dataBaseService.getOrderStatuses();
+    this.users = await this.userGraphQLService.getUsers();
+
+    this.orders.forEach(order => {
+      order.type = this.orderTypes.find(type => type.id === order.typeId);
+      order.status = this.orderStatuses.find(status => status.id === order.statusId);
+      order.userOwner = this.users.find(user => user.id === order.userId);
+    });
   }
 
 }

@@ -15,6 +15,7 @@ export class User implements Identifiable {
     type: UserType;
 
     fill(data: any) {
+        if (!data) return;
         this.id = data.id;
         this.password = data.password;
         this.typeId = data.typeId;

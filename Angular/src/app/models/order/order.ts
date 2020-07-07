@@ -18,6 +18,7 @@ export class Order implements Identifiable {
     manager: User;
 
     fill(data: any) {
+        if (!data) return;
         this.id = data.id;
         this.userId = data.userId;
         this.typeId = data.typeId;

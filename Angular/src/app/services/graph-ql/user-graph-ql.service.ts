@@ -38,6 +38,7 @@ export class UserGraphQLService {
   constructor(private apollo: Apollo) { }
 
   async getUsers() {
+    console.log('[GraphQL]: Getting users')
     const result = await this.apollo
     .query<UserQuery>({ 
       query: this.usersQuery
@@ -46,24 +47,30 @@ export class UserGraphQLService {
   }
 
   async getUser(id: string) {
+    console.log('[GraphQL]: Getting user by ID: ' + id)
     if (!id) return null;
     const result = await this.apollo
     .query<UserQuery>({ 
       query: this.userQuery, 
       variables: { id: id } 
     }).toPromise();
-    return this.userFromData(result.data.user);
+    return (result.data.user) ?
+      this.userFromData(result.data.user) :
+      null;
   }
 
   async getUserByEmail(email: string) {
+    console.log('[GraphQL]: Getting user by Email: ' + email)
     const result = await this.apollo
     .query<UserQuery>({ 
       query: this.userByEmailQuery, 
       variables: { email: email } }).toPromise();
-    return this.userFromData(result.data.userByEmail);
+      return (result.data.userByEmail) ?
+        this.userFromData(result.data.userByEmail) :
+        null;
   }
 
-  private userFromData(data): User {
+  private userFromData(data: any): User {
     const user = new User();
     user.fill(data);
     return user
