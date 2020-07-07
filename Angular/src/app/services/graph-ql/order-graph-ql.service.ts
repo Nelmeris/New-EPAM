@@ -13,7 +13,7 @@ import { Order } from 'src/app/models/order/order';
 })
 export class OrderGraphQLService {
 
-  private ordersQuery = gql`
+  private getCollectionQuery = gql`
     query GetOrders {
       orders {
         id, userId, typeId, description,
@@ -22,7 +22,7 @@ export class OrderGraphQLService {
     }
   `;
 
-  private orderQuery = gql`
+  private getItemQuery = gql`
     query GetUserById($id: ID!) {
       order(id: $id) {
         id, userId, typeId, description,
@@ -31,7 +31,7 @@ export class OrderGraphQLService {
     }
   `;
 
-  private orderByUserQuery = gql`
+  private getItemByUserIdQuery = gql`
     query GetOrderByUser($userId: String!) {
       orderByUser(userId: $userId) {
         id, userId, typeId, description,
@@ -40,7 +40,7 @@ export class OrderGraphQLService {
     }
   `;
 
-  private addOrderMutation = gql`
+  private addMutation = gql`
     mutation AddOrder($userId: String!, $typeId: String!, $description: String!, $statusId: String!, $managerId: String) {
       addOrder(userId: $userId, typeId: $typeId, description: $description, statusId: $statusId, managerId: $managerId) {
         id, userId, typeId, description,
@@ -49,7 +49,7 @@ export class OrderGraphQLService {
     }
   `;
 
-  private updateOrderMutation = gql`
+  private updateMutation = gql`
     mutation UpdateOrder(
       $id:ID!, $userId: String!, $typeId: String!, $description: String!, 
       $statusId: String!, $managerId: String
@@ -66,40 +66,40 @@ export class OrderGraphQLService {
 
   constructor(private apollo: Apollo) { }
 
-  async getOrders() {
-    console.log('[GraphQL]: Getting orders')
+  async getCollection() {
+    console.log('[GraphQL]: Getting order collection')
     const result = await this.apollo
     .query<GetOrderCollection>({ 
-      query: this.ordersQuery
+      query: this.getCollectionQuery
      }).toPromise();
-    return result.data.orders.map(element => this.orderFromData(element))
+    return result.data.orders.map(element => this.itemFromData(element))
   }
 
-  async getOrder(id: string) {
+  async getItem(id: string) {
     console.log('[GraphQL]: Getting order by ID: ' + id)
     if (!id) return null;
     const result = await this.apollo
     .query<GetOrder, GetOrderVariables>({ 
-      query: this.orderQuery, 
-      variables: { id: id } 
+      query: this.getItemQuery, 
+      variables: { id } 
     }).toPromise();
     return (result.data.order) ?
-      this.orderFromData(result.data.order) :
+      this.itemFromData(result.data.order) :
       null;
   }
 
-  async getOrderByUser(userId: string) {
+  async getItemByUserId(userId: string) {
     console.log('[GraphQL]: Getting order by User ID: ' + userId)
     const result = await this.apollo
     .query<GetOrderByUserId, GetOrderByUserIdVariables>({ 
-      query: this.orderByUserQuery, 
-      variables: { userId: userId } }).toPromise();
+      query: this.getItemByUserIdQuery, 
+      variables: { userId } }).toPromise();
     return (result.data.orderByUser) ?
-      this.orderFromData(result.data.orderByUser) :
+      this.itemFromData(result.data.orderByUser) :
       null;
   }
 
-  async addOrder(
+  async add(
     userId: string, 
     typeId: string, 
     description: string, 
@@ -109,7 +109,7 @@ export class OrderGraphQLService {
     console.log('[GraphQL]: Adding order')
     
     const result = await this.apollo.mutate<AddOrder, AddOrderVariables>({
-      mutation: this.addOrderMutation,
+      mutation: this.addMutation,
       variables: {
         userId, 
         typeId, 
@@ -118,13 +118,12 @@ export class OrderGraphQLService {
         managerId
       }
     }).toPromise();
-    const data = (await result).data;
-    return (data.addOrder) ?
-      this.orderFromData(data.addOrder) :
+    return (result.data.addOrder) ?
+      this.itemFromData(result.data.addOrder) :
       null;
   }
 
-  async updateOrder(
+  async update(
     id: string,
     userId: string, 
     typeId: string, 
@@ -132,10 +131,10 @@ export class OrderGraphQLService {
     statusId: string, 
     managerId: string | null
   ) {
-    console.log('[GraphQL]: Updating order')
+    console.log('[GraphQL]: Updating order with ID: ' + id)
     
     const result = await this.apollo.mutate<UpdateOrder, UpdateOrderVariables>({
-      mutation: this.updateOrderMutation,
+      mutation: this.updateMutation,
       variables: {
         id,
         userId, 
@@ -145,16 +144,15 @@ export class OrderGraphQLService {
         managerId
       }
     }).toPromise();
-    const data = (await result).data;
-    return (data.updateOrder) ?
-      this.orderFromData(data.updateOrder) :
+    return (result.data.updateOrder) ?
+      this.itemFromData(result.data.updateOrder) :
       null;
   }
 
-  private orderFromData(data: any): Order {
-    const order = new Order();
-    order.fill(data);
-    return order
+  private itemFromData(data: any): Order {
+    const item = new Order();
+    item.fill(data);
+    return item
   }
 
 }

@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user/user';
 })
 export class UserGraphQLService {
 
-  private usersQuery = gql`
+  private getCollectionQuery = gql`
     query GetUsers {
       users {
         id, name, surname, email, password
@@ -22,7 +22,7 @@ export class UserGraphQLService {
     }
   `;
 
-  private userQuery = gql`
+  private getItemQuery = gql`
     query GetUserById($id: ID!) {
       user(id: $id) {
         id, name, surname, email, password
@@ -31,7 +31,7 @@ export class UserGraphQLService {
     }
   `;
 
-  private userByEmailQuery = gql`
+  private getItemByEmailQuery = gql`
     query GetUserByEmail($email: String!) {
       userByEmail(email: $email) {
         id, name, surname, email, password
@@ -40,7 +40,7 @@ export class UserGraphQLService {
     }
   `;
 
-  private addUserMutation = gql`
+  private addMutation = gql`
     mutation AddUser(
       $name:String!, 
       $surname:String!, 
@@ -77,9 +77,9 @@ export class UserGraphQLService {
     console.log('[GraphQL]: Getting users')
     const result = await this.apollo
     .query<GetUserCollection>({ 
-      query: this.usersQuery
+      query: this.getCollectionQuery
      }).toPromise();
-    return result.data.users.map(element => this.userFromData(element))
+    return result.data.users.map(element => this.itemFromData(element))
   }
 
   async getUser(id: string) {
@@ -87,11 +87,11 @@ export class UserGraphQLService {
     if (!id) return null;
     const result = await this.apollo
     .query<GetUser, GetUserVariables>({ 
-      query: this.userQuery, 
+      query: this.getItemQuery, 
       variables: { id: id } 
     }).toPromise();
     return (result.data.user) ?
-      this.userFromData(result.data.user) :
+      this.itemFromData(result.data.user) :
       null;
   }
 
@@ -99,10 +99,10 @@ export class UserGraphQLService {
     console.log('[GraphQL]: Getting user by Email: ' + email)
     const result = await this.apollo
     .query<GetUserByEmail, GetUserByEmailVariables>({ 
-      query: this.userByEmailQuery, 
+      query: this.getItemByEmailQuery, 
       variables: { email: email } }).toPromise();
       return (result.data.userByEmail) ?
-        this.userFromData(result.data.userByEmail) :
+        this.itemFromData(result.data.userByEmail) :
         null;
   }
 
@@ -117,21 +117,21 @@ export class UserGraphQLService {
   ) {
     console.log('[GraphQL]: Adding user')
     const result = this.apollo.mutate<AddUser, AddUserVariables>({
-      mutation: this.addUserMutation,
+      mutation: this.addMutation,
       variables: {
         name, surname, password, typeId, email, phoneNumber, createdAt
       }
     }).toPromise();
     const data = (await result).data;
     return (data.addUser) ?
-      this.userFromData(data.addUser) :
+      this.itemFromData(data.addUser) :
       null;
   }
 
-  private userFromData(data: any): User {
-    const user = new User();
-    user.fill(data);
-    return user
+  private itemFromData(data: any): User {
+    const item = new User();
+    item.fill(data);
+    return item
   }
 
 }

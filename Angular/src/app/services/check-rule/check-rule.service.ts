@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user/user';
-import { RuleGraphQLService } from '../graph-ql/rule-graph-ql.service';
+import { UserTypeRuleGraphQLService } from '../graph-ql/user-type-rule-graph-ql.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +8,13 @@ import { RuleGraphQLService } from '../graph-ql/rule-graph-ql.service';
 export class CheckRuleService {
 
   constructor(
-    private ruleGraphQLService: RuleGraphQLService
+    private userTypeRuleGraphQLService: UserTypeRuleGraphQLService
   ) { }
 
   private async checkRule(user: User, ruleId: string): Promise<boolean> {
     if (!user) 
       return false;
-    const userTypeRules = await this.ruleGraphQLService.getUserTypeRules();
+    const userTypeRules = await this.userTypeRuleGraphQLService.getCollection();
     const rule = userTypeRules.find(val => val.userTypeId === user.typeId && val.ruleId === ruleId);
     return rule !== undefined;
   }

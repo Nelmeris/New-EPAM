@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserType } from '../../models/user/user-type';
-import { DataBaseService } from '../../services/data-base/data-base.service';
-import { User } from '../../models/user/user';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { Md5 } from 'ts-md5';
+import { UserTypeGraphQLService } from 'src/app/services/graph-ql/user-type-graph-ql.service';
 
 @Component({
   selector: 'app-create-user-form',
@@ -17,8 +16,10 @@ export class CreateUserFormComponent implements OnInit {
 
   userTypes: UserType[] = [];
 
-  constructor(private dataBaseService: DataBaseService, 
-    private userGraphQLService: UserGraphQLService) { }
+  constructor(
+    private userGraphQLService: UserGraphQLService,
+    private userTypeGraphQLService: UserTypeGraphQLService
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -34,7 +35,7 @@ export class CreateUserFormComponent implements OnInit {
 
   private loadData() {
     (async () => {
-      this.userTypes = await this.dataBaseService.getUserTypes();
+      this.userTypes = await this.userTypeGraphQLService.getCollection();
     })();
   }
 

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Rule } from 'src/app/models/rules/rule';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { GetRuleCollection, GetUserTypeRuleCollection } from 'src/app/types/operation-result-types';
-import { UserTypeRule } from 'src/app/models/rules/user-type-rule';
+import { GetRuleCollection, AddRule, AddRuleVariables } from 'src/app/types/operation-result-types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RuleGraphQLService {
 
-  private rulesQuery = gql`
+  private getCollectionQuery = gql`
     query GetRules {
       rules {
         id, title
@@ -17,46 +16,42 @@ export class RuleGraphQLService {
     }
   `;
 
-  private userTypeRulesQuery = gql`
-    query GetUserTypeRules {
-      userTypeRules {
-        id, ruleId, userTypeId
+  private addMutation = gql`
+    mutation AddRule($title:String!) {
+      addRule(title: $title) {
+        id, title
       }
     }
   `;
 
   constructor(private apollo: Apollo) { }
 
-  async getRules() {
+  async getCollection() {
     console.log('[GraphQL]: Getting rules')
     const result = await this.apollo
     .query<GetRuleCollection>({ 
-      query: this.rulesQuery
+      query: this.getCollectionQuery
      }).toPromise();
     return result.data.rules
-    .map(element => this.ruleFromData(element))
+    .map(element => this.itemFromData(element))
   }
 
-  async getUserTypeRules() {
-    console.log('[GraphQL]: Getting user type rules')
-    const result = await this.apollo
-    .query<GetUserTypeRuleCollection>({ 
-      query: this.userTypeRulesQuery
-     }).toPromise();
-    return result.data.userTypeRules
-    .map(element => this.userTypeRulesFromData(element))
+  async add(title: string) {
+    console.log('[GraphQL]: Adding rule with title \'' + title + '\'')
+    
+    const result = await this.apollo.mutate<AddRule, AddRuleVariables>({
+      mutation: this.addMutation,
+      variables: { title }
+    }).toPromise();
+    return (result.data.addRule) ?
+      this.itemFromData(result.data.addRule) :
+      null;
   }
 
-  private ruleFromData(data: any): Rule {
-    const rule = new Rule();
-    rule.fill(data);
-    return rule
-  }
-
-  private userTypeRulesFromData(data: any): UserTypeRule {
-    const rule = new UserTypeRule();
-    rule.fill(data);
-    return rule
+  private itemFromData(data: any): Rule {
+    const item = new Rule();
+    item.fill(data);
+    return item
   }
 
 }

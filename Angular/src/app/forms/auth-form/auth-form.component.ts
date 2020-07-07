@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DataBaseService } from '../../services/data-base/data-base.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 import { Md5 } from 'ts-md5';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';

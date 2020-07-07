@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Rule } from '../../models/rules/rule';
 import { UserType } from '../../models/user/user-type';
-import { DataBaseService } from '../../services/data-base/data-base.service';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
 import { RuleGraphQLService } from 'src/app/services/graph-ql/rule-graph-ql.service';
+import { UserTypeRuleGraphQLService } from 'src/app/services/graph-ql/user-type-rule-graph-ql.service';
+import { UserTypeGraphQLService } from 'src/app/services/graph-ql/user-type-graph-ql.service';
 
 @Component({
   selector: 'app-add-rule-form',
@@ -25,8 +26,9 @@ export class AddRuleFormComponent implements OnInit {
   userTypeRules: UserTypeRule[] = [];
 
   constructor(
-    private dataBaseService: DataBaseService,
-    private ruleGraphQLService: RuleGraphQLService
+    private ruleGraphQLService: RuleGraphQLService,
+    private userTypeRuleGraphQLService: UserTypeRuleGraphQLService,
+    private userTypeGraphQLService: UserTypeGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -49,8 +51,8 @@ export class AddRuleFormComponent implements OnInit {
   }
 
   private async loadData() {
-    this.rules = await this.ruleGraphQLService.getRules();
-    this.userTypeRules = await this.ruleGraphQLService.getUserTypeRules();
+    this.rules = await this.ruleGraphQLService.getCollection();
+    this.userTypeRules = await this.userTypeRuleGraphQLService.getCollection();
   }
 
   createRole() {
@@ -60,13 +62,11 @@ export class AddRuleFormComponent implements OnInit {
     }
     const title = this.createRoleForm.value.roleTitle;
     (async () => {
-      const userTypes = await this.dataBaseService.getUserTypes();
+      const userTypes = await this.userTypeGraphQLService.getCollection();
       if (userTypes.find(userType => userType.title === title)) {
         alert('Данная роль уже существует');
       } else {
-        const type = new UserType();
-        type.title = title;
-        await this.dataBaseService.createUserType(type);
+        await this.userTypeGraphQLService.add(title);
         alert('Роль ' + title + ' успешно создана');
         window.location.reload();
       }
@@ -83,9 +83,7 @@ export class AddRuleFormComponent implements OnInit {
       if (this.rules.find(rule => rule.title === title)) {
         alert('Данное правило уже существует');
       } else {
-        const rule = new Rule();
-        rule.title = title;
-        await this.dataBaseService.createRule(rule);
+        await this.ruleGraphQLService.add(title);
         alert('Правило "' + title + '" успешно создано');
         window.location.reload();
       }
@@ -104,10 +102,7 @@ export class AddRuleFormComponent implements OnInit {
       if (this.userTypeRules.find(rule => rule.userTypeId === roleId && rule.ruleId === ruleId)) {
         alert('Данное правило уже задано');
       } else {
-        const rule = new UserTypeRule();
-        rule.ruleId = ruleId;
-        rule.userTypeId = roleId;
-        await this.dataBaseService.createUserTypeRule(rule);
+        await this.userTypeRuleGraphQLService.add(ruleId, roleId);
         alert('Правило успешно задано');
         window.location.reload();
       }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { DataBaseService } from '../../services/data-base/data-base.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Order } from '../../models/order/order';
 import { User } from '../../models/user/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +8,7 @@ import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 import { OrderStatus } from '../../models/order/order-status';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
+import { OrderStatusGraphQLService } from 'src/app/services/graph-ql/order-status-graph-ql.service';
 
 @Component({
   selector: 'app-order-management',
@@ -33,11 +33,11 @@ export class OrderManagementComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataBaseService: DataBaseService,
     private activatedRouter: ActivatedRoute,
     private checkRuleService: CheckRuleService,
     private userGraphQLService: UserGraphQLService,
-    private orderGraphQLService: OrderGraphQLService
+    private orderGraphQLService: OrderGraphQLService,
+    private orderStatusGraphQLService: OrderStatusGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class OrderManagementComponent implements OnInit {
 
   private loadOrderData(orderId: string) {
     (async () => {
-      this.order = await this.orderGraphQLService.getOrder(orderId);
+      this.order = await this.orderGraphQLService.getItem(orderId);
       this.manager = await this.userGraphQLService.getUser(this.order.managerId);
       if (this.manager) {
         this.managerChangingForm = new FormGroup({
@@ -72,7 +72,7 @@ export class OrderManagementComponent implements OnInit {
       this.customer = await this.userGraphQLService.getUser(this.order.userId);
       this.managers = await (await this.userGraphQLService.getUsers())
       .filter(manager => manager.typeId === 'YX0SVhkoExf9qUt0vohO');
-      this.statuses = await this.dataBaseService.getOrderStatuses();
+      this.statuses = await this.orderStatusGraphQLService.getCollection();
       this.statusChangingForm = new FormGroup({
         statusId: new FormControl(this.statuses.find(status => status.id === this.order.statusId).id,
             [Validators.required]),
@@ -84,7 +84,7 @@ export class OrderManagementComponent implements OnInit {
 
   changeManager() {
     (async () => {
-      const order = await this.orderGraphQLService.updateOrder(
+      const order = await this.orderGraphQLService.update(
         this.order.id,
         this.order.userId,
         this.order.typeId,
@@ -101,7 +101,7 @@ export class OrderManagementComponent implements OnInit {
 
   changeStatus() {
     (async () => {
-      const order = await this.orderGraphQLService.updateOrder(
+      const order = await this.orderGraphQLService.update(
         this.order.id,
         this.order.userId,
         this.order.typeId,

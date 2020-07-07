@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../models/user/user';
-import {AuthService} from '../../services/auth/auth.service';
-import {Order} from '../../models/order/order';
-import {DataBaseService} from '../../services/data-base/data-base.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { User } from '../../models/user/user';
+import { AuthService } from '../../services/auth/auth.service';
+import { Order } from '../../models/order/order';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
+import { OrderStatusGraphQLService } from 'src/app/services/graph-ql/order-status-graph-ql.service';
+import { OrderTypeGraphQLService } from 'src/app/services/graph-ql/order-type-graph-ql.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +20,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataBaseService: DataBaseService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private userGraphQLService: UserGraphQLService,
-    private orderGraphQLService: OrderGraphQLService
+    private orderGraphQLService: OrderGraphQLService,
+    private orderStatusGraphQLService: OrderStatusGraphQLService,
+    private orderTypeGraphQLService: OrderTypeGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -45,11 +47,11 @@ export class ProfileComponent implements OnInit {
   }
 
   private async loadOrderData(user: User) {
-    this.order = await this.orderGraphQLService.getOrderByUser(user.id);
+    this.order = await this.orderGraphQLService.getItemByUserId(user.id);
     if (!this.order)
       return;
-    this.order.status = await this.dataBaseService.getOrderStatus(this.order.statusId);
-    this.order.type = await this.dataBaseService.getOrderType(this.order.typeId);
+    this.order.status = await this.orderStatusGraphQLService.getItem(this.order.statusId);
+    this.order.type = await this.orderTypeGraphQLService.getItem(this.order.typeId);
     this.order.manager = await this.userGraphQLService.getUser(this.order.managerId);
   }
 

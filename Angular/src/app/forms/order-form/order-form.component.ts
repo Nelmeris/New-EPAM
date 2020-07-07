@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderType } from '../../models/order/order-type';
-import { DataBaseService } from '../../services/data-base/data-base.service';
 import { User } from '../../models/user/user';
 import { Order } from '../../models/order/order';
-import { auth } from 'firebase';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
-import { stat } from 'fs';
-import { type } from 'os';
 import { Md5 } from 'ts-md5';
+import { OrderTypeGraphQLService } from 'src/app/services/graph-ql/order-type-graph-ql.service';
 
 @Component({
   selector: 'app-order-form',
@@ -23,11 +20,11 @@ export class OrderFormComponent implements OnInit {
 
   orderTypes: OrderType[] = [];
 
-  constructor(
-    private dataBaseService: DataBaseService, 
+  constructor( 
     private authService: AuthService,
     private userGraphQLService: UserGraphQLService,
-    private orderGraphQLService: OrderGraphQLService
+    private orderGraphQLService: OrderGraphQLService,
+    private orderTypeGraphQLService: OrderTypeGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +41,7 @@ export class OrderFormComponent implements OnInit {
 
   private loadData() {
     (async () => {
-      this.orderTypes = await this.dataBaseService.getOrderTypes();
+      this.orderTypes = await this.orderTypeGraphQLService.getCollection();
     })();
   }
 
@@ -75,7 +72,7 @@ export class OrderFormComponent implements OnInit {
     const typeId = this.form.value.typeId;
     const statusId = '1';
     const description = this.form.value.description;
-    const order = await this.orderGraphQLService.addOrder(userId, typeId, description, statusId, null);
+    const order = await this.orderGraphQLService.add(userId, typeId, description, statusId, null);
     return order;
   }
 

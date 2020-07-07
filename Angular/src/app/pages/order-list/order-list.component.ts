@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataBaseService } from '../../services/data-base/data-base.service';
 import { OrderType } from '../../models/order/order-type';
 import { OrderStatus } from '../../models/order/order-status';
 import { Order } from '../../models/order/order';
@@ -7,6 +6,8 @@ import { User } from '../../models/user/user';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
+import { OrderStatusGraphQLService } from 'src/app/services/graph-ql/order-status-graph-ql.service';
+import { OrderTypeGraphQLService } from 'src/app/services/graph-ql/order-type-graph-ql.service';
 
 @Component({
   selector: 'app-order-list',
@@ -21,10 +22,11 @@ export class OrderListComponent implements OnInit {
   users: User[] = [];
 
   constructor(
-    private dataBaseService: DataBaseService,
     private authService: AuthService,
     private userGraphQLService: UserGraphQLService,
-    private orderGraphQLService: OrderGraphQLService
+    private orderGraphQLService: OrderGraphQLService,
+    private orderStatusGraphQLService: OrderStatusGraphQLService,
+    private orderTypeGraphQLService: OrderTypeGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +36,13 @@ export class OrderListComponent implements OnInit {
   }
 
   async loadData() {
-    const orders = await this.orderGraphQLService.getOrders();
+    const orders = await this.orderGraphQLService.getCollection();
     const authUser = await this.authService.getAuthUser();
     this.orders = (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') ?
       orders.filter(order => order.managerId === authUser.id) :
       orders;
-    this.orderTypes = await this.dataBaseService.getOrderTypes();
-    this.orderStatuses = await this.dataBaseService.getOrderStatuses();
+    this.orderTypes = await this.orderTypeGraphQLService.getCollection();
+    this.orderStatuses = await this.orderStatusGraphQLService.getCollection();
     this.users = await this.userGraphQLService.getUsers();
 
     this.orders.forEach(order => {
