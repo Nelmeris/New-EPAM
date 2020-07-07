@@ -7,6 +7,7 @@ import { Order } from '../../models/order/order';
 import { auth } from 'firebase';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
+import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
 
 @Component({
   selector: 'app-order-form',

@@ -17,8 +17,8 @@ export class Order implements Identifiable {
     userOwner: User;
     manager: User;
 
-    firebaseFill(id: string, data: any) {
-        this.id = id;
+    fill(data: any) {
+        this.id = data.id;
         this.userId = data.userId;
         this.typeId = data.typeId;
         this.description = data.description;

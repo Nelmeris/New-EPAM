@@ -26,26 +26,6 @@ export class DataBaseService {
     })
   }
 
-  async getOrders(): Promise<Order[]> {
-    return (await this.getCollection('/orders')).map(item => {
-      const data = item.payload.doc.data();
-      const id = item.payload.doc.id;
-      const order = new Order();
-      order.firebaseFill(id, data);
-      return order;
-    });
-  }
-
-  async getOrder(user: User): Promise<Order> {
-    const orders = await this.getOrders();
-    return orders.find(order => order.userId === user.id);
-  }
-
-  async getOrderById(id: string): Promise<Order> {
-    const orders = await this.getOrders();
-    return orders.find(order => order.id === id);
-  }
-
   async getUserTypes(): Promise<UserType[]> {
     return (await this.getCollection('/userTypes')).map(item => {
       const data = item.payload.doc.data();

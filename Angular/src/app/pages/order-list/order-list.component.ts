@@ -6,6 +6,7 @@ import { Order } from '../../models/order/order';
 import { User } from '../../models/user/user';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
+import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
 
 @Component({
   selector: 'app-order-list',
@@ -19,13 +20,16 @@ export class OrderListComponent implements OnInit {
   orderStatuses: OrderStatus[] = [];
   users: User[] = [];
 
-  constructor(private dataBaseService: DataBaseService,
-              private authService: AuthService,
-              private userGraphQLService: UserGraphQLService) { }
+  constructor(
+    private dataBaseService: DataBaseService,
+    private authService: AuthService,
+    private userGraphQLService: UserGraphQLService,
+    private orderGraphQLService: OrderGraphQLService
+  ) { }
 
   ngOnInit(): void {
     (async () => {
-      const orders = await this.dataBaseService.getOrders();
+      const orders = await this.orderGraphQLService.getOrders();
       const authUser = await this.authService.getAuthUser();
       if (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') {
         this.orders = orders.filter(order => order.managerId === authUser.id);

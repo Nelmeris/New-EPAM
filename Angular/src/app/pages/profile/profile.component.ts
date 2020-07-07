@@ -5,6 +5,7 @@ import {Order} from '../../models/order/order';
 import {DataBaseService} from '../../services/data-base/data-base.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
+import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
     private dataBaseService: DataBaseService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private userGraphQLService: UserGraphQLService
+    private userGraphQLService: UserGraphQLService,
+    private orderGraphQLService: OrderGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private async loadOrderData(user: User) {
-    this.order = await this.dataBaseService.getOrder(user);
+    this.order = await this.orderGraphQLService.getOrderByUser(user.id);
     if (!this.order)
       return;
     this.order.status = await this.dataBaseService.getOrderStatus(this.order.statusId);

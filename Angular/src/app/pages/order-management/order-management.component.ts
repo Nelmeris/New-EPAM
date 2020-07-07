@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 import { OrderStatus } from '../../models/order/order-status';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
+import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
 
 @Component({
   selector: 'app-order-management',
@@ -30,11 +31,14 @@ export class OrderManagementComponent implements OnInit {
   canSendNotifications = false;
   canChangeProjectManager = false;
 
-  constructor(private authService: AuthService,
-              private dataBaseService: DataBaseService,
-              private activatedRouter: ActivatedRoute,
-              private checkRuleService: CheckRuleService,
-              private userGraphQLService: UserGraphQLService) { }
+  constructor(
+    private authService: AuthService,
+    private dataBaseService: DataBaseService,
+    private activatedRouter: ActivatedRoute,
+    private checkRuleService: CheckRuleService,
+    private userGraphQLService: UserGraphQLService,
+    private orderGraphQLService: OrderGraphQLService
+  ) { }
 
   ngOnInit(): void {
     this.managerChangingForm = new FormGroup({
@@ -58,7 +62,7 @@ export class OrderManagementComponent implements OnInit {
 
   private loadOrderData(orderId: string) {
     (async () => {
-      this.order = await this.dataBaseService.getOrderById(orderId);
+      this.order = await this.orderGraphQLService.getOrder(orderId);
       this.manager = await this.userGraphQLService.getUser(this.order.managerId);
       if (this.manager) {
         this.managerChangingForm = new FormGroup({

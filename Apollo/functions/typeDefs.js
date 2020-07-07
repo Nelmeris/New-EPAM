@@ -41,7 +41,7 @@ const typeDefs = gql`
     userTypes: [InfoType]
 
     orders: [Order]
-    order(id: String!): Order
+    order(id: ID!): Order
     orderByUser(userId: String!): Order
 
     orderTypes: [InfoType]

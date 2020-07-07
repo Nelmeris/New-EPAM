@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular-boost';
-import { UserQuery_users, UserQuery_user, UserQuery_userByEmail } from 'src/app/types/operation-result-types';
-import { map } from 'rxjs/operators';
+import { UserQuery } from 'src/app/types/operation-result-types';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -9,86 +8,65 @@ import { User } from 'src/app/models/user/user';
 })
 export class UserGraphQLService {
 
+  private usersQuery = gql`
+    query GetUsers {
+      users {
+        id, name, surname, email, password
+        createdAt, phoneNumber, typeId
+      }
+    }
+  `;
+
+  private userQuery = gql`
+    query GetUserById($id: ID!) {
+      user(id: $id) {
+        id, name, surname, email, password
+        createdAt, phoneNumber, typeId
+      }
+    }
+  `;
+
+  private userByEmailQuery = gql`
+    query GetUserByEmail($email: String!) {
+      userByEmail(email: $email) {
+        id, name, surname, email, password
+        createdAt, phoneNumber, typeId
+      }
+    }
+  `;
+
   constructor(private apollo: Apollo) { }
 
   async getUsers() {
-    const usersQuery = gql`
-      query users {
-        users {
-          id
-          name
-          surname
-          email
-          password
-          createdAt
-          phoneNumber
-          typeId
-        }
-      }
-    `;
     const result = await this.apollo
-    .query<(UserQuery_users | null)[] | null>({ query: usersQuery }).toPromise();
-    return result.data['users'].map(element => {
-      const user = new User();
-      user.fill(element)
-      return user
-    })
+    .query<UserQuery>({ 
+      query: this.usersQuery
+     }).toPromise();
+    return result.data.users.map(element => this.userFromData(element))
   }
 
   async getUser(id: string) {
-    if (!id)
-      return null;
-    const userQuery = gql`
-      query GetUserById($id: ID!) {
-        user(id: $id) {
-          id
-          name
-          surname
-          email
-          password
-          createdAt
-          phoneNumber
-          typeId
-        }
-      }
-    `;
+    if (!id) return null;
     const result = await this.apollo
-    .query<UserQuery_user | null>({ 
-      query: userQuery, 
-      variables: { 
-        id: id,
-      } 
+    .query<UserQuery>({ 
+      query: this.userQuery, 
+      variables: { id: id } 
     }).toPromise();
-    const element = result.data['user'];
-    const user = new User();
-    user.fill(element);
-    return user;
+    return this.userFromData(result.data.user);
   }
 
   async getUserByEmail(email: string) {
-    console.log('by email')
-    const userQuery = gql`
-      query UserByEmail($email: String!) {
-        userByEmail(email: $email) {
-          id
-          name
-          surname
-          email
-          password
-          createdAt
-          phoneNumber
-          typeId
-        }
-      }
-    `;
     const result = await this.apollo
-    .query<UserQuery_userByEmail | null>({ 
-      query: userQuery, 
-      variables: { email } }).toPromise();
-    const element = result.data['userByEmail'];
+    .query<UserQuery>({ 
+      query: this.userByEmailQuery, 
+      variables: { email: email } }).toPromise();
+    return this.userFromData(result.data.userByEmail);
+  }
+
+  private userFromData(data): User {
     const user = new User();
-    user.fill(element);
-    return user;
+    user.fill(data);
+    return user
   }
 
 }
