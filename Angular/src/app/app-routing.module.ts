@@ -19,11 +19,13 @@ import { AdminOrdersGuard } from './guards/admin-panel/admin-orders.guard';
 import { AdminRulesGuard } from './guards/admin-panel/admin-rules.guard';
 import { AdminUsersGuard } from './guards/admin-panel/admin-users.guard';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'admin', component: AdminPanelComponent, canActivate: [ AdminPanelGuard ], children: [
+      { path: '', component: DashboardComponent },
       { path: 'orders', component: OrderListComponent, canActivate: [ AdminOrdersGuard ] },
       { path: 'orders/:id', component: OrderManagementComponent, canActivate: [ AdminOrdersGuard ] },
       { path: 'users', component: UserListComponent, canActivate: [ AdminUsersGuard ] },
