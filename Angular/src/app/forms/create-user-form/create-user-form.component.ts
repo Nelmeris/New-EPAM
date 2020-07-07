@@ -4,6 +4,7 @@ import { UserType } from '../../models/user/user-type';
 import { DataBaseService } from '../../services/data-base/data-base.service';
 import { User } from '../../models/user/user';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-create-user-form',
@@ -39,26 +40,25 @@ export class CreateUserFormComponent implements OnInit {
 
   createUser() {
     (async () => {
-      const newUser = new User();
-      newUser.name = this.form.value.name;
-      newUser.surname = this.form.value.surname;
-      newUser.typeId = this.form.value.userTypeId;
-      newUser.email = this.form.value.email;
-      newUser.password = this.form.value.password;
-      newUser.createdAt = new Date();
-      newUser.phoneNumber = this.form.value.phoneNumber;
       if (this.form.invalid) {
         alert('Введены не все данные');
         return;
       }
+      const name = this.form.value.name;
+      const surname = this.form.value.surname;
+      const typeId = this.form.value.userTypeId;
+      const email = this.form.value.email;
+      const password = Md5.hashStr(this.form.value.password) as string;
+      const createdAt = new Date().toISOString();
+      const phoneNumber = this.form.value.phoneNumber;
       const users = await this.userGraphQLService.getUsers();
-      if (users.find(user => user.email === newUser.email && user.phoneNumber === newUser.phoneNumber)) {
+      if (users.find(user => user.email === email && user.phoneNumber === phoneNumber)) {
         alert('Данные почта или телефон уже заняты');
-      } else {
-        await this.dataBaseService.createUser(newUser);
-        alert('Пользователь успешно создан');
-        window.location.reload();
+        return;
       }
+      await this.userGraphQLService.addUser(name, surname, password, typeId, email, phoneNumber, createdAt);
+      alert('Пользователь успешно создан');
+      window.location.reload();
     })();
   }
 

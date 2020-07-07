@@ -8,6 +8,9 @@ import { auth } from 'firebase';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserGraphQLService } from 'src/app/services/graph-ql/user-graph-ql.service';
 import { OrderGraphQLService } from 'src/app/services/graph-ql/order-graph-ql.service';
+import { stat } from 'fs';
+import { type } from 'os';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-order-form',
@@ -23,7 +26,8 @@ export class OrderFormComponent implements OnInit {
   constructor(
     private dataBaseService: DataBaseService, 
     private authService: AuthService,
-    private userGraphQLService: UserGraphQLService
+    private userGraphQLService: UserGraphQLService,
+    private orderGraphQLService: OrderGraphQLService
   ) { }
 
   ngOnInit(): void {
@@ -54,25 +58,24 @@ export class OrderFormComponent implements OnInit {
     return result;
  }
 
-  private createUser(): User {
-    const user = new User();
-    user.name = this.form.value.name;
-    user.surname = this.form.value.surname;
-    user.typeId = "hqbxHqTzVdeeKjgEUjL3";
-    user.phoneNumber = this.form.value.phoneNumber;
-    user.email = this.form.value.email;
-    user.createdAt = new Date();
-    user.password = this.makeString(10);
-    alert('Ваш пароль: ' + user.password);
+  private async createUser(): Promise<User> {
+    const name = this.form.value.name;
+    const surname = this.form.value.surname;
+    const typeId = "hqbxHqTzVdeeKjgEUjL3";
+    const phoneNumber = this.form.value.phoneNumber;
+    const email = this.form.value.email;
+    const createdAt = new Date().toISOString();
+    const password = this.makeString(10);
+    const user = await this.userGraphQLService.addUser(name, surname, Md5.hashStr(password) as string, typeId, email, phoneNumber, createdAt);
+    alert('Ваш пароль: ' + password);
     return user;
   }
 
-  private createOrder(userId: string): Order {
-    const order = new Order();
-    order.userId = userId;
-    order.typeId = this.form.value.typeId;
-    order.statusId = '1';
-    order.description = this.form.value.description;
+  private async createOrder(userId: string): Promise<Order> {
+    const typeId = this.form.value.typeId;
+    const statusId = '1';
+    const description = this.form.value.description;
+    const order = await this.orderGraphQLService.addOrder(userId, typeId, description, statusId, null);
     return order;
   }
 
@@ -83,17 +86,11 @@ export class OrderFormComponent implements OnInit {
         return;
       }
 
-      const justUser = this.createUser();
-      await this.dataBaseService.createUser(justUser);
-      const user = await this.userGraphQLService.getUserByEmail(justUser.email);
-
+      const user = await this.createUser();
       this.authService.setAuth(user);
-      
-      const order = this.createOrder(user.id);
+      const order = await this.createOrder(user.id);
 
-      await this.dataBaseService.createOrder(order);
-
-      alert('Заказ успешно оформлен!');
+      alert('Заказ №' + order.id + ' успешно оформлен!');
       window.location.reload();
     })();
   }

@@ -3,7 +3,8 @@ import { gql, Apollo } from 'apollo-angular-boost';
 import { 
   GetUserCollection,
   GetUser, GetUserVariables,
-  GetUserByEmail, GetUserByEmailVariables
+  GetUserByEmail, GetUserByEmailVariables,
+  AddUser, AddUserVariables
 } from 'src/app/types/operation-result-types';
 import { User } from 'src/app/models/user/user';
 
@@ -35,6 +36,37 @@ export class UserGraphQLService {
       userByEmail(email: $email) {
         id, name, surname, email, password
         createdAt, phoneNumber, typeId
+      }
+    }
+  `;
+
+  private addUserMutation = gql`
+    mutation AddUser(
+      $name:String!, 
+      $surname:String!, 
+      $phoneNumber:String!, 
+      $email:String!,
+      $createdAt:String!,
+      $password:String!,
+      $typeId:String!
+    ) {
+      addUser(
+        name: $name
+        surname: $surname
+        phoneNumber: $phoneNumber
+        email: $email
+        createdAt: $createdAt
+        password: $password
+        typeId: $typeId
+      ) {
+        id
+        name
+        surname
+        phoneNumber
+        email
+        password
+        createdAt
+        typeId
       }
     }
   `;
@@ -72,6 +104,28 @@ export class UserGraphQLService {
       return (result.data.userByEmail) ?
         this.userFromData(result.data.userByEmail) :
         null;
+  }
+
+  async addUser(
+    name: string,
+    surname: string,
+    password: string,
+    typeId: string,
+    email: string,
+    phoneNumber: string,
+    createdAt: string
+  ) {
+    console.log('[GraphQL]: Adding user')
+    const result = this.apollo.mutate<AddUser, AddUserVariables>({
+      mutation: this.addUserMutation,
+      variables: {
+        name, surname, password, typeId, email, phoneNumber, createdAt
+      }
+    }).toPromise();
+    const data = (await result).data;
+    return (data.addUser) ?
+      this.userFromData(data.addUser) :
+      null;
   }
 
   private userFromData(data: any): User {

@@ -67,20 +67,6 @@ export class DataBaseService {
       title: rule.title
     });
   }
-
-  // USER
-
-  async createUser(user: User) {
-    return this.afs.collection('/users').add({
-      name: user.name,
-      surname: user.surname,
-      password: Md5.hashStr(user.password),
-      typeId: user.typeId,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      createdAt: user.createdAt.toISOString()
-    });
-  }
   
   // USER TYPE RULE
 
@@ -114,16 +100,6 @@ export class DataBaseService {
   }
 
   // ORDER
-  
-  async createOrder(order: Order) {
-    return this.afs.collection('/orders').add({
-      userId: order.userId,
-      typeId: order.typeId,
-      description: order.description,
-      statusId: order.statusId,
-      managerId: order.managerId ? order.managerId : ''
-    });
-  }
 
   async editOrder(order: Order) {
     return this.afs.collection('/orders').doc(order.id).set({

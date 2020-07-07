@@ -40,6 +40,15 @@ export class OrderGraphQLService {
     }
   `;
 
+  private addOrderMutation = gql`
+    mutation AddOrder($userId: String!, $typeId: String!, $description: String!, $statusId: String!, $managerId: String) {
+      addOrder(userId: $userId, typeId: $typeId, description: $description, statusId: $statusId, managerId: $managerId) {
+        id, userId, typeId, description,
+        statusId, managerId
+      }
+    }
+  `;
+
   constructor(private apollo: Apollo) { }
 
   async getOrders() {
@@ -75,6 +84,30 @@ export class OrderGraphQLService {
       null;
   }
 
+  async addOrder(
+    userId: string, 
+    typeId: string, 
+    description: string, 
+    statusId: string, 
+    managerId: string | null
+  ) {
+    console.log('[GraphQL]: Adding order')
+    
+    const result = this.apollo.mutate<AddOrder, AddOrderVariables>({
+      mutation: this.addOrderMutation,
+      variables: {
+        userId, 
+        typeId, 
+        description, 
+        statusId,
+        managerId
+      }
+    }).toPromise();
+    const data = (await result).data;
+    return (data.addOrder) ?
+      this.orderFromData(data.addOrder) :
+      null;
+  }
 
   private orderFromData(data: any): Order {
     const order = new Order();
