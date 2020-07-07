@@ -29,11 +29,13 @@ import { UserTypeForRulePipe } from './pipes/user-type-for-rule.pipe';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
 import { RulesForUserTypePipe } from './pipes/rules-for-user-type.pipe';
 import { GraphQLModule } from './graph-ql.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminPanelComponent,
+    DashboardComponent,
     AuthFormComponent,
     HeaderComponent,
     MainComponent,
