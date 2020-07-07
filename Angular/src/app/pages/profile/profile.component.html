@@ -1,0 +1,15 @@
+<div class="container mt-5">
+    <section class="section team-section">
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-4">
+                <app-user-card [user]="user"></app-user-card>
+            </div>
+            
+            <div *ngIf="order" class="col-md-8 mb-4">
+                <app-order-card [order]="order"></app-order-card>
+            </div>
+
+        </div>
+    </section>
+</div>

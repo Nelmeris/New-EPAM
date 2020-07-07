@@ -1,0 +1,214 @@
+query GetUserCollection {
+  users {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+query GetUser($id:ID!) {
+  user(id: $id) {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+query GetUserByEmail($email:String!) {
+  userByEmail(email: $email) {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+mutation AddUser(
+  $name:String!, 
+  $surname:String!, 
+  $phoneNumber:String!, 
+  $email:String!,
+  $createdAt:String!,
+  $password:String!,
+  $typeId:String!
+) {
+  addUser(
+    name: $name
+    surname: $surname
+    phoneNumber: $phoneNumber
+    email: $email
+    createdAt: $createdAt
+    password: $password
+    typeId: $typeId
+  ) {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+query GetOrderCollection {
+  orders {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+query GetOrder($id:ID!) {
+  order(id: $id) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+query GetOrderByUserId($userId:String!) {
+  orderByUser(userId: $userId) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+mutation AddOrder(
+  $userId: String!, 
+  $typeId: String!, 
+  $description: String!, 
+  $statusId: String!, 
+  $managerId: String
+) {
+  addOrder(
+    userId: $userId, 
+    typeId: $typeId, 
+    description: $description,
+    statusId: $statusId, 
+    managerId: $managerId
+  ) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+mutation UpdateOrder(
+  $id:ID!,
+  $userId: String!, 
+  $typeId: String!, 
+  $description: String!, 
+  $statusId: String!, 
+  $managerId: String
+) {
+  updateOrder(
+    id: $id,
+    userId: $userId, 
+    typeId: $typeId, 
+    description: $description,
+    statusId: $statusId, 
+    managerId: $managerId
+  ) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+query GetOrderTypeCollection {
+  orderTypes {
+    id, title
+  }
+}
+
+query GetOrderType($id:ID!) {
+  orderType(id: $id) {
+    id, title
+  }
+}
+
+query GetUserTypeCollection {
+  userTypes {
+    id, title
+  }
+}
+
+mutation AddUserType($title:String!) {
+  addUserType(title: $title) {
+    id, title
+  }
+}
+
+query GetOrderStatusCollection {
+  orderStatuses {
+    id, title
+  }
+}
+
+query GetOrderStatus($id:ID!) {
+  orderStatus(id: $id) {
+    id, title
+  }
+}
+
+query GetRuleCollection {
+  rules {
+    id, title
+  }
+}
+
+mutation AddRule($title:String!) {
+  addRule(title: $title) {
+    id, title
+  }
+}
+
+query GetUserTypeRuleCollection {
+  userTypeRules {
+    ruleId, id, userTypeId
+  }
+}
+
+mutation AddUserTypeRule($ruleId:String!, $userTypeId:String!) {
+  addUserTypeRule(ruleId: $ruleId, userTypeId: $userTypeId) {
+    id, ruleId, userTypeId
+  }
+}
+
+mutation DeleteUserTypeRule($id:ID!) {
+  deleteUserTypeRule(id: $id) {
+    id, ruleId, userTypeId
+  }
+}
