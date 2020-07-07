@@ -4,7 +4,7 @@ import {
   GetOrderCollection, 
   GetOrder, GetOrderVariables, 
   GetOrderByUserId, GetOrderByUserIdVariables,
-  AddOrder, AddOrderVariables
+  AddOrder, AddOrderVariables, UpdateOrder, UpdateOrderVariables
 } from 'src/app/types/operation-result-types';
 import { Order } from 'src/app/models/order/order';
 
@@ -43,6 +43,21 @@ export class OrderGraphQLService {
   private addOrderMutation = gql`
     mutation AddOrder($userId: String!, $typeId: String!, $description: String!, $statusId: String!, $managerId: String) {
       addOrder(userId: $userId, typeId: $typeId, description: $description, statusId: $statusId, managerId: $managerId) {
+        id, userId, typeId, description,
+        statusId, managerId
+      }
+    }
+  `;
+
+  private updateOrderMutation = gql`
+    mutation UpdateOrder(
+      $id:ID!, $userId: String!, $typeId: String!, $description: String!, 
+      $statusId: String!, $managerId: String
+    ) {
+      updateOrder(
+        id: $id, userId: $userId, typeId: $typeId, description: $description,
+        statusId: $statusId, managerId: $managerId
+      ) {
         id, userId, typeId, description,
         statusId, managerId
       }
@@ -93,7 +108,7 @@ export class OrderGraphQLService {
   ) {
     console.log('[GraphQL]: Adding order')
     
-    const result = this.apollo.mutate<AddOrder, AddOrderVariables>({
+    const result = await this.apollo.mutate<AddOrder, AddOrderVariables>({
       mutation: this.addOrderMutation,
       variables: {
         userId, 
@@ -106,6 +121,33 @@ export class OrderGraphQLService {
     const data = (await result).data;
     return (data.addOrder) ?
       this.orderFromData(data.addOrder) :
+      null;
+  }
+
+  async updateOrder(
+    id: string,
+    userId: string, 
+    typeId: string, 
+    description: string, 
+    statusId: string, 
+    managerId: string | null
+  ) {
+    console.log('[GraphQL]: Updating order')
+    
+    const result = await this.apollo.mutate<UpdateOrder, UpdateOrderVariables>({
+      mutation: this.updateOrderMutation,
+      variables: {
+        id,
+        userId, 
+        typeId, 
+        description, 
+        statusId,
+        managerId
+      }
+    }).toPromise();
+    const data = (await result).data;
+    return (data.updateOrder) ?
+      this.orderFromData(data.updateOrder) :
       null;
   }
 

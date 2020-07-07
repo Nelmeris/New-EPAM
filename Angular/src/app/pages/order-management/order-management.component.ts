@@ -84,19 +84,35 @@ export class OrderManagementComponent implements OnInit {
 
   changeManager() {
     (async () => {
-      this.order.managerId = this.managerChangingForm.value.managerId;
-      await this.dataBaseService.editOrder(this.order);
+      const order = await this.orderGraphQLService.updateOrder(
+        this.order.id,
+        this.order.userId,
+        this.order.typeId,
+        this.order.description,
+        this.order.statusId,
+        this.managerChangingForm.value.managerId
+      );
+      order.userOwner = this.order.userOwner;
+      this.order = order;
+      this.manager = await this.userGraphQLService.getUser(this.order.managerId);
       alert('Успешно!');
-      window.location.reload();
     })();
   }
 
   changeStatus() {
     (async () => {
-      this.order.statusId = this.statusChangingForm.value.statusId;
-      await this.dataBaseService.editOrder(this.order);
+      const order = await this.orderGraphQLService.updateOrder(
+        this.order.id,
+        this.order.userId,
+        this.order.typeId,
+        this.order.description,
+        this.statusChangingForm.value.statusId,
+        this.order.managerId
+      );
+      order.userOwner = this.order.userOwner;
+      this.order = order;
+      this.manager = await this.userGraphQLService.getUser(this.order.managerId);
       alert('Успешно!');
-      window.location.reload();
     })();
   }
 

@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user/user';
 import { Rule } from '../../models/rules/rule';
 import { Order } from '../../models/order/order';
 import { UserType } from '../../models/user/user-type';
 import { OrderStatus } from '../../models/order/order-status';
 import { OrderType } from '../../models/order/order-type';
 import { UserTypeRule } from '../../models/rules/user-type-rule';
-import { UserRule } from '../../models/rules/user-rule';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
-import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -96,18 +93,6 @@ export class DataBaseService {
   async createUserType(userType: UserType) {
     return this.afs.collection('/userTypes').add({ 
       title: userType.title 
-    });
-  }
-
-  // ORDER
-
-  async editOrder(order: Order) {
-    return this.afs.collection('/orders').doc(order.id).set({
-      userId: order.userId,
-      typeId: order.typeId,
-      description: order.description,
-      statusId: order.statusId,
-      managerId: order.managerId
     });
   }
 
