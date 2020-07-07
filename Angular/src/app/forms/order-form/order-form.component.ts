@@ -36,16 +36,16 @@ export class OrderFormComponent implements OnInit {
       typeId: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required])
     });
-    this.loadData();
-  }
-
-  private loadData() {
     (async () => {
-      this.orderTypes = await this.orderTypeGraphQLService.getCollection();
-    })();
+      await this.loadData();
+    })()
   }
 
-  private makeString(length) {
+  private async loadData() {
+    this.orderTypes = await this.orderTypeGraphQLService.getCollection();
+  }
+
+  private makeString(length: number) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -77,12 +77,12 @@ export class OrderFormComponent implements OnInit {
   }
 
   order() {
-    (async () => {
-      if (this.form.invalid) {
-        alert('Введены не все данные');
-        return;
-      }
+    if (this.form.invalid) {
+      alert('Введены не все данные');
+      return;
+    }
 
+    (async () => {
       const user = await this.createUser();
       this.authService.setAuth(user);
       const order = await this.createOrder(user.id);

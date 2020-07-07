@@ -41,7 +41,7 @@ export class UserTypeRuleGraphQLService {
   constructor(private apollo: Apollo) { }
 
   async getCollection() {
-    console.log('[GraphQL]: Getting user type rules')
+    console.log('[GraphQL]: Getting user type rule collection')
     const result = await this.apollo
     .query<GetUserTypeRuleCollection>({ 
       query: this.getCollectionQuery

@@ -74,7 +74,7 @@ export class UserGraphQLService {
   constructor(private apollo: Apollo) { }
 
   async getUsers() {
-    console.log('[GraphQL]: Getting users')
+    console.log('[GraphQL]: Getting user collection')
     const result = await this.apollo
     .query<GetUserCollection>({ 
       query: this.getCollectionQuery

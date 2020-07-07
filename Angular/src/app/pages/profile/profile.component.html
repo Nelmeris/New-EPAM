@@ -1,31 +1,15 @@
 <div class="container mt-5">
-
-    <!-- Section: Team v.1 -->
     <section class="section team-section">
-
-        <!-- Grid row -->
         <div class="row text-center">
 
-            <!-- Grid column -->
             <div class="col-md-4 mb-4">
-
                 <app-user-card [user]="user"></app-user-card>
-
             </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
+            
             <div *ngIf="order" class="col-md-8 mb-4">
-
                 <app-order-card [order]="order"></app-order-card>
-
             </div>
-            <!-- Grid column -->
 
         </div>
-        <!-- Grid row -->
-
     </section>
-    <!-- Section: Team v.1 -->
-
 </div>

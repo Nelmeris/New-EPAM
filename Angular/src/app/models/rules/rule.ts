@@ -1,6 +1,4 @@
-import { Identifiable } from 'src/app/interfaces/identifiable';
-
-export class Rule implements Identifiable {
+export class Rule {
     id: string;
     title: string;
 

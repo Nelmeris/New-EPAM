@@ -1,6 +1,4 @@
-import { Identifiable } from 'src/app/interfaces/identifiable';
-
-export class OrderType implements Identifiable {
+export class OrderType {
     id: string;
     title: string;
 

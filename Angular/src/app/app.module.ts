@@ -19,15 +19,15 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { RuleListComponent } from './pages/rule-list/rule-list.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { OrderListComponent } from './pages/order-list/order-list.component';
-import { UserByTypePipe } from './pipes/user-by-type/user-by-type.pipe';
+import { UserByTypePipe } from './pipes/user-by-type.pipe';
 import { AddRuleFormComponent } from './forms/add-rule-form/add-rule-form.component';
 import { CreateUserFormComponent } from './forms/create-user-form/create-user-form.component';
 import { OrderFormComponent } from './forms/order-form/order-form.component';
 import { OrderCardComponent } from './cards/order-card/order-card.component';
 import { UserCardComponent } from './cards/user-card/user-card.component';
-import { UserTypeForRulePipe } from './pipes/user-type-for-rule/user-type-for-rule.pipe';
+import { UserTypeForRulePipe } from './pipes/user-type-for-rule.pipe';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
-import { RulesForUserTypePipe } from './pipes/rules-for-user-type/rules-for-user-type.pipe';
+import { RulesForUserTypePipe } from './pipes/rules-for-user-type.pipe';
 import { GraphQLModule } from './graph-ql.module';
 
 @NgModule({

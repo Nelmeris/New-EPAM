@@ -21,20 +21,30 @@ export class HeaderComponent implements OnInit {
   viewingUsers = false;
   viewingRules = false;
 
-  constructor(private authService: AuthService,
-              public router: Router,
-              private checkRuleService: CheckRuleService) { }
+  constructor(
+    private authService: AuthService,
+    public router: Router,
+    private checkRuleService: CheckRuleService
+  ) { }
+
   ngOnInit(): void {
     (async () => {
-      this.user = await this.authService.getAuthUser();
-
-      this.adminPanelRule = await this.checkRuleService.adminPanel(this.user);
-      this.accountPanelRule = await this.checkRuleService.accountPanel(this.user);
-
-      this.viewingOrders = await this.checkRuleService.viewingOrders(this.user);
-      this.viewingUsers = await this.checkRuleService.viewingUsers(this.user);
-      this.viewingRules = await this.checkRuleService.viewingRules(this.user);
+      await this.getUser();
+      await this.checkRules();
     })();
+  }
+
+  private async getUser() {
+    this.user = await this.authService.getAuthUser();
+  }
+
+  private async checkRules() {
+    this.adminPanelRule = await this.checkRuleService.adminPanel(this.user);
+    this.accountPanelRule = await this.checkRuleService.accountPanel(this.user);
+
+    this.viewingOrders = await this.checkRuleService.viewingOrders(this.user);
+    this.viewingUsers = await this.checkRuleService.viewingUsers(this.user);
+    this.viewingRules = await this.checkRuleService.viewingRules(this.user);
   }
 
 }

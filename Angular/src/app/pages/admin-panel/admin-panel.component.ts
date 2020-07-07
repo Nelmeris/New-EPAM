@@ -14,21 +14,27 @@ export class AdminPanelComponent implements OnInit {
   user: User = null;
   isAdmin = false;
 
-  constructor(private authService: AuthService,
-              private router: Router,
-              private checkRuleService: CheckRuleService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private checkRuleService: CheckRuleService
+  ) { }
 
   ngOnInit(): void {
     (async () => {
-      this.user = await this.authService.getAuthUser();
-      if (this.user) {
-        if (await this.checkRuleService.adminPanel(this.user)) {
-          this.isAdmin = true;
-        } else {
-          this.router.navigate(['']);
-        }
-      }
+      await this.checkRule();
     })();
+  }
+
+  private async checkRule() {
+    this.user = await this.authService.getAuthUser();
+    if (this.user) {
+      if (await this.checkRuleService.adminPanel(this.user)) {
+        this.isAdmin = true;
+      } else {
+        this.router.navigate(['']);
+      }
+    }
   }
 
 }

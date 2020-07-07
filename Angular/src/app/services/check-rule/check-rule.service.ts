@@ -14,6 +14,7 @@ export class CheckRuleService {
   private async checkRule(user: User, ruleId: string): Promise<boolean> {
     if (!user) 
       return false;
+      
     const userTypeRules = await this.userTypeRuleGraphQLService.getCollection();
     const rule = userTypeRules.find(val => val.userTypeId === user.typeId && val.ruleId === ruleId);
     return rule !== undefined;
@@ -38,9 +39,10 @@ export class CheckRuleService {
   async viewingOrders(user: User): Promise<boolean> {
     if (!user) 
       return false;
-    if (user.typeId === '2') {
+      
+    if (user.typeId === '2')
       return true;
-    }
+
     return this.checkRule(user, 'DvKaPlMY05Rfp9RuAA1M');
   }
 

@@ -35,7 +35,7 @@ export class OrderListComponent implements OnInit {
     })();
   }
 
-  async loadData() {
+  private async loadData() {
     const orders = await this.orderGraphQLService.getCollection();
     const authUser = await this.authService.getAuthUser();
     this.orders = (authUser.typeId === 'YX0SVhkoExf9qUt0vohO') ?

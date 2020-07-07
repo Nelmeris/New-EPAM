@@ -1,6 +1,4 @@
-import { Identifiable } from 'src/app/interfaces/identifiable';
-
-export class UserType implements Identifiable {
+export class UserType {
     id: string;
     title: string;
 

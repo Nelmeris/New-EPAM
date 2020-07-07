@@ -9,9 +9,11 @@ import { CheckRuleService } from '../../services/check-rule/check-rule.service';
 })
 export class AccountPanelGuard implements CanActivate {
 
-  constructor(private router: Router,
-              private authService: AuthService,
-              private checkRuleService: CheckRuleService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private checkRuleService: CheckRuleService
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,

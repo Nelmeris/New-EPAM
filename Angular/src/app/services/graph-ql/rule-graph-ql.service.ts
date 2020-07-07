@@ -27,7 +27,7 @@ export class RuleGraphQLService {
   constructor(private apollo: Apollo) { }
 
   async getCollection() {
-    console.log('[GraphQL]: Getting rules')
+    console.log('[GraphQL]: Getting rule collection')
     const result = await this.apollo
     .query<GetRuleCollection>({ 
       query: this.getCollectionQuery
@@ -37,7 +37,7 @@ export class RuleGraphQLService {
   }
 
   async add(title: string) {
-    console.log('[GraphQL]: Adding rule with title \'' + title + '\'')
+    console.log('[GraphQL]: Adding rule with title:' + title)
     
     const result = await this.apollo.mutate<AddRule, AddRuleVariables>({
       mutation: this.addMutation,

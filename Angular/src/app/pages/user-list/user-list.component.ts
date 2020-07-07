@@ -27,14 +27,18 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     (async () => {
-      this.users = await this.userGraphQLService.getUsers();
-      this.userTypes = await this.userTypeGraphQLService.getCollection();
-      this.users.forEach(user => {
-        user.type = this.userTypes.find(userType => userType.id === user.typeId);
-      });
-      const authUser = await this.authService.getAuthUser();
-      this.canCreateUser = await this.checkRuleService.creatingAdminRole(authUser);
+      await this.loadData()
     })();
+  }
+
+  private async loadData() {
+    this.users = await this.userGraphQLService.getUsers();
+    this.userTypes = await this.userTypeGraphQLService.getCollection();
+    this.users.forEach(user => {
+      user.type = this.userTypes.find(userType => userType.id === user.typeId);
+    });
+    const authUser = await this.authService.getAuthUser();
+    this.canCreateUser = await this.checkRuleService.creatingAdminRole(authUser);
   }
 
 }

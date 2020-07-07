@@ -1,7 +1,6 @@
 import { UserType } from './user-type';
-import { Identifiable } from './../../interfaces/identifiable';
 
-export class User implements Identifiable {
+export class User {
     id: string;
     
     password: string;
