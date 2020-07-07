@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Rule } from 'src/app/models/rules/rule';
 import { Apollo, gql } from 'apollo-angular-boost';
-import { RuleQuery, UserTypeRuleQuery } from 'src/app/types/operation-result-types';
-import { threadId } from 'worker_threads';
+import { GetRuleCollection, GetUserTypeRuleCollection } from 'src/app/types/operation-result-types';
 import { UserTypeRule } from 'src/app/models/rules/user-type-rule';
 
 @Injectable({
@@ -31,7 +30,7 @@ export class RuleGraphQLService {
   async getRules() {
     console.log('[GraphQL]: Getting rules')
     const result = await this.apollo
-    .query<RuleQuery>({ 
+    .query<GetRuleCollection>({ 
       query: this.rulesQuery
      }).toPromise();
     return result.data.rules
@@ -41,7 +40,7 @@ export class RuleGraphQLService {
   async getUserTypeRules() {
     console.log('[GraphQL]: Getting user type rules')
     const result = await this.apollo
-    .query<UserTypeRuleQuery>({ 
+    .query<GetUserTypeRuleCollection>({ 
       query: this.userTypeRulesQuery
      }).toPromise();
     return result.data.userTypeRules

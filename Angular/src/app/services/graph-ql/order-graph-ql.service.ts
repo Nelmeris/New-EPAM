@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular-boost';
-import { OrderQuery } from 'src/app/types/operation-result-types';
+import { 
+  GetOrderCollection, 
+  GetOrder, GetOrderVariables, 
+  GetOrderByUserId, GetOrderByUserIdVariables,
+  AddOrder, AddOrderVariables
+} from 'src/app/types/operation-result-types';
 import { Order } from 'src/app/models/order/order';
 
 @Injectable({
@@ -40,7 +45,7 @@ export class OrderGraphQLService {
   async getOrders() {
     console.log('[GraphQL]: Getting orders')
     const result = await this.apollo
-    .query<OrderQuery>({ 
+    .query<GetOrderCollection>({ 
       query: this.ordersQuery
      }).toPromise();
     return result.data.orders.map(element => this.orderFromData(element))
@@ -50,7 +55,7 @@ export class OrderGraphQLService {
     console.log('[GraphQL]: Getting order by ID: ' + id)
     if (!id) return null;
     const result = await this.apollo
-    .query<OrderQuery>({ 
+    .query<GetOrder, GetOrderVariables>({ 
       query: this.orderQuery, 
       variables: { id: id } 
     }).toPromise();
@@ -62,7 +67,7 @@ export class OrderGraphQLService {
   async getOrderByUser(userId: string) {
     console.log('[GraphQL]: Getting order by User ID: ' + userId)
     const result = await this.apollo
-    .query<OrderQuery>({ 
+    .query<GetOrderByUserId, GetOrderByUserIdVariables>({ 
       query: this.orderByUserQuery, 
       variables: { userId: userId } }).toPromise();
     return (result.data.orderByUser) ?
@@ -70,7 +75,8 @@ export class OrderGraphQLService {
       null;
   }
 
-  private orderFromData(data): Order {
+
+  private orderFromData(data: any): Order {
     const order = new Order();
     order.fill(data);
     return order

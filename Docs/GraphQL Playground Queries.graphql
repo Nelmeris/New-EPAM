@@ -1,4 +1,4 @@
-query UserQuery {
+query GetUserCollection {
   users {
     id
     name
@@ -9,17 +9,10 @@ query UserQuery {
     createdAt
     typeId
   }
-  user(id: "1o3S4e0Jx7kDkmOgNeqs") {
-    id
-    name
-    surname
-    phoneNumber
-    email
-    password
-    createdAt
-    typeId
-  }
-  userByEmail(email: "io@io.io") {
+}
+
+query GetUser($id:ID!) {
+  user(id: $id) {
     id
     name
     surname
@@ -31,15 +24,36 @@ query UserQuery {
   }
 }
 
-mutation UserMutation {
+query GetUserByEmail($email:String!) {
+  userByEmail(email: $email) {
+    id
+    name
+    surname
+    phoneNumber
+    email
+    password
+    createdAt
+    typeId
+  }
+}
+
+mutation AddUser(
+  $name:String!, 
+  $surname:String!, 
+  $phoneNumber:String!, 
+  $email:String!,
+  $createdAt:String!,
+  $password:String!,
+  $typeId:String!
+) {
   addUser(
-    name: "test name"
-    surname: "test surname"
-    phoneNumber: "test number"
-    email: ""
-    createdAt: ""
-    password: ""
-    typeId: ""
+    name: $name
+    surname: $surname
+    phoneNumber: $phoneNumber
+    email: $email
+    createdAt: $createdAt
+    password: $password
+    typeId: $typeId
   ) {
     id
     name
@@ -52,7 +66,7 @@ mutation UserMutation {
   }
 }
 
-query OrderQuery {
+query GetOrderCollection {
   orders {
     id
     userId
@@ -61,15 +75,10 @@ query OrderQuery {
     statusId
     managerId
   }
-  order(id: "4ULPsVuuacSWwLPPfObv") {
-    id
-    userId
-    typeId
-    description
-    statusId
-    managerId
-  }
-  orderByUser(userId: "1o3S4e0Jx7kDkmOgNeqs") {
+}
+
+query GetOrder($id:ID!) {
+  order(id: $id) {
     id
     userId
     typeId
@@ -79,13 +88,30 @@ query OrderQuery {
   }
 }
 
-mutation OrderMutation {
+query GetOrderByUserId($userId:String!) {
+  orderByUser(userId: $userId) {
+    id
+    userId
+    typeId
+    description
+    statusId
+    managerId
+  }
+}
+
+mutation AddOrder(
+  $userId: String!, 
+  $typeId: String!, 
+  $description: String!, 
+  $statusId: String!, 
+  $managerId: String
+) {
   addOrder(
-    userId: ""
-    typeId: ""
-    description: ""
-    statusId: ""
-    managerId: ""
+    userId: $userId, 
+    typeId: $typeId, 
+    description: $description,
+    statusId: $statusId, 
+    managerId: $managerId
   ) {
     id
     userId
@@ -94,13 +120,23 @@ mutation OrderMutation {
     statusId
     managerId
   }
+}
+
+mutation UpdateOrder(
+  $id:ID!,
+  $userId: String!, 
+  $typeId: String!, 
+  $description: String!, 
+  $statusId: String!, 
+  $managerId: String
+) {
   updateOrder(
-    id: "GBWXMzUl60Rbz6m2w5qv"
-    userId: ""
-    typeId: ""
-    description: ""
-    statusId: ""
-    managerId: ""
+    id: $id,
+    userId: $userId, 
+    typeId: $typeId, 
+    description: $description,
+    statusId: $statusId, 
+    managerId: $managerId
   ) {
     id
     userId
@@ -111,67 +147,68 @@ mutation OrderMutation {
   }
 }
 
-query OrderTypeQuery {
+query GetOrderTypeCollection {
   orderTypes {
-    id
-    title
-  }
-  orderType(id: "1") {
-    id
-    title
+    id, title
   }
 }
 
-query UserTypeQuery {
+query GetOrderType($id:ID!) {
+  orderType(id: $id) {
+    id, title
+  }
+}
+
+query GetUserTypeCollection {
   userTypes {
-    id
-    title
-  }
-}
-
-mutation UserTypeMutation {
-  addUserType(title: "НОВОЕ") {
     id, title
   }
 }
 
-query OrderStatusQuery {
+mutation AddUserType($title:String!) {
+  addUserType(title: $title) {
+    id, title
+  }
+}
+
+query GetOrderStatusCollection {
   orderStatuses {
-    id
-    title
-  }
-  orderStatus(id: "1") {
-    id
-    title
-  }
-}
-
-query RuleQuery {
-  rules {
-    id
-    title
-  }
-}
-
-mutation RuleMutation {
-  addRule(title: "НОВОЕ") {
     id, title
   }
 }
 
-query UserTypeRuleQuery {
-  userTypeRules {
-    ruleId
-    id
-    userTypeId
+query GetOrderStatus($id:ID!) {
+  orderStatus(id: $id) {
+    id, title
   }
 }
 
-mutation UserTypeRuleMutation {
-  addUserTypeRule(ruleId:"test id", userTypeId:"test id") {
+query GetRuleCollection {
+  rules {
+    id, title
+  }
+}
+
+mutation AddRule($title:String!) {
+  addRule(title: $title) {
+    id, title
+  }
+}
+
+query GetUserTypeRuleCollection {
+  userTypeRules {
+    ruleId, id, userTypeId
+  }
+}
+
+mutation AddUserTypeRule($ruleId:String!, $userTypeId:String!) {
+  addUserTypeRule(ruleId: $ruleId, userTypeId: $userTypeId) {
     id, ruleId, userTypeId
   }
-  deleteUserTypeRule(id: "OKl48JVpwXRzayJg2ScH") {
+}
+
+mutation DeleteUserTypeRule($id:ID!) {
+  deleteUserTypeRule(id: $id) {
     id, ruleId, userTypeId
   }
 }

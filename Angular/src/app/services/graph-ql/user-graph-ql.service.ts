@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular-boost';
-import { UserQuery } from 'src/app/types/operation-result-types';
+import { 
+  GetUserCollection,
+  GetUser, GetUserVariables,
+  GetUserByEmail, GetUserByEmailVariables
+} from 'src/app/types/operation-result-types';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -40,7 +44,7 @@ export class UserGraphQLService {
   async getUsers() {
     console.log('[GraphQL]: Getting users')
     const result = await this.apollo
-    .query<UserQuery>({ 
+    .query<GetUserCollection>({ 
       query: this.usersQuery
      }).toPromise();
     return result.data.users.map(element => this.userFromData(element))
@@ -50,7 +54,7 @@ export class UserGraphQLService {
     console.log('[GraphQL]: Getting user by ID: ' + id)
     if (!id) return null;
     const result = await this.apollo
-    .query<UserQuery>({ 
+    .query<GetUser, GetUserVariables>({ 
       query: this.userQuery, 
       variables: { id: id } 
     }).toPromise();
@@ -62,7 +66,7 @@ export class UserGraphQLService {
   async getUserByEmail(email: string) {
     console.log('[GraphQL]: Getting user by Email: ' + email)
     const result = await this.apollo
-    .query<UserQuery>({ 
+    .query<GetUserByEmail, GetUserByEmailVariables>({ 
       query: this.userByEmailQuery, 
       variables: { email: email } }).toPromise();
       return (result.data.userByEmail) ?
