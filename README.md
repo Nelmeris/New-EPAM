@@ -1,17 +1,5 @@
 # NEW-EPAM
 
-### Using
-
-Requires [Angular CLI](https://cli.angular.io) v9.0.7 and NodeJS(https://nodejs.org/en/) v12.14.1 to run.
-
-```sh
-$ cd client
-$ npm install
-$ ng serve --open
-$ cd ../server
-$ json-server --watch db.json
-```
-
 ### Data for testing site usage
 
 | Email | Password | Role |
