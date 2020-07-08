@@ -1,15 +1,15 @@
-<div class="card card-cascade cascading-admin-card order-self-card">
+<div class="order-card card card-cascade cascading-admin-card order-self-card">
     
     <div class="card-body card-body-cascade">
 
         <div class="data">
-            <h5 class="font-weight-bold dark-grey-text">Ваш заказ</h5>
+            <h5 class="order-card_title font-weight-bold dark-grey-text">Ваш заказ</h5>
         </div>
 
         <div class="row">
 
             <div class="col-md-12">
-                <h4 class="text-muted text-left my-4">Статус: {{ order && order.status ? order.status.title : '' }}</h4>
+                <h4 class="order-card_status text-muted text-left my-4">Статус: {{ order && order.status ? order.status.title : '' }}</h4>
             </div>
 
         </div>
@@ -17,7 +17,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h4 class="text-muted text-left my-4">Тип: {{ order && order.type ? order.type.title : '' }}</h4>
+                <h4 class="order-card_type text-muted text-left my-4">Тип: {{ order && order.type ? order.type.title : '' }}</h4>
             </div>
 
         </div>
@@ -25,14 +25,14 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h4 class="text-muted text-left my-4">О заказе</h4>
-                <p class="text-muted text-left">{{ order ? order.description : '' }}</p>
+                <h4 class="order-card_description-title text-muted text-left my-4">О заказе</h4>
+                <p class="order-card_description text-muted text-left">{{ order ? order.description : '' }}</p>
             </div>
 
         </div>
 
         <div *ngIf="order && order.manager">
-            <h4 class="text-muted text-left my-4">Менеджер</h4>
+            <h4 class="order-card_manager-title text-muted text-left my-4">Менеджер</h4>
 
             <app-user-card [user]="order.manager"></app-user-card>
         </div>

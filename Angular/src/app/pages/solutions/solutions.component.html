@@ -1,7 +1,7 @@
 <div class="container mt-5 mb-5">
-    <div class="d-flex justify-content-around flex-wrap">
+    <div class="solutions_cards d-flex justify-content-around flex-wrap">
         <!-- Card -->
-        <mdb-card *ngFor="let card of news" class="pl-0 pr-0 mb-4 w-25 ml-3 mr-3">
+        <mdb-card *ngFor="let card of news" class="solutions_item pl-0 pr-0 mb-4 w-25 ml-3 mr-3">
             <div class="view rgba-white-slight waves-light" mdbWavesEffect>
                 <!-- Card img -->
                 <mdb-card-img [src]="card.imgSrc" alt="Card image cap"></mdb-card-img>
@@ -13,11 +13,11 @@
             <mdb-card-body>
                 <!--Title-->
                 <mdb-card-title>
-                    <h4>{{ card.title }}</h4>
+                    <h4 class="solutions_item_title">{{ card.title }}</h4>
                 </mdb-card-title>
 
                 <!--Text-->
-                <mdb-card-text>{{ card.tags }}</mdb-card-text>
+                <mdb-card-text class="solutions_item_tags">{{ card.tags }}</mdb-card-text>
             </mdb-card-body>
         </mdb-card>
         <!-- Card -->
