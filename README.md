@@ -1,6 +1,12 @@
 # NEW-EPAM
 
-### Data for testing site usage
+### Ссылки
+
+Сайт: [https://new-epam.web.app](https://new-epam.web.app)
+
+GraphQL Playground: [https://us-central1-new-epam.cloudfunctions.net/graphql](https://us-central1-new-epam.cloudfunctions.net/graphql)
+
+### Данные для пользования сервисом
 
 | Email | Password | Role |
 | ------ | ------ | ----- |
