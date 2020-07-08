@@ -1,0 +1,63 @@
+<nav class="mb-1 header navbar navbar-expand-lg navbar-dark default-color">
+
+    <a class="header_title navbar-title navbar-brand" routerLink="">{{ title }}</a>
+
+    <button class="header_toggle-btn navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+            aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="header_navbar navbar-menu collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul *ngIf="this.router.url.startsWith('/admin')" class="header_navbar_menu navbar-nav mr-auto">
+            <li class="header_navbar_menu_item nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }">
+                <a class="header_navbar_menu_link nav-link" routerLink="/admin/">Dashboard</a>
+            </li>
+            <li *ngIf="viewingOrders" class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/admin/orders">Заказы</a>
+            </li>
+            <li *ngIf="viewingUsers" class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/admin/users">Пользователи</a>
+            </li>
+            <li *ngIf="viewingRules" class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/admin/rules">Права</a>
+            </li>
+        </ul>
+
+        <ul *ngIf="!this.router.url.startsWith('/admin')" class="header_navbar_menu navbar-nav mr-auto">
+            <li class="header_navbar_menu_item nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }">
+                <a class="header_navbar_menu_link nav-link" routerLink="">Главная</a>
+            </li>
+            <li class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/service">Услуги</a>
+            </li>
+            <li class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/solutions">Решения</a>
+            </li>
+            <li class="header_navbar_menu_item nav-item" routerLinkActive="active">
+                <a class="header_navbar_menu_link nav-link" routerLink="/about">О нас</a>
+            </li>
+        </ul>
+
+        <ul class="header_navbar_user-menu navbar-nav ml-auto nav-flex-icons">
+            <li *ngIf="user" class="header_navbar_user-menu_email nav-item my-2" style="color: ghostwhite">
+                {{ user.email }}
+            </li>
+            <li class="header_navbar_user-menu_item nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                     aria-labelledby="navbarDropdownMenuLink-333">
+                    <a *ngIf="user && adminPanelRule || !user" class="dropdown-item" routerLink="/admin">Админка</a>
+                    <a *ngIf="user && accountPanelRule" class="dropdown-item" routerLink="/lk">Личный кабинет</a>
+                    <a *ngIf="user" class="dropdown-item" routerLink="/logout">Выход</a>
+                    <a *ngIf="!user" class="dropdown-item" routerLink="/login">Войти</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    
+</nav>

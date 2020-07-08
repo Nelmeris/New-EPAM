@@ -1,0 +1,37 @@
+<form class="create-user-form form text-center border border-light p-5" [formGroup]="form">
+
+    <p class="create-user-form_title form_title h4 mb-4">Регистрация нового пользователя</p>
+
+    <div class="create-user-form_group form_group form-row mb-4">
+        <div class="col">
+            <!-- First name -->
+            <input type="text" id="name" class="create-user-form_input form_input form-control" formControlName="name" placeholder="Имя">
+        </div>
+        <div class="col">
+            <!-- Last name -->
+            <input type="text" id="surname" class="create-user-form_input form_input form-control" formControlName="surname" placeholder="Фамилия">
+        </div>
+    </div>
+
+    <!-- Subject -->
+    <select class="create-user-form_selector form_selector browser-default custom-select mb-4" formControlName="userTypeId">
+        <option selected [ngValue]="null">Выберите роль...</option>
+        <option *ngFor="let userType of userTypes" [ngValue]="userType.id">{{ userType.title }}</option>
+    </select>
+
+    <!-- E-mail -->
+    <input type="email" id="email" class="create-user-form_input form_input form-control mb-4" formControlName="email" placeholder="E-mail">
+
+    <!-- Password -->
+    <input type="password" id="password" class="create-user-form_input form_input form-control" placeholder="Password" formControlName="password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+    <small id="defaultRegisterFormPasswordHelpBlock" class="create-user-form_input-help form_input-help form-text text-muted mb-4">
+        Минимум 8 символов, включая символы верхнего и нижнего регистров и цифры
+    </small>
+
+    <!-- Phone number -->
+    <input type="text" id="phoneNumber" class="create-user-form_input form_input form-control mb-4" placeholder="Phone number" formControlName="phoneNumber">
+
+    <!-- Send button -->
+    <button mdbBtn class="create-user-form_btn form_btn" color="info" block="true" type="submit" (click)="createUser()">Добавить</button>
+
+</form>

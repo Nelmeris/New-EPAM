@@ -1,0 +1,13 @@
+<div class="user-card card profile-card">
+
+    <div class="card-body pt-0 mt-0">
+
+        <h3 class="user-card_full-name mb-3 font-weight-bold mt-5"><strong>{{ user ? user.name : '' }} {{ user ? user.surname : '' }}</strong></h3>
+        <h6 class="user-card_email font-weight-bold cyan-text mb-4">{{ user ? user.email : '' }}</h6>
+        <h6 class="user-card_phone-number font-weight-bold cyan-text mb-4">{{ user ? user.phoneNumber : '' }}</h6>
+
+        <p class="user-card_created-at-date mt-4 text-muted">{{ user ? user.createdAt.toLocaleString() : '' }}</p>
+
+    </div>
+
+</div>

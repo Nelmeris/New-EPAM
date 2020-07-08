@@ -1,0 +1,19 @@
+<form class="auth-form form" [formGroup]="form">
+    <p class="auth-form_title form_title h5 text-center mb-4">Авторизация</p>
+
+    <div class="auth-form_input-block form_input-block md-form">
+        <i class="fas fa-envelope prefix grey-text"></i>
+        <input class="auth-form_input form_input" mdbInput mdbValidate type="text" formControlName="email" id="email" class="form-control">
+        <label class="auth-form_input-label form_input-label" for="email">Email</label>
+    </div>
+
+    <div class="auth-form_input-block form_input-block md-form">
+        <i class="fas fa-lock prefix grey-text"></i>
+        <input class="auth-form_input form_input" mdbInput mdbValidate type="password" formControlName="password" id="password" class="form-control">
+        <label class="auth-form_input-label form_input-label" for="password">Пароль</label>
+    </div>
+
+    <div class="auth-form_btn form_btn text-center">
+        <button type="submit" mdbBtn color="default" class="waves-light" mdbWavesEffect value="Войти" (click)="onAuth()">Войти</button>
+    </div>
+</form>

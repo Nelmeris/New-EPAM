@@ -1,0 +1,63 @@
+@media print {
+    .header {
+        background-color: white !important;
+    }
+    .navbar-toggler, .navbar-menu, .footer, #navbarSupportedContent-333 {
+        display: none !important;
+    }
+    .navbar-title {
+        color: black !important;
+    }
+    section {
+        margin-bottom: 2cm;
+    }
+    @page {
+        margin: 1cm;
+    }
+    ul {
+        page-break-inside: avoid;
+    }
+    p {
+        widows: 4;
+        orphans: 3;
+    }
+    *,
+    *:before,
+    *:after,
+    *:first-letter,
+    p:first-line,
+    div:first-line,
+    blockquote:first-line,
+    li:first-line {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    a[href^="http"]:not([href*="mywebsite.com"]):after {
+        content: " (" attr(href) ")";
+    }
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    h1 {
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        margin: 0 auto 0;
+    }
+}
+
+* {
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,5 @@
+<router-outlet *ngIf="isAdmin"></router-outlet>
+
+<div *ngIf="user === undefined || user === null" class="container mt-5 mb-5">
+    <app-auth-form></app-auth-form>
+</div>

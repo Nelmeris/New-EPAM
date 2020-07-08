@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "05b1eb10-b6ed-4ba8-adb8-440d1ca497f1",
+		"name": "new-epam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Getters",
+			"item": [
+				{
+					"name": "Get orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    userTypes {\n        id, title\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    users {\n        id\n        name\n        surname\n        email\n        password\n        createdAt\n        phoneNumber\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get data by parameter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    user(id: \"1o3S4e0Jx7kDkmOgNeqs\") {\n        id\n        name\n        surname\n        email\n        password\n        createdAt\n        phoneNumber\n    }\n    userByEmail(email: \"usa.is.best@gmai.com\") {\n        id\n        name\n        surname\n        email\n        password\n        createdAt\n        phoneNumber\n    }\n    order(id: \"4ULPsVuuacSWwLPPfObv\") {\n        id\n        userId\n        typeId\n        description\n        statusId\n        managerId\n    }\n    orderByUser(userId: \"1o3S4e0Jx7kDkmOgNeqs\") {\n        id\n        userId\n        typeId\n        description\n        statusId\n        managerId\n    }\n    orderType(id: \"1\") {\n        id, title\n    }\n    orderStatus(id: \"1\") {\n        id\n        title\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get info",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    userTypes {\n        id, title\n    }\n    orderTypes {\n        id, title\n    }\n    orderStatuses {\n        id, title\n    }\n    rules {\n        id, title\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user type rules",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    userTypeRules {\n        ruleId\n        id\n        userTypeId\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dump base",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    users {\n        id\n        name\n        surname\n        email\n        password\n        createdAt\n        phoneNumber\n    }\n    userTypes {\n        id, title\n    }\n    orders {\n        id\n        userId\n        typeId\n        description\n        statusId\n        managerId\n    }\n    orderTypes {\n        id, title\n    }\n    orderStatuses {\n        id, title\n    }\n    rules {\n        id, title\n    }\n    userTypeRules {\n        ruleId\n        id\n        userTypeId\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n  addUser(\n    name: \"test name\"\n    surname: \"test surname\"\n    phoneNumber: \"test number\"\n    email: \"\"\n    createdAt: \"\"\n    password: \"\"\n    typeId: \"\"\n  ) {\n    id\n    name\n    surname\n    phoneNumber\n    email\n    password\n    createdAt\n    typeId\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n  addOrder(\n    userId: \"\"\n    typeId: \"\"\n    description: \"Testing order\"\n    statusId: \"\"\n    managerId: \"\"\n  ) {\n    id\n    userId\n    typeId\n    description\n    statusId\n    managerId\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n  updateOrder(\n    id: \"GBWXMzUl60Rbz6m2w5qv\"\n    userId: \"\"\n    typeId: \"\"\n    description: \"\"\n    statusId: \"\"\n    managerId: \"\"\n  ) {\n    id\n    userId\n    typeId\n    description\n    statusId\n    managerId\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n  addRule(title: \"НОВОЕ\") {\n    id\n    title\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user type",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n  addUserType(title: \"НОВОЕ\") {\n    id, title\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user type rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\n    addUserTypeRule(ruleId:\"test id\", userTypeId:\"test id\") {\n        id, ruleId, userTypeId\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user type rule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1905887e-7f2a-40e3-b7dd-51f83f0568ad",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0aed6e52-87e9-403c-bb1f-92ceda688dfa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a7c64f4b-501d-4305-9d6e-c6d33c566fb2",
+			"key": "url",
+			"value": "https://us-central1-new-epam.cloudfunctions.net/graphql"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

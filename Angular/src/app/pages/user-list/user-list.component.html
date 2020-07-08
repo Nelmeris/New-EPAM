@@ -1,0 +1,21 @@
+<div class="container mt-5">
+
+    <app-create-user-form *ngIf="canCreateUser"></app-create-user-form>
+
+    <div class="row">
+        <div *ngFor="let type of userTypes" class="user-list_type-block col-4">
+
+            <h1 class="user-list_type-block_title user_type mt-4">{{ type.title }}</h1>
+            <div class="list-group">
+                <a *ngFor="let user of (users | userByType:type)"
+                   routerLink="/admin/users/{{ user.id }}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                    <h5 class="user-list_type-block_full-name mb-1">{{ user.fullName }}</h5>
+                    <small class="user-list_type-block_created-at-date">Дата создания: {{ user.createdAt.toLocaleString() }}</small>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+@media (min-width: 320px) and (max-width: 600px) {
+    .solutions_item {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .solutions_item {
+        width: 40% !important;
+    }
+}

@@ -1,0 +1,13 @@
+@media (min-width: 320px) and (max-width: 480px) {
+    .user-list_type-block {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    .user-list_type-block {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
