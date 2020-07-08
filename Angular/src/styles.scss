@@ -44,3 +44,20 @@
         content: " (" attr(title) ")";
     }
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+    h1 {
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        margin: 0 auto 0;
+    }
+}
+
+* {
+    overflow-wrap: break-word;
+}
