@@ -1,12 +1,12 @@
-<div class="container mt-5">
+<div class="rule-list container mt-5">
 
     <app-add-rule-form [rules]="rules" [userTypes]="userTypes"></app-add-rule-form>
 
-    <h1 class="text-center mb-3">Правила по ролям</h1>
+    <h1 class="rule-list_title text-center mb-3">Правила по ролям</h1>
 
     <div class="row">
-        <div *ngFor="let rule of rules" class="col-6 mb-4">
-            <h3 class="text-center">{{ rule ? rule.title : '' }}</h3>
+        <div *ngFor="let rule of rules" class="rule-list_rule-block col-6 mb-4">
+            <h3 class="rule-list_rule-title text-center">{{ rule ? rule.title : '' }}</h3>
             <ul class="list-group">
                 <li *ngFor="let userTypeRule of (userTypeRules | userTypeForRule:rule.id)" class="list-group-item d-flex justify-content-between align-items-center">
                     {{ userTypeRule.userType ? userTypeRule.userType.title : userTypeRule.userTypeId }}
