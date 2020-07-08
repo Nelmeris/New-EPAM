@@ -8,7 +8,7 @@
                 <h5 class="mb-1">{{ order.type ? order.type.title : '' }}</h5>
                 <small>{{ order.status ? order.status.title : '' }}</small>
             </div>
-            <p class="mb-1">{{ order.description }}</p>
+            <p class="order-description mb-1">{{ order.description }}</p>
             <small>Заказчик:
                 <a routerLink="/admin/users/{{ order.userId }}">
                     {{ order.userOwner ? order.userOwner.fullName : '' }}

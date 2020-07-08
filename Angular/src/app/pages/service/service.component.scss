@@ -1,0 +1,16 @@
+.card {
+    border-left: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.btn {
+    width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .card {
+        flex: 0 0 30%;
+    }
+    .card-group {
+        justify-content: space-around;
+    }
+}
